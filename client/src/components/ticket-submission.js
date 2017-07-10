@@ -16,7 +16,7 @@ export class TicketSubmission extends React.Component {
   render() {
     return (
       <div className="ticket-container">
-        <form onSubmit={e => this.makeTicket(e)}>
+        <form className="form-container" onSubmit={e => this.makeTicket(e)}>
           <label htmlFor="request">Request</label>
           <input type="text" id="request" name="request" placeholder="Enter request here" 
             required ref={request => this.request = request}/>
