@@ -1,0 +1,9 @@
+language: node_js
+node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: so1u1+2nMPQSlRZVgqePosLmB70S461govRBIBWKJcVRLCAJ/R5X72VQd2rzAnqvXirdorAZAewDCNtoKuU8/4c59TWtA/GOi0goZQSMHVCvUCmVsrRiuLQGFSmxUpoBTMdn3h1/7CJTOUcVJDA/QntwsvJoZWMky3HRJBDfBvrjg5Pt8IIZ8x7WOAITwqjV3/MPFv0lHvvQm81ugPptYpuO26DNxRcYyPZY0ynuwuDd89abR2hTK+rcdAHaOSBUgIgjtMG7fAG+I+RNl6mrBwhSf057ZHsP1898XhXT2/r8qiU3fgOFMCJZta+5F7mLFcehCkHVe4FnxCadA1RFvSLJ/PqzpWf4wnsKgGA3THyBN35y4GhEh7y61b43j/Y5Vf3IARdMFzORbBI3GGo9BnYuxahI7fGLPwtFU5RXC0NSsIBG3Ok+xn1KfC2B7PBB8k4iJnXbkRMJkC/NwlNS8dKQbGo3P/Yh0SrZDnHlRzEsDlC4V79wTcodSZU5apWjllNbht8v7BWhtw7kg7dpPMcoa5TLmhqVppGGFLBS0iAlqIx7CYcdkDdw36ufO2nHnayODdY9QBJNrihkk6wpfbsUye1qG8s1wbFcfjJYiSnl/B1GIKtivps53UsgkTAl7YHBmle6hkG/i1iTHgE3l7wAPwrp9imoNpmMl/tZnzs=
+  app: Tick-It-JK
+  on:
+    repo: thinkful-c11/Tick-It-JK
