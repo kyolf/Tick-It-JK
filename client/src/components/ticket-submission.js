@@ -34,6 +34,7 @@ export class TicketSubmission extends React.Component {
 }
 
 const mapStateToProps = state =>({
+  name: state.name,
 
 });
 
