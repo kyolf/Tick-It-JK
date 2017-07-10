@@ -1,20 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 import './ticket-submission.css';
 
 class TicketSubmission extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className="ticket-container">
+        <h2>Request</h2>
+          <form>
+            <input type="text" name="request" placeholder="Enter request here" 
+            required/>
+          </form>
+        <h2>Group Collaborators</h2>
+          <form>
+            <input type="text" name="group" placeholder="Enter team member names" required/>
+          </form>
+        <h2>Meeting Location</h2>
+          <form>
+            <input type="text" name="location" placeholder="Screenhero or OWL Link"/>
+          </form>
+        <div className="submit-button">
+          <input type="submit" id="ticket-submit" className="button" name="submit"/>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
 }
 
-export default App;
+export default TicketSubmission;
