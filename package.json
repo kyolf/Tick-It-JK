@@ -12,7 +12,7 @@
     "install": "run-s install:server install:client",
     "install:server": "cd server && npm install",
     "install:client": "cd client && npm install",
-    "test": "cd client && npm test && cd ../server && npm test"
+    "test": "cd client &&npm run build && npm test && cd ../server && npm test"
   },
   "cacheDirectories": [
     "node_modules",
