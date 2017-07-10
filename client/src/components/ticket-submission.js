@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './ticket-submission.css';
 
-class App extends Component {
+class TicketSubmission extends Component {
   render() {
     return (
       <div className="App">

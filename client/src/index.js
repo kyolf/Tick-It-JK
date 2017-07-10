@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import TicketSubmission from './ticket-submission';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <TicketSubmission />,
   document.getElementById('root')
 );
