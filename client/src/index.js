@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TicketSubmission from './ticket-submission';
+import TicketSubmission from './components/ticket-submission';
+import {Provider} from 'react-redux';
 import './index.css';
 
+import store from './store';
+
 ReactDOM.render(
-  <TicketSubmission />,
+  <Provider store={store}>
+    <TicketSubmission />
+  </Provider>,
   document.getElementById('root')
 );
