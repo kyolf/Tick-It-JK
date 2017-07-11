@@ -63,21 +63,6 @@ ticketRouter.post('/',(req,res)=>{
     ticketFields[field] = req.body[field];
   });
 
-  const requestLength = req.body['request'].length;
-  const groupMemLength = req.body['group'].length;
-
-  if(requestLength > 20){
-    message = `Your request field can be 20 characters long. Right now it is ${requestLength} characters long`;
-    console.error(message);
-    return res.status(422).json({message});
-  }
-
-  if(groupMemLength > 40){
-    message = `Your group field can be 40 characters long. Right now it is ${groupMemLength} characters long`;
-    console.error(message);
-    return res.status(422).json({message});
-  }
-
   Ticket
   .create(ticketFields)
   .then(ticket=>{
@@ -105,8 +90,6 @@ ticketRouter.put('/:id',(req,res)=>{
 
   const updateTicket = {};
   const updateFields = ['request','location','group'];
-  const requestLength = req.body['request'].length;
-  const groupMemLength = req.body['group'].length;
 
   updateFields.map(field =>{
     if(field in req.body){
@@ -122,22 +105,6 @@ ticketRouter.put('/:id',(req,res)=>{
         message = `Your field (${field}) needs to be at least 2 characters long`;
         console.error(message);
         return res.status(422).json({message});
-      }
-
-      if(field === 'request'){
-        if(requestLength > 20){
-          message = `Your request field can be 20 char long. Right now it is ${requestLength} long`;
-          console.error(message);
-          return res.status(422).json({message});
-        }
-      }
-
-      if(field === 'group'){
-        if(groupMemLength > 40){
-          message = `Your group field can be 40 char long. Right now it is ${groupMemLength} long`;
-          console.error(message);
-          return res.status(422).json({message});
-        }
       }
 
       updateTicket[field] = req.body[field];
@@ -161,7 +128,7 @@ ticketRouter.put('/:id',(req,res)=>{
 ticketRouter.put('/:id/status',(req,res)=>{
   let message = '';
 
-  if(!(req.params.id ===req.body.id)){
+  if(!(req.params.id === req.body.id)){
     message = `$req params id: ${req.params.id} does not match req body id: ${req.body.id}`;
     console.error(message);
     return res.status(400).json({message});
@@ -183,8 +150,8 @@ ticketRouter.put('/:id/status',(req,res)=>{
     return res.status(422).json({message});
   }
 
-  if(status.length > 20){
-    message = `Your request field can be 20 char long. Right now it is ${status.length} long`;
+  if(status.length > 40){
+    message = `Your request field can be 40 char long. Right now it is ${status.length} long`;
     console.error(message);
     return res.status(422).json({message});
   }
@@ -203,6 +170,7 @@ ticketRouter.put('/:id/status',(req,res)=>{
     return res.status(500).json({message});
   });
 });
+
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////               Delete Ticket                /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -214,7 +182,7 @@ ticketRouter.delete('/:id',(req,res)=>{
   .findByIdAndRemove(req.params.id)
   .exec()
   .then(ticket=>{
-    res.status(204).end();
+    return res.status(204).end();
   })
   .catch(err=>{
     message = 'Internal Server Error (delete ticket)';
@@ -228,7 +196,7 @@ ticketRouter.delete('/:id',(req,res)=>{
 ///////////////////////////////////////////////////////////////////////////////////
 //Page Not Found
 ticketRouter.use('*',(req,res)=>{
-  res.status(404).json({message:'Page Not Found'});
+  return res.status(404).json({message:'Page Not Found'});
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
