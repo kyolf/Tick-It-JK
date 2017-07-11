@@ -22,4 +22,10 @@ export const toggleNavButton = (text) => ({
   text
 });
 
+export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';
+export const validateLogin = (username, password) => ({
+  type: VALIDATE_LOGIN
+  
+});
+
 
