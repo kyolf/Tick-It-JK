@@ -33,9 +33,9 @@ userRouter.get('/',(req,res)=>{
 //Getting a single user that exist
 userRouter.get('/:username',(req,res)=>{
   let message = '';
-
+  console.log(req.params.username);
   User
-  .find({username:req.params.username})
+  .findOne({username:req.params.username})
   .exec()
   .then(user=>{
     return res.json(user.apiRepr());
@@ -78,10 +78,10 @@ userRouter.post('/',(req,res)=>{
   });
 
   let {username, password,firstName,lastName} = req.body;
-  username = username.lowercase().trim();
+  username = username.toLowerCase().trim();
   password = password.trim();
   firstName = firstName.trim().substring(0,1).toUpperCase() + firstName.trim().substring(1).toLowerCase();
-  lastName = lastName.trim().substring(0,1).toUpperCase() + firstName.trim().substring(1).toLowerCase();
+  lastName = lastName.trim().substring(0,1).toUpperCase() + lastName.trim().substring(1).toLowerCase();
   const type = 'TA';
 
   if(password.length < 6){
@@ -113,6 +113,15 @@ userRouter.post('/',(req,res)=>{
     return res.status(500).json({message});
   }); 
 });
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////              Page Not Found                /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Page Not Found
+userRouter.use('*',(req,res)=>{
+  return res.status(404).json({message:'Page Not Found'});
+});
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Exports                   /////////////////////////
