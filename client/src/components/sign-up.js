@@ -5,6 +5,17 @@ import './sign-up.css';
 
 export default class SignUp extends React.Component {
 
+  changePage(event) {
+    const firstName = this.firstname.value;
+    const lastName = this.lastname.value;
+    const userName = this.username.value;
+    const password = this.password.value;
+
+    if(firstName.length >= 1 && lastName.length >= 1 && userName.length >= 1 && password.length >= 6) {
+      window.location = '/login';
+    }
+  }
+
   render() {
     return (
       <div className="sign-up-container">
@@ -21,8 +32,9 @@ export default class SignUp extends React.Component {
             <label htmlFor="location">Password</label>
             <input type="text" id="password" name="password" placeholder="Enter password"
               minLength="6" required ref={password => this.password = password}/>
-            <input type="submit" id="login-submit" className="button" name="submit-login"
-              />
+            <button type="button" id="login-submit" className="button" onClick={e => this.changePage(e)}>
+              Sign Up
+            </button>
           </form>
       </div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import './navbar.css';
 
@@ -8,7 +9,9 @@ export function Navbar(props) {
       <nav>
         <ul className="navbar">
           <li className="title">Tick-it</li>
-          <li className="nav-button">{props.navButton}</li>
+          <Link to='/login'>
+            <li className="nav-button">{props.navButton}</li>
+          </Link>
         </ul>
       </nav>
     )
