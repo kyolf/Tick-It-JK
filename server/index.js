@@ -23,7 +23,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 //Importing password 
-const password = require('passport');
+const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 
 //Importing ticket router
@@ -31,6 +31,9 @@ const {ticketRouter} = require('./router/route_tickets.js');
 
 //Importing user router
 const {userRouter} = require('./router/route_users.js');
+
+//Importing user model
+const {User}  = require('./models/model_users.js');
 
 //Importing Database URL
 const {DATABASE_URL} = require('./config');
@@ -40,6 +43,32 @@ const {DATABASE_URL} = require('./config');
 ///////////////////////////////////////////////////////////////////////////////////
 //assigning global promise to the mongoose promise
 mongoose.Promise = global.Promise;
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  Basic Strategy            /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+const basicStrategy = new BasicStrategy((username,password,callback)=>{
+  let user;
+  let message;
+  User
+  .findOne({username})
+  .exec()
+  .then(_user =>{
+    user = _user;
+    if(!user){
+      message = 'Incorrect username or password';
+      return callback(null,false,{message});
+    }
+    return user.validatePassword(password);
+  })
+  .then(isValid =>{
+    if(!isValid){
+      message = 'Incorrect username or password';
+      return callback(null,false, {message});
+    }
+    return callback(null,user);
+  });
+});
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Middleware                /////////////////////////
@@ -52,6 +81,10 @@ app.use(cors());
 
 //parsing the body into a json
 app.use(bodyParser.json());
+
+//passport's basic strategy and setting the value into req.user
+passport.use(basicStrategy);
+app.use(passport.initialize());
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Router                    /////////////////////////
