@@ -20,7 +20,9 @@ export class TicketList extends React.Component {
     return this.props.tickets.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
+          <td>
            <button>Delete</button>
+          </td>
           <td>
             <form>
               <input type="text" id="group" value={item.group} ref={group => this.group = group} />
