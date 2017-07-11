@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import './ticket-list.css';
 
-///Ask if table is the best way to show this data//
+///make into list in container//
 
 export function TicketList(props) {
 
