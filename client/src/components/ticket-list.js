@@ -20,7 +20,6 @@ export function TicketList(props) {
   });
 
   return (
-    <div className="ticket-container">
       <table className="ticket-table">
         <thead className="ticket-header">
           <tr className="ticket-row-headers">
@@ -34,7 +33,6 @@ export function TicketList(props) {
           {ticketInfo}
         </tbody>
       </table>
-    </div>
   )
 }
 
