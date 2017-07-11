@@ -25,7 +25,14 @@ export const toggleNavButton = (text) => ({
 export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';
 export const validateLogin = (username, password) => ({
   type: VALIDATE_LOGIN
-  
+
 });
+
+export const EDIT_FIELD = 'EDIT_FIELD';
+export const editField = (fieldId) => ({
+  type: EDIT_FIELD,
+  fieldId
+})
+
 
 

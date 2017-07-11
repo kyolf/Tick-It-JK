@@ -1,25 +1,50 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {editField} from '../actions';
 
 import './ticket-list.css';
 
 ///make into list in container//
 
-export function TicketList(props) {
+export class TicketList extends React.Component {
 
-  const ticketInfo = props.ticket.map((item, index) => {
+  editField(fieldId) {
+    const group = this.group.value;
+    const location = this.location.value;
+    const request = this.request.value;
+    this.props.dispatch(editField(fieldId));
+  }
 
+  getTicketInfo() {
+    return this.props.ticket.map((item, index) => {
+      return (
+        <tr key={index} className="ticket-info-row">
+          <td id="group" ref={group => this.group = group}>
+            {item.group}
+              <form>
+                <input type="button" value="Edit" onClick={e => this.editField(e)} />
+              </form>
+          </td>
+          <td id="location" ref={location => this.location = location}>
+            {item.location}
+              <form>
+                <input type="button" value="Edit" onClick={e => this.editField(e)} />
+              </form>
+          </td>
+          <td id="request" ref={request => this.request = request}>
+            {item.request}
+              <form>
+                <input type="button" value="Edit" onClick={e => this.editField(e)} />
+              </form>
+          </td>
+          <td>{item.status}</td>
+        </tr>
+      )
+    });
+  }
+  
+  render() {
     return (
-    <tr key={index} className="ticket-info-row">
-      <td>{item.group}</td>
-      <td>{item.location}</td>
-      <td>{item.request}</td>
-      <td>{item.status}</td>
-    </tr>
-    )
-  });
-
-  return (
       <table className="ticket-table">
         <thead className="ticket-header">
           <tr className="ticket-row-headers">
@@ -30,10 +55,11 @@ export function TicketList(props) {
           </tr>
         </thead>
         <tbody className="ticket-body">
-          {ticketInfo}
+          {this.getTicketInfo()}
         </tbody>
       </table>
-  )
+    )
+  }
 }
 
 const mapStateToProps = state => ({
