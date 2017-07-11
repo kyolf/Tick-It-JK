@@ -7,15 +7,28 @@
 const express = require('express');
 const ticketRouter = express.Router();
 
-//Importing our database
-const mongoose = require('mongoose');
+//Importing the ticket model
+const {Ticket}= require('../models/model_tickets');
 
-//Importing the model
-const {Ticket}= require('../router/route_tickets');
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  GetTicket                 /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//getting all the tickets
+ticketRouter.get('/',(req,res)=>{
+  Ticket
+  .find()
+  .exec()
+  .then(tickets=>{
+    res.json(tickets.map(ticket=>ticket.apiRepr()));
+  })
+  .catch(err=>{
+    console.err('get all tickets error: ', err);
+    res.status(500).json({message:'Internal server error (get all tickets)'});
+  });
+});
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Exports                   /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //exporting the ticketRouter
 module.exports={ticketRouter};
-

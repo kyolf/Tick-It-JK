@@ -27,6 +27,9 @@ const {ticketRouter} = require('./router/route_tickets.js');
 //Importing user router
 const {userRouter} = require('./router/route_users.js');
 
+//Importing Database URL
+const {DATABASE_URL} = require('../config');
+
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Exports                   /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +37,12 @@ const {userRouter} = require('./router/route_users.js');
 module.exports = {
   app, runServer, closeServer
 };
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  Promise                   /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//assigning global promise to the mongoose promise
+mongoose.Promise = global.Promise;
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Middleware                /////////////////////////
@@ -48,7 +57,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 /////////////////////////////////////////////////////////////////////////////////////
-///////////////             API Initial Root               /////////////////////////
+///////////////                  Router                    /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Mounting /api/tickets to ticket router
+app.use('/api/tickets',ticketRouter);
+
+//Mounting /api/users to user router
+app.use('/api/users',userRouter);
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////         API Other Paths Than Above         /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
@@ -61,36 +79,40 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
-///////////////                  Router                    /////////////////////////
-///////////////////////////////////////////////////////////////////////////////////
-//Mounting /api/tickets to ticket router
-app.use('/api/tickets',ticketRouter);
-
-//Mounting /api/users to user router
-app.use('/api/users',userRouter);
-
-/////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Server                    /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //Opening Server and Mongoose connection
 let server;
-function runServer(port=3001) {
+console.log(DATABASE_URL);
+function runServer(port=3001,databaseUrl=DATABASE_URL) {
   return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      console.log(`App listening on port: ${port}`);
-      resolve();
-    }).on('error', reject);
+    mongoose.connect(databaseUrl,err=>{
+      if(err){
+        return reject(err);
+      }
+      server= app.listen(port,()=>{
+        console.log(`App listening on port: ${port}`);
+        resolve();
+      })
+      .on('error', err=>{
+        mongoose.disconnect();
+        reject(err);
+      });
+    });
   });
 }
 
 //Closing Server and Mongoose connection
 function closeServer() {
-  return new Promise((resolve, reject) => {
-    server.close(err => {
-      if (err) {
-        return reject(err);
-      }
-      resolve();
+  return mongoose.disconnect().then(()=>{
+    return new Promise((resolve, reject) => {
+      console.log('Closing Server');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
     });
   });
 }
