@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import './navbar.css';
 
 export function Navbar(props) {
-  console.log(props);
     return (
       <nav>
         <ul className="navbar">

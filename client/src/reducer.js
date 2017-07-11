@@ -7,12 +7,12 @@ import {
 
 const initialState = {
   ticket: [{
-    group: '',
-    location: '',
-    request: '',
+    group: 'Kyle',
+    location: 'OWL',
+    request: 'Heroku Help',
     status: 'unassigned'
   }],
-  navButton: 'TA Login or Sign Up'
+  navButton: 'Login or Sign Up'
 };
 
 export default (state, action) => {
