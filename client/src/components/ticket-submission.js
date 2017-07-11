@@ -2,7 +2,7 @@ import React from 'react';
 import {submitTicket} from '../actions';
 import Navbar from './navbar';
 
-import TicketList from './ticket-list';
+// import TicketList from './ticket-list';
 
 
 import './ticket-submission.css';
