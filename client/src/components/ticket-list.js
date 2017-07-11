@@ -8,34 +8,31 @@ import './ticket-list.css';
 
 export class TicketList extends React.Component {
 
-  editField(fieldId) {
-    const group = this.group.value;
-    const location = this.location.value;
-    const request = this.request.value;
-    this.props.dispatch(editField(fieldId));
+  editField(field) {
+    this.props.dispatch(editField(field.id, field.value));
   }
 
   getTicketInfo() {
     return this.props.ticket.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
-          <td id="group" ref={group => this.group = group}>
-            {item.group}
-              <form>
-                <input type="button" value="Edit" onClick={e => this.editField(e)} />
-              </form>
+          <td>
+            <form>
+              <input type="text" id="group" value={item.group} ref={group => this.group = group} />
+              <input type="button" value="Edit" onClick={e => this.editField(this.group)} />
+            </form>
           </td>
-          <td id="location" ref={location => this.location = location}>
-            {item.location}
-              <form>
-                <input type="button" value="Edit" onClick={e => this.editField(e)} />
-              </form>
+          <td>
+            <form>
+              <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
+              <input type="button" value="Edit" onClick={e => this.editField(this.location)} />
+            </form>
           </td>
-          <td id="request" ref={request => this.request = request}>
-            {item.request}
-              <form>
-                <input type="button" value="Edit" onClick={e => this.editField(e)} />
-              </form>
+          <td>
+            <form>
+              <input type="text" id="request" value={item.request} ref={request => this.request = request} />
+              <input type="button" value="Edit" onClick={e => this.editField(this.request)} />
+            </form>
           </td>
           <td>{item.status}</td>
         </tr>

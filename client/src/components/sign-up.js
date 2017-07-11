@@ -20,7 +20,7 @@ export default class SignUp extends React.Component {
               minLength="1" maxLength="20" required ref={username => this.username = username}/>
             <label htmlFor="location">Password</label>
             <input type="text" id="password" name="password" placeholder="Enter password"
-              minLength="2" required ref={password => this.password = password}/>
+              minLength="6" required ref={password => this.password = password}/>
             <input type="submit" id="login-submit" className="button" name="submit-login"
               />
           </form>

@@ -6,22 +6,25 @@ import {
 } from './actions';
 
 const initialState = {
-  ticket: [{
+  tickets: [{
     group: 'Kyle',
     location: 'OWL',
     request: 'Heroku Help',
     status: 'unassigned'
   }],
-  navButton: 'Login or Sign Up'
+  navButton: 'Login',
+  submitted: false
 };
 
 export default (state, action) => {
   state = state || initialState;
   if (action.type === SUBMIT_TICKET) {
-    state = Object.assign({}, initialState, {
-      group: action.group,
-      location: action.location,
-      request: action.request
+    state =  Object.assign({}, state, {
+      tickets: [...state.tickets, {
+        group: action.group, 
+        location: action.location, 
+        request: action.request
+      }]
     });
     return state;
   }
