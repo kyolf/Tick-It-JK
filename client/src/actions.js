@@ -1,10 +1,33 @@
-export const SUBMIT_TICKET = 'SUBMIT_TICKET';
-export const submitTicket = (request, group, location) => ({
-  type: SUBMIT_TICKET,
-  request,
-  group,
-  location
+export const ADD_TICKET = 'ADD_TICKET';
+export const addTicket = (ticket) => ({
+  type: ADD_TICKET,
+  request: ticket.request,
+  group: ticket.group,
+  location: ticket.location
 });
+
+
+export const submitTicket = (request, group, location) => dispatch => {
+  const object = {request, group, location};
+  return fetch('/api/tickets', {
+    method: 'POST',
+    mode: 'cors',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(object)
+  }).then (res => {
+    if(!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  }).then(ticket => {
+    dispatch(addTicket(ticket));
+  }).catch(err => {
+    console.error(err);
+  });
+}
+
 
 export const EDIT_TICKET = 'EDIT_TICKET';
 export const editTicket = () => ({
@@ -33,6 +56,5 @@ export const editField = (fieldId) => ({
   type: EDIT_FIELD,
   fieldId
 })
-
 
 

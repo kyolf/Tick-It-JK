@@ -1,5 +1,5 @@
 import {
-  SUBMIT_TICKET,
+  ADD_TICKET,
   EDIT_TICKET,
   DELETE_TICKET,
   TOGGLE_NAV_BUTTON
@@ -18,7 +18,7 @@ const initialState = {
 
 export default (state, action) => {
   state = state || initialState;
-  if (action.type === SUBMIT_TICKET) {
+  if (action.type === ADD_TICKET) {
     state =  Object.assign({}, state, {
       tickets: [...state.tickets, {
         group: action.group, 
@@ -26,6 +26,7 @@ export default (state, action) => {
         request: action.request
       }]
     });
+    console.log('this is the state after adding a ticket', state);
     return state;
   }
   else if (action.type === EDIT_TICKET) {

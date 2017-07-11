@@ -14,6 +14,7 @@ export class TicketSubmission extends React.Component {
     this.props.dispatch(submitTicket(request, group, location));
   }
 
+
   render() {
     return (
       <div className="ticket-container">
