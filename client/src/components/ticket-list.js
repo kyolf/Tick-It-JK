@@ -3,15 +3,20 @@ import {connect} from 'react-redux';
 
 import './ticket-list.css';
 
+///Ask if table is the best way to show this data//
+
 export function TicketList(props) {
 
-  const ticketInfo = props.ticket.map((index, item) => {
-    <tr key={index} index={index} className="ticket-info-row">
+  const ticketInfo = props.ticket.map((item, index) => {
+
+    return (
+    <tr key={index} className="ticket-info-row">
       <td>{item.group}</td>
       <td>{item.location}</td>
       <td>{item.request}</td>
       <td>{item.status}</td>
     </tr>
+    )
   });
 
   return (
