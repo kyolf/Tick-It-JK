@@ -22,6 +22,10 @@ const bodyParser = require('body-parser');
 //Importing mongoose for linking it to mongoDB
 const mongoose = require('mongoose');
 
+//Importing password 
+const password = require('passport');
+const BasicStrategy = require('passport-http').BasicStrategy;
+
 //Importing ticket router
 const {ticketRouter} = require('./router/route_tickets.js');
 
@@ -29,7 +33,7 @@ const {ticketRouter} = require('./router/route_tickets.js');
 const {userRouter} = require('./router/route_users.js');
 
 //Importing Database URL
-const {DATABASE_URL} = require('../config');
+const {DATABASE_URL} = require('./config');
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Promise                   /////////////////////////
@@ -76,7 +80,6 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////
 //Opening Server and Mongoose connection
 let server;
-console.log(DATABASE_URL);
 function runServer(port=3001,databaseUrl=DATABASE_URL) {
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl,err=>{

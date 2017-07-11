@@ -1,5 +1,4 @@
-// require('dotenv').config();
-// console.log(process.env.DATABASE_URL);
+require('dotenv').config();
 exports.DATABASE_URL = process.env.DATABASE_URL ||
                        global.DATABASE_URL;
 
