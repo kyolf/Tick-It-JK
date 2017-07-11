@@ -35,11 +35,12 @@ userSchema.methods.apiRepr = function(){
     id:this._id,
     name:this.name,
     username:this.username,
+    fullName:this.fullName,
     type:this.type
   };
 };
 
-//one of userSchema documents will call this function to check if the password matches
+//One of userSchema documents will call this function to check if the password matches
 userSchema.methods.validatePassword = function(password){
   return bcrypt.compare(password,this.password);
 };

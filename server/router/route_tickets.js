@@ -102,7 +102,7 @@ ticketRouter.put('/:id',(req,res)=>{
   }
 
   const updateTicket = {};
-  const updateFields = ['request','location','status','group'];
+  const updateFields = ['request','location','group'];
   const requestLength = req.body['request'].length;
   const groupMemLength = req.body['group'].length;
 
@@ -153,6 +153,52 @@ ticketRouter.put('/:id',(req,res)=>{
   });
 });
 
+//Updating Tickets TA User
+ticketRouter.put('/:id/status',(req,res)=>{
+  let message = '';
+
+  if(!(req.params.id ===req.body.id)){
+    message = `$req params id: ${req.params.id} does not match req body id: ${req.body.id}`;
+    console.error(message);
+    return res.status(400).json({message});
+  }
+
+  const updateTicket = {};
+
+  if(!('status' in req.body)){
+    message = 'The field: status is missing';
+    console.error(message);
+    return res.status(400).json({message});
+  }
+
+  const statusLength = req.body['status'].length;
+
+  if(statusLength<1){
+    message = 'Your field (status) is empty';
+    console.error(message);
+    return res.status(400).json({message});
+  }
+
+  if(statusLength>20){
+    message = `Your request field can be 20 char long. Right now it is ${statusLength} long`;
+    console.error(message);
+    return res.status(400).json({message});
+  }
+
+  updateTicket.status = req.body['status'];
+
+  Ticket
+  .findByIdAndUpdate(req.params.id, {$set: updateTicket}, {new:true})
+  .exec()
+  .then(ticket => {
+    return res.status(201).json(ticket.apiRepr());
+  })
+  .catch(err=>{
+    message = 'Internal server Error (update ticket)';
+    console.err(`Update Ticket Error: ${err}`);
+    return res.status(500).json({message});
+  });
+});
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////               Delete Ticket                /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
