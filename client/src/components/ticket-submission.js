@@ -33,7 +33,6 @@ export default class TicketSubmission extends React.Component {
             <input type="submit" id="ticket-submit" className="button" name="submit"/>
           </form>
         </div>
-        <TicketList />
       </div>
     );
   }
