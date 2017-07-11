@@ -1,3 +1,24 @@
+export const DISPLAY_TICKETS = 'DISPLAY_TICKETS';
+export const displayTickets = (tickets) => ({
+  type: DISPLAY_TICKETS,
+  tickets
+});
+
+export const fetchTickets = () => dispatch => {
+  return fetch('/api/tickets')
+    .then (res => {
+      if(!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then (tickets => {
+      dispatch(displayTickets(tickets));
+    })
+    
+}
+
+
 export const ADD_TICKET = 'ADD_TICKET';
 export const addTicket = (ticket) => ({
   type: ADD_TICKET,
@@ -5,7 +26,6 @@ export const addTicket = (ticket) => ({
   group: ticket.group,
   location: ticket.location
 });
-
 
 export const submitTicket = (request, group, location) => dispatch => {
   const object = {request, group, location};

@@ -1,19 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {editField} from '../actions';
+import {editField, fetchTickets} from '../actions';
 
 import './ticket-list.css';
 
 ///make into list in container//
 
 export class TicketList extends React.Component {
+  
+  componentWillMount() {
+    this.props.dispatch(fetchTickets());
+  }
 
   editField(field) {
     this.props.dispatch(editField(field.id, field.value));
   }
 
   getTicketInfo() {
-    return this.props.ticket.map((item, index) => {
+    console.log('ticket info', this.props.tickets);
+    return this.props.tickets.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
           <td>
@@ -60,7 +65,7 @@ export class TicketList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  ticket: state.ticket
+  tickets: state.tickets
 });
 
 export default connect(mapStateToProps)(TicketList);

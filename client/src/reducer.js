@@ -1,4 +1,5 @@
 import {
+  DISPLAY_TICKETS,
   ADD_TICKET,
   EDIT_TICKET,
   DELETE_TICKET,
@@ -7,9 +8,9 @@ import {
 
 const initialState = {
   tickets: [{
-    group: 'Kyle',
-    location: 'OWL',
-    request: 'Heroku Help',
+    group: '',
+    location: '',
+    request: '',
     status: 'unassigned'
   }],
   navButton: 'Login',
@@ -27,6 +28,12 @@ export default (state, action) => {
       }]
     });
     console.log('this is the state after adding a ticket', state);
+    return state;
+  }
+  else if(action.type === DISPLAY_TICKETS) {
+    state = Object.assign({}, state, {
+      tickets: action.tickets
+    });
     return state;
   }
   else if (action.type === EDIT_TICKET) {
