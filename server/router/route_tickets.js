@@ -11,7 +11,7 @@ const ticketRouter = express.Router();
 const {Ticket} = require('../models/model_tickets');
 
 /////////////////////////////////////////////////////////////////////////////////////
-///////////////                  Get Ticket                 /////////////////////////
+///////////////                  Get Ticket                /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //getting all the tickets
 ticketRouter.get('/',(req,res)=>{
@@ -45,35 +45,37 @@ ticketRouter.post('/',(req,res)=>{
       console.error(message);
       return res.status(400).json({message});
     }
+    
+    const fieldValue = req.body[field];
 
-    if(req.body[field].trim().length<1){
-      message = `Your field (${field}) is empty`;
+    if(fieldValue.trim().length < 1){
+      message = `Your field (${field}) is an empty string`;
       console.error(message);
-      return res.status(400).json({message});
+      return res.status(422).json({message});
     }
 
-    if(req.body[field].trim().length<2){
+    if(fieldValue.length < 2){
       message = `Your field (${field}) needs to be at least 2 characters long`;
       console.error(message);
-      return res.status(400).json({message});
+      return res.status(422).json({message});
     }
 
-    ticketFields[field]=req.body[field];
+    ticketFields[field] = req.body[field];
   });
 
   const requestLength = req.body['request'].length;
   const groupMemLength = req.body['group'].length;
 
-  if(requestLength>20){
-    message = `Your request field can be 20 char long. Right now it is ${requestLength} long`;
+  if(requestLength > 20){
+    message = `Your request field can be 20 characters long. Right now it is ${requestLength} characters long`;
     console.error(message);
-    return res.status(400).json({message});
+    return res.status(422).json({message});
   }
 
-  if(groupMemLength>40){
-    message = `Your group field can be 40 char long. Right now it is ${groupMemLength} long`;
+  if(groupMemLength > 40){
+    message = `Your group field can be 40 characters long. Right now it is ${groupMemLength} characters long`;
     console.error(message);
-    return res.status(400).json({message});
+    return res.status(422).json({message});
   }
 
   Ticket
@@ -108,31 +110,33 @@ ticketRouter.put('/:id',(req,res)=>{
 
   updateFields.map(field =>{
     if(field in req.body){
-      if(req.body[field].length<1){
+      const fieldValue = req.body[field];
+
+      if(fieldValue.trim().length < 1){
         message = `Your field (${field}) is empty`;
         console.error(message);
-        return res.status(400).json({message});
+        return res.status(422).json({message});
       }
 
-      if(req.body[field].trim().length<2){
+      if(fieldValue.length < 2){
         message = `Your field (${field}) needs to be at least 2 characters long`;
         console.error(message);
-        return res.status(400).json({message});
+        return res.status(422).json({message});
       }
 
       if(field === 'request'){
-        if(requestLength>20){
+        if(requestLength > 20){
           message = `Your request field can be 20 char long. Right now it is ${requestLength} long`;
           console.error(message);
-          return res.status(400).json({message});
+          return res.status(422).json({message});
         }
       }
 
       if(field === 'group'){
-        if(groupMemLength>40){
+        if(groupMemLength > 40){
           message = `Your group field can be 40 char long. Right now it is ${groupMemLength} long`;
           console.error(message);
-          return res.status(400).json({message});
+          return res.status(422).json({message});
         }
       }
 
@@ -143,7 +147,7 @@ ticketRouter.put('/:id',(req,res)=>{
   Ticket
   .findByIdAndUpdate(req.params.id, {$set: updateTicket}, {new:true})
   .exec()
-  .then(ticket => {
+  .then(ticket=>{
     return res.status(201).json(ticket.apiRepr());
   })
   .catch(err=>{
@@ -171,18 +175,18 @@ ticketRouter.put('/:id/status',(req,res)=>{
     return res.status(400).json({message});
   }
 
-  const statusLength = req.body['status'].length;
+  const status = req.body['status'];
 
-  if(statusLength<1){
+  if(status.trim().length < 1){
     message = 'Your field (status) is empty';
     console.error(message);
-    return res.status(400).json({message});
+    return res.status(422).json({message});
   }
 
-  if(statusLength>20){
-    message = `Your request field can be 20 char long. Right now it is ${statusLength} long`;
+  if(status.length > 20){
+    message = `Your request field can be 20 char long. Right now it is ${status.length} long`;
     console.error(message);
-    return res.status(400).json({message});
+    return res.status(422).json({message});
   }
 
   updateTicket.status = req.body['status'];
@@ -190,7 +194,7 @@ ticketRouter.put('/:id/status',(req,res)=>{
   Ticket
   .findByIdAndUpdate(req.params.id, {$set: updateTicket}, {new:true})
   .exec()
-  .then(ticket => {
+  .then(ticket=>{
     return res.status(201).json(ticket.apiRepr());
   })
   .catch(err=>{
