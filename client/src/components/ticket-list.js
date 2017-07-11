@@ -17,10 +17,10 @@ export class TicketList extends React.Component {
   }
 
   getTicketInfo() {
-    console.log('ticket info', this.props.tickets);
     return this.props.tickets.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
+           <button>Delete</button>
           <td>
             <form>
               <input type="text" id="group" value={item.group} ref={group => this.group = group} />
@@ -50,6 +50,7 @@ export class TicketList extends React.Component {
       <table className="ticket-table">
         <thead className="ticket-header">
           <tr className="ticket-row-headers">
+            <th></th>
             <th>Name</th>
             <th>Location</th>
             <th>Request</th>

@@ -15,7 +15,6 @@ export const fetchTickets = () => dispatch => {
     .then (tickets => {
       dispatch(displayTickets(tickets));
     })
-    
 }
 
 
@@ -63,6 +62,12 @@ export const TOGGLE_NAV_BUTTON = 'TOGGLE_NAV_BUTTON';
 export const toggleNavButton = (text) => ({
   type: TOGGLE_NAV_BUTTON,
   text
+});
+
+export const TOGGLE_STATUS = 'TOGGLE_STATUS';
+export const toggleStatus = (name) => ({
+  type: TOGGLE_STATUS,
+  name
 });
 
 export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';

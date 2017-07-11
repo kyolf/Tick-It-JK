@@ -27,7 +27,6 @@ export default (state, action) => {
         request: action.request
       }]
     });
-    console.log('this is the state after adding a ticket', state);
     return state;
   }
   else if(action.type === DISPLAY_TICKETS) {

@@ -14,14 +14,13 @@ export class TicketSubmission extends React.Component {
     this.props.dispatch(submitTicket(request, group, location));
   }
 
-
   render() {
     return (
       <div className="ticket-container">
         <form className="form-container" onSubmit={e => this.makeTicket(e)}>
           <label htmlFor="request">Request</label>
           <input type="text" id="request" name="request" placeholder="Enter request here" 
-            required ref={request => this.request = request}/>
+            minLength="2" required ref={request => this.request = request}/>
           <label htmlFor="group">Group Collaborator</label>
           <input type="text" id="group" name="group" placeholder="Enter team member names"
             minLength="2" required ref={group => this.group = group}/>
