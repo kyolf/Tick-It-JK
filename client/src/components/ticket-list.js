@@ -1,7 +1,16 @@
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  Imports                   /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//importing React
 import React from 'react';
+
+//Importing connect wrap
 import {connect} from 'react-redux';
+
+//Importing actions that are going to be used in this file
 import {editField, fetchTickets, fetchDeleteTicket} from '../actions';
 
+//Importing ticket list css file
 import './ticket-list.css';
 
 ///make into list in container//
