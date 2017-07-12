@@ -31,6 +31,14 @@ export const changeNavButton = (navButtonText) => ({
   navButtonText
 });
 
+//login action
+export const LOGIN = 'LOGIN';
+export const login = (username, fullName, password) => ({
+  type: LOGIN,
+  username,
+  fullName,
+  password
+});
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////           Asynchronous Actions             /////////////////////////
@@ -60,7 +68,7 @@ export const fetchTickets = () => dispatch => {
     return res.json();
   })
   .then(tickets=>{
-    dispatch(displayTickets(tickets));
+    return dispatch(displayTickets(tickets));
   })
   .catch(err=>{
     console.error(`Fetch Tickets Error: ${err}`);
@@ -85,7 +93,7 @@ export const submitTicket = (request, group, location) => dispatch => {
     return res.json();
   })
   .then(ticket=>{
-    dispatch(addTicket(ticket));
+    return dispatch(addTicket(ticket));
   })
   .catch(err=>{
     console.error(`Submit Ticket Error: ${err}`);
@@ -99,7 +107,7 @@ export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
     mode: 'cors'
   })
   .then(()=>{
-    dispatch(deleteTicket(index));
+    return dispatch(deleteTicket(index));
   })
   .catch(err=>{
     console.error(`Fetch Delete Ticket Error: ${err}`);
@@ -107,8 +115,9 @@ export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
 }
 
 //adding a user to the database if the code matches
-export const submitSignUp = (username, password, firstname, lastname, code) => dispatch => {
-  const info = {username, password, firstname, lastname, code};
+export const submitSignUp = (username, password, firstName, lastName, taCode) => dispatch => {
+  const info = {username, password, firstName, lastName, taCode};
+  console.log('I AM HERE', info);
   return fetch('/api/users', {
     method: 'POST',
     mode: 'cors',
@@ -123,9 +132,40 @@ export const submitSignUp = (username, password, firstname, lastname, code) => d
     }
     return res.json();
   })
+  .then(res=>{ 
+    return window.location = '/login'
+  })
   .catch(err=>{
     console.error(`Send Code Error: ${err}`);
   })
+}
+
+//gets the current user by logging in.
+export const validateLogin = (username, password) => dispatch => {
+  return fetch(`/api/users/${username}`, {
+    method: 'GET',
+    mode: 'cors',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${btoa(username + ':' + password)}`
+    })
+  })
+  .then(res=>{
+    if(!res.ok){
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  })
+  .then(user=>{
+    console.log('hi iam here', user);
+    return dispatch(login(user.username, user.fullName, password));
+  })
+  // .then(()=>{
+  //   window.location = '/ticketlist';
+  // })
+  .catch(err=>{
+    console.error(`Login Error: ${err}`);
+  });
 }
 
 //S
@@ -139,12 +179,6 @@ export const toggleStatus = (name) => ({
   type: TOGGLE_STATUS,
   name
 });
-
-export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';
-export const validateLogin = (username, password) => ({
-  type: VALIDATE_LOGIN
-});
-
 
 export const EDIT_FIELD = 'EDIT_FIELD';
 export const editField = (fieldId) => ({

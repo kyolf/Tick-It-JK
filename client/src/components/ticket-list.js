@@ -20,6 +20,8 @@ export class TicketList extends React.Component{
   //before rendering, fetch all the tickets from the database and
   //change navButton text to Submit New Ticket in the nav bar
   componentWillMount(){
+    console.log(this.props.username);
+    console.log(this.props.fullName);
     this.props.dispatch(changeNavButton('Submit New Ticket'));
     this.props.dispatch(fetchTickets());
   }
@@ -92,7 +94,10 @@ export class TicketList extends React.Component{
 ///////////////////////////////////////////////////////////////////////////////////
 //setting state.tickets to the ticket prop that is passed in the connect wrap
 const mapStateToProps = state => ({
-  tickets: state.tickets
+  tickets: state.tickets,
+  username: state.username,
+  fullName: state.fullName,
+  password: state.password
 });
 
 //exporting a connect wrap that is wrapped around TicketList

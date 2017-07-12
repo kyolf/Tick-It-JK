@@ -7,7 +7,8 @@ import {
   ADD_TICKET,
   EDIT_TICKET,
   DELETE_TICKET,
-  CHANGE_NAV_BUTTON
+  CHANGE_NAV_BUTTON,
+  LOGIN
 } from './actions';
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -23,7 +24,9 @@ const initialState = {
   }],
   navButton: 'TA Login Or Sign Up',
   submitted: false,
-  taCode: 'lazyshiba'
+  username: '',
+  fullName: '',
+  password: ''
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +79,15 @@ export default (state, action) => {
     state = Object.assign({}, state, {
       navButton: action.navButtonText
     });
+    return state;
   }
-
+  else if(action.type === LOGIN){
+    state = Object.assign({}, state, {
+      username: action.username,
+      fullName: action.fullName,
+      password: action.password
+    });
+    return state;
+  }
   return state;
 }//end of export reducer 

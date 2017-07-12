@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 //Importing actions from the actions file
-import {changeNavButton} from '../actions';
+import {changeNavButton, submitSignUp} from '../actions';
 
 //Importing the sign up css file
 import './sign-up.css';
@@ -31,7 +31,8 @@ export class SignUp extends React.Component{
     const code = this.code.value;
 
     if(firstName.length >= 1 && lastName.length >= 1 && userName.length >= 1 && password.length >= 6 && code.length >= 1){
-      window.location = '/login';
+      this.props.dispatch(submitSignUp(userName, password, firstName, lastName, code));
+      //window.location = '/login';
     }
   }
 

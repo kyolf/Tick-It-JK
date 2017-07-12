@@ -20,7 +20,7 @@ const {User}= require('../models/model_users');
 ///////////////                  Get Users                 /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //Getting all users that exist
-userRouter.get('/',(req,res)=>{
+userRouter.get('/', (req,res)=>{
   let message = '';
 
   User
@@ -37,21 +37,24 @@ userRouter.get('/',(req,res)=>{
 });
 
 //Getting a single user that exist
-userRouter.get('/:username', passport.authenticate('basic', {successRedirect: '/ticketlist', failureRedirect: '/login',session: true }), (req,res)=>{
-  let message = '';
+userRouter.get('/:username', 
+  passport.authenticate('basic', { session: false }), 
+  (req,res)=>{
+    let message = '';
 
-  User
-  .findOne({username:req.params.username})
-  .exec()
-  .then(user=>{
-    return res.json(user.apiRepr());
-  })
-  .catch(err=>{
-    message = 'Internal Server Error (Get Single User)';
-    console.log(`Get Single User Error: ${err}`);
-    return res.status(500).json({message});
-  });
-});
+    User
+    .findOne({username:req.params.username})
+    .exec()
+    .then(user=>{
+      return res.json(user.apiRepr());
+    })
+    .catch(err=>{
+      message = 'Internal Server Error (Get Single User)';
+      console.log(`Get Single User Error: ${err}`);
+      return res.status(500).json({message});
+    });
+  }
+);
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Post Users                /////////////////////////

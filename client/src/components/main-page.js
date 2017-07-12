@@ -22,13 +22,24 @@ import TicketList from './ticket-list';
 //Importing the Ticket Submission from the ticket submission file
 import TicketSubmission from './ticket-submission';
 
+import {connect} from 'react-redux';
+
 //Importing the main page css file
 import './main-page.css';
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Main Page                 /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-export default class MainPage extends React.Component{
+export class MainPage extends React.Component{
+  // loginOrTicketList(){
+  //   if(this.props.username){
+  //     return <Route exact path="/ticketlist" component={TicketList}/>
+  //   }
+  //   else{
+  //     return <Route exact path="/login" component={Login}/>
+  //   }
+  // }
+
   //renders how each page will look like and links the pages together
   render(){
     return (
@@ -38,7 +49,7 @@ export default class MainPage extends React.Component{
           <div>
             <Route exact path="/" component={TicketSubmission}/>
             <Route exact path="/ticketlist" component={TicketList}/>
-            <Route exact path="/login" component={Login}/>
+            <Route exact path="/ticketlistTA" component={this.props.username ? TicketList : Login}/>
             <Route exact path="/signup" component={SignUp}/>
           </div>
         </div>
@@ -47,4 +58,8 @@ export default class MainPage extends React.Component{
   }
 }
 
+export const mapStateToProps = state => ({
+  username:state.username,
+});
 
+export default connect(mapStateToProps)(MainPage);
