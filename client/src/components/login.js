@@ -27,7 +27,10 @@ export class Login extends React.Component{
     event.preventDefault();
     const username = this.username.value;
     const password = this.password.value;
-    this.props.dispatch(validateLogin(username, password));
+    if(username.length >= 1 && password.length >= 6){
+      this.props.dispatch(validateLogin(username, password));
+      window.location = '/ticketlist';
+    }
   }
 
   //renders the login form
