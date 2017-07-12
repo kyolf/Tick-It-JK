@@ -82,7 +82,7 @@ userRouter.post('/',(req,res)=>{
       return res.status(422).json({message});
     }
   });
-  console.log(TA_CODE);
+
   if(req.body['taCode'] !== TA_CODE){
     message = 'You\'re not a TA are you?!?! Tsk Tsk Tsk';
     console.error(message);

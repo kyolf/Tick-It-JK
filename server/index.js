@@ -67,7 +67,7 @@ const basicStrategy = new BasicStrategy((username, password, callback)=>{
       message = 'Incorrect username or password';
       return callback(null,false, {message});
     }
-    console.log('HERE I AM ',user);
+
     return callback(null,user);
   });
 });
