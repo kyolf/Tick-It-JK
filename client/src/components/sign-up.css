@@ -10,7 +10,7 @@ label {
   margin-bottom: 7px;
 }
 
-#username, #password, #firstname, #lastname {
+#username, #password, #firstname, #lastname, #ta-auth-code {
   margin-bottom: 40px;
   padding: 20px;
   width: 25%;

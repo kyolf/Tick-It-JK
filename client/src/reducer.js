@@ -22,7 +22,8 @@ const initialState = {
     status: 'unassigned'
   }],
   navButton: 'TA Login Or Sign Up',
-  submitted: false
+  submitted: false,
+  taCode: 'lazyshiba'
 };
 
 /////////////////////////////////////////////////////////////////////////////////////

@@ -31,9 +31,47 @@ export const changeNavButton = (navButtonText) => ({
   navButtonText
 });
 
+
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////           Asynchronous Actions             /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
+//Send auth code for ta to check against database
+export const submitSignUp = (username, password, firstname, lastname, code) => dispatch => {
+  const info = {username, password, firstname, lastname, code};
+  return fetch('/api/users', {
+    method: 'POST',
+    mode: 'cors',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(info)
+  })
+  .then(res=>{
+    if(!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  })
+  .catch(err=>{
+    console.error(`Send Code Error: ${err}`);
+  })
+}
+
+//Get username when logging in
+export const fetchUsername = () => dispatch => {
+  return fetch(`/api/users/${username}`)
+  .then(res=>{
+    if(!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  })
+  .catch(err=>{
+    console.error(`Fetch Username Error: ${err}`);
+  })
+}
+
+
 //Getting all the tickets in the database
 export const fetchTickets = () => dispatch => {
   return fetch('/api/tickets')
@@ -47,7 +85,7 @@ export const fetchTickets = () => dispatch => {
     dispatch(displayTickets(tickets));
   })
   .catch(err=>{
-    console.log(`Fetch Tickets Error: ${err}`);
+    console.error(`Fetch Tickets Error: ${err}`);
   });
 }
 
@@ -86,7 +124,7 @@ export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
     dispatch(deleteTicket(index));
   })
   .catch(err=>{
-    console.log(`Fetch Delete Ticket Error: ${err}`);
+    console.error(`Fetch Delete Ticket Error: ${err}`);
   });
 }
 
@@ -104,8 +142,8 @@ export const toggleStatus = (name) => ({
 export const VALIDATE_LOGIN = 'VALIDATE_LOGIN';
 export const validateLogin = (username, password) => ({
   type: VALIDATE_LOGIN
-
 });
+
 
 export const EDIT_FIELD = 'EDIT_FIELD';
 export const editField = (fieldId) => ({
