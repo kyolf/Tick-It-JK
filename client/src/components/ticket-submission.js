@@ -22,15 +22,15 @@ export class TicketSubmission extends React.Component {
       <div className="ticket-container">
         <form className="form-container" >
           <label htmlFor="request">Request</label>
-          <input type="text" id="request" name="request" placeholder="Enter request here" 
+          <input type="text" id="request-submission" name="request" placeholder="Enter request here" 
             minLength="2" required ref={request => this.request = request}/>
-          <label htmlFor="group">Group Collaborator</label>
-          <input type="text" id="group" name="group" placeholder="Enter team member names"
+          <label htmlFor="group">Group Collaborators</label>
+          <input type="text" id="group-submission" name="group" placeholder="Enter team member names"
             minLength="2" required ref={group => this.group = group}/>
           <label htmlFor="location">Meeting Location</label>
-          <input type="text" id="location" name="location" placeholder="Screenhero or OWL Link"
+          <input type="text" id="location-submission" name="location" placeholder="Screenhero or OWL Link"
             minLength="2" required ref={location => this.location = location}/>
-          <button type="button" onClick={e => this.validateSubmission(e)}>Submit Ticket</button>
+          <button type="button" className="initial-submit-button" onClick={e => this.validateSubmission(e)}>Submit Ticket</button>
         </form>
       </div>
     );

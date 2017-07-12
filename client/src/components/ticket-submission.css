@@ -3,3 +3,29 @@
   flex-direction: column;
   align-items: center;
 }
+
+label {
+  font-family: 'Trocchi', serif;
+  font-size: 22px; 
+  margin-bottom: 7px;
+}
+
+#request-submission, #group-submission, #location-submission {
+  margin-bottom: 40px;
+  padding: 20px;
+  width: 25%;
+  border: 3px groove lightslategray; 
+  box-shadow: 5px 5px 15px 5px #5F863C;
+}
+
+.initial-submit-button {
+  border: 1px solid lightslategray;
+  box-shadow: 5px 5px 10px 1px gray;
+  padding: 15px;
+  font-family: 'Rozha One', serif; 
+  border-radius: 25%;
+  color: black;
+  background-color: #6DB452;
+  font-size: 15px;
+  margin-top: 40px;
+}

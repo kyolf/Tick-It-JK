@@ -9,7 +9,7 @@ export function Navbar(props) {
       <nav>
         <ul className="navbar">
           <li className="title">Tick-it</li>
-          <Link to='/login'>
+          <Link to='/login' style={{textDecoration: 'none'}}>
             <li className="nav-button">{props.navButton}</li>
           </Link>
         </ul>
