@@ -58,7 +58,7 @@ export const submitSignUp = (username, password, firstname, lastname, code) => d
 }
 
 //Get username when logging in
-export const fetchUsername = () => dispatch => {
+export const fetchUsername = (username) => dispatch => {
   return fetch(`/api/users/${username}`)
   .then(res=>{
     if(!res.ok) {
