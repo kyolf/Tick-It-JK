@@ -5,22 +5,27 @@ import {editField, fetchTickets, fetchDeleteTicket} from '../actions';
 import './ticket-list.css';
 
 ///make into list in container//
-
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////               Ticket List                  /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
 export class TicketList extends React.Component {
-  
-  componentWillMount() {
+  //fetch all the tickets from the database before rendering
+  componentWillMount(){
     this.props.dispatch(fetchTickets());
   }
 
-  editField(field) {
+  //edit a field in the ticket list
+  editField(field){
     this.props.dispatch(editField(field.id, field.value));
   }
 
-  deleteButton(ticketId, index) {
+  //delete a ticket from the database and state
+  deleteButton(ticketId, index){
     this.props.dispatch(fetchDeleteTicket(ticketId, index));
   }
 
-  getTicketInfo() {
+  //make a row for each document in our database
+  getTicketInfo(){
     return this.props.tickets.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
@@ -51,7 +56,8 @@ export class TicketList extends React.Component {
     });
   }
   
-  render() {
+  //render the ticket list table
+  render(){
     return (
       <table className="ticket-table">
         <thead className="ticket-header">
@@ -71,8 +77,13 @@ export class TicketList extends React.Component {
   }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////       Making Connect Wrap Around Ticket List      //////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//setting state.tickets to the ticket prop that is passed in the connect wrap
 const mapStateToProps = state => ({
   tickets: state.tickets
 });
 
+//exporting a connect wrap that is wrapped around TicketList with the props tickets
 export default connect(mapStateToProps)(TicketList);
