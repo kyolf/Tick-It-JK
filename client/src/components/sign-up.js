@@ -40,19 +40,19 @@ export class SignUp extends React.Component{
     return (
       <div className="sign-up-container">
          <form className="sign-up-form">
-            <label htmlFor="username">First Name</label>
+            <label htmlFor="firstname">First Name</label>
             <input type="text" id="firstname" name="firstname" placeholder="Enter first name" 
               minLength="1" required ref={firstname => this.firstname = firstname}/>
-            <label htmlFor="username">Last Name</label>
+            <label htmlFor="lastname">Last Name</label>
             <input type="text" id="lastname" name="lastname" placeholder="Enter last name" 
               minLength="1" required ref={lastname => this.lastname = lastname}/>
             <label htmlFor="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter username" 
               minLength="1" required ref={username => this.username = username}/>
-            <label htmlFor="location">Password</label>
+            <label htmlFor="password">Password</label>
             <input type="text" id="password" name="password" placeholder="Enter password"
               minLength="6" required ref={password => this.password = password}/>
-            <label htmlFor="location">TA Authentication Code</label>
+            <label htmlFor="code">TA Authentication Code</label>
             <input type="text" id="ta-auth-code" name="ta-auth-code" placeholder="Enter authentication code"
               minLength="1" required ref={code => this.code = code}/>
             <button type="button" id="sign-up-submit" className="button" onClick={e => this.changePage(e)}>

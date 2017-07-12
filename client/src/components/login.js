@@ -44,7 +44,7 @@ export class Login extends React.Component{
             <label htmlFor="password">Password</label>
             <input type="text" id="password" name="password" placeholder="Enter password"
               minLength="6" required ref={password => this.password = password}/>
-            <input type="submit" id="login-submit" className="button" name="submit-login"/>
+            <input type="submit" id="login-submit" className="button" value="Login" name="submit-login"/>
           </form>
       </div>
     );

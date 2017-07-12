@@ -1,6 +1,98 @@
-
-.ticket-table {
-  background: lightblue;
-  margin: auto; 
+.tickets-container {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  border: 1px solid black;
 }
+
+ul {
+  list-style: none;
+}
+
+.hide-when-large {
+  display: none;
+}
+
+@media (max-width: 375px) {
+  .hide-when-small {
+    display: none;
+  }
+
+  .hide-when-large {
+    display: flex;
+  }
+
+  .tickets-container {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 10px 1px gray;
+    background-color: lightskyblue;
+  }
+
+  .ticket-inputs, .edit-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .field-labels {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding-left: 7px;
+  }
+
+  .edit-button {
+    margin-bottom: 10px;
+    margin-right: 7px;
+    border: 1px solid lightgrey;
+    background-color: #1B9850;
+    border-radius: 35%;
+    font-family: 'Trocchi', serif;
+  }
+
+  .delete-button {
+    margin: 10px 10px;
+    border: 2px solid lightcoral;
+    background-color: lightcoral;
+    border-radius: 35%;
+    font-size: 12px;
+    font-family: 'Trocchi', serif;
+  }
+
+  .ticket-inputs > input {
+    margin-bottom: 5px;
+    border: 1px solid lightslategray;
+    padding: 5px;
+    width: 125%;
+  }
+
+  .field-label {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: 'Rozha One', serif; 
+  }
+
+  .ticket-table {
+    background: lightblue;
+    margin: auto; 
+  }
+
+  .ticket-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+}/*end of iphone6 width*/
+
+
+
+
+
+
+
 

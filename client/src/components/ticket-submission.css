@@ -1,16 +1,22 @@
+.ticket-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-label {
+.form-container > label {
   font-family: 'Trocchi', serif;
   font-size: 22px; 
   margin-bottom: 7px;
 }
 
-#request-submission, #group-submission, #location-submission {
+.form-container > input {
   margin-bottom: 40px;
   padding: 20px;
   width: 25%;
@@ -29,3 +35,31 @@ label {
   font-size: 15px;
   margin-top: 40px;
 }
+
+@media (max-width: 375px) {
+  .ticket-container {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 10px 1px gray;
+    background-color: lightskyblue;
+  }
+
+  .form-container > label {
+     font-size: 16px;
+     margin-top: 10px;
+  }
+
+  .form-container > input {
+    box-shadow: 1px 1px 10px 1px #1B9850;
+    margin-bottom: 25px;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .initial-submit-button {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+}/*end of iphone6 css*/
