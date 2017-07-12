@@ -7,6 +7,12 @@
 const express = require('express');
 const userRouter = express.Router();
 
+//Importing passport
+const passport = require('passport');
+
+//Importing the ta code
+const {TA_CODE} = require('../config');
+
 //Importing the model
 const {User}= require('../models/model_users');
 
@@ -31,7 +37,7 @@ userRouter.get('/',(req,res)=>{
 });
 
 //Getting a single user that exist
-userRouter.get('/:username',(req,res)=>{
+userRouter.get('/:username', passport.authenticate('basic', {successRedirect: '/ticketlist', failureRedirect: '/login',session: true }), (req,res)=>{
   let message = '';
 
   User
@@ -54,7 +60,6 @@ userRouter.get('/:username',(req,res)=>{
 userRouter.post('/',(req,res)=>{
   const requiredFields = ['username','password','firstName','lastName','taCode'];
   let message = '';
-  const TA_CODE = 'lazyshiba';
 
   requiredFields.map(field=>{
     if(!(field in req.body)){
@@ -77,7 +82,7 @@ userRouter.post('/',(req,res)=>{
       return res.status(422).json({message});
     }
   });
-
+  console.log(TA_CODE);
   if(req.body['taCode'] !== TA_CODE){
     message = 'You\'re not a TA are you?!?! Tsk Tsk Tsk';
     console.error(message);

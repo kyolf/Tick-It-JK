@@ -48,7 +48,7 @@ mongoose.Promise = global.Promise;
 ///////////////                  Basic Strategy            /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //password strategy
-const basicStrategy = new BasicStrategy((username,password,callback)=>{
+const basicStrategy = new BasicStrategy((username, password, callback)=>{
   let user;
   let message;
   User
@@ -67,6 +67,7 @@ const basicStrategy = new BasicStrategy((username,password,callback)=>{
       message = 'Incorrect username or password';
       return callback(null,false, {message});
     }
+    console.log('HERE I AM ',user);
     return callback(null,user);
   });
 });
@@ -87,6 +88,14 @@ app.use(bodyParser.json());
 passport.use(basicStrategy);
 app.use(passport.initialize());
 
+//serialize user in order to keep them saved on server
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Router                    /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////

@@ -35,28 +35,6 @@ export const changeNavButton = (navButtonText) => ({
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////           Asynchronous Actions             /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-//Send auth code for ta to check against database
-export const submitSignUp = (username, password, firstname, lastname, code) => dispatch => {
-  const info = {username, password, firstname, lastname, code};
-  return fetch('/api/users', {
-    method: 'POST',
-    mode: 'cors',
-    headers: new Headers({
-      'Content-Type': 'application/json',
-    }),
-    body: JSON.stringify(info)
-  })
-  .then(res=>{
-    if(!res.ok) {
-      return Promise.reject(res.statusText);
-    }
-    return res.json();
-  })
-  .catch(err=>{
-    console.error(`Send Code Error: ${err}`);
-  })
-}
-
 //Get username when logging in
 export const fetchUsername = (username) => dispatch => {
   return fetch(`/api/users/${username}`)
@@ -128,6 +106,29 @@ export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
   });
 }
 
+//adding a user to the database if the code matches
+export const submitSignUp = (username, password, firstname, lastname, code) => dispatch => {
+  const info = {username, password, firstname, lastname, code};
+  return fetch('/api/users', {
+    method: 'POST',
+    mode: 'cors',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(info)
+  })
+  .then(res=>{
+    if(!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  })
+  .catch(err=>{
+    console.error(`Send Code Error: ${err}`);
+  })
+}
+
+//S
 export const EDIT_TICKET = 'EDIT_TICKET';
 export const editTicket = () => ({
   type: EDIT_TICKET
