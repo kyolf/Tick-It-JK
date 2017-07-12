@@ -28,8 +28,9 @@ export class SignUp extends React.Component{
     const lastName = this.lastname.value;
     const userName = this.username.value;
     const password = this.password.value;
+    const code = this.code.value;
 
-    if(firstName.length >= 1 && lastName.length >= 1 && userName.length >= 1 && password.length >= 6){
+    if(firstName.length >= 1 && lastName.length >= 1 && userName.length >= 1 && password.length >= 6 && code.length >= 1){
       window.location = '/login';
     }
   }
@@ -51,6 +52,9 @@ export class SignUp extends React.Component{
             <label htmlFor="location">Password</label>
             <input type="text" id="password" name="password" placeholder="Enter password"
               minLength="6" required ref={password => this.password = password}/>
+            <label htmlFor="location">TA Authentication Code</label>
+            <input type="text" id="ta-auth-code" name="ta-auth-code" placeholder="Enter authentication code"
+              minLength="1" required ref={code => this.code = code}/>
             <button type="button" id="sign-up-submit" className="button" onClick={e => this.changePage(e)}>
               Sign Up
             </button>

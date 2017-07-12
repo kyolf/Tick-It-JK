@@ -35,21 +35,21 @@ export class Navbar extends React.Component{
     // }
     if(lowerCaseNavButtonText === SUBMIT_NEW_TICKET.toLowerCase()){
       return (
-        <Link to='/'>
+        <Link to='/' style={{textDecoration: "none"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
     }
     else if(lowerCaseNavButtonText === SIGN_UP.toLowerCase()){
       return (
-        <Link to='/signup'>
+        <Link to='/signup' style={{textDecoration: "none"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
     }
     else{
       return (
-        <Link to='/login'>
+        <Link to='/login' style={{textDecoration: "none"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
