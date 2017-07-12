@@ -21,18 +21,18 @@ export class Navbar extends React.Component{
   linkButton(){
     const lowerCaseNavButtonText = this.props.navButton.toLowerCase();
 
-    // const TA_LOGIN_OR_SIGN_UP = 'TA Login Or Sign Up';
+    const TA_LOGIN_OR_SIGN_UP = 'TA Login Or Sign Up';
     const SUBMIT_NEW_TICKET = 'Submit New Ticket';
-    // const LOGIN = 'Login';
+    const LOGIN = 'Login';
     const SIGN_UP = 'Sign Up';
 
-    // if(lowerCaseNavButtonText === TA_LOGIN_OR_SIGN_UP.toLowerCase() || lowerCaseNavButtonText === LOGIN.toLowerCase()){
-    //   return (
-    //     <Link to='/login'>
-    //       <li className="nav-button">{props.navButton}</li>
-    //     </Link>
-    //   );
-    // }
+    if(lowerCaseNavButtonText === TA_LOGIN_OR_SIGN_UP.toLowerCase() || lowerCaseNavButtonText === LOGIN.toLowerCase()){
+      return (
+        <Link to='/ticketListTA'>
+          <li className="nav-button">{this.props.navButton}</li>
+        </Link>
+      );
+    }
     if(lowerCaseNavButtonText === SUBMIT_NEW_TICKET.toLowerCase()){
       return (
         <Link to='/' style={{textDecoration: "none"}}>
@@ -49,7 +49,7 @@ export class Navbar extends React.Component{
     }
     else{
       return (
-        <Link to='/login' style={{textDecoration: "none"}}>
+        <Link to='/ticketTA' style={{textDecoration: "none"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );

@@ -32,7 +32,6 @@ export class SignUp extends React.Component{
 
     if(firstName.length >= 1 && lastName.length >= 1 && userName.length >= 1 && password.length >= 6 && code.length >= 1){
       this.props.dispatch(submitSignUp(userName, password, firstName, lastName, code));
-      //window.location = '/login';
     }
   }
 

@@ -133,7 +133,7 @@ export const submitSignUp = (username, password, firstName, lastName, taCode) =>
     return res.json();
   })
   .then(res=>{ 
-    return window.location = '/login'
+    return window.location = '/ticketlistTA'
   })
   .catch(err=>{
     console.error(`Send Code Error: ${err}`);
@@ -160,9 +160,6 @@ export const validateLogin = (username, password) => dispatch => {
     console.log('hi iam here', user);
     return dispatch(login(user.username, user.fullName, password));
   })
-  // .then(()=>{
-  //   window.location = '/ticketlist';
-  // })
   .catch(err=>{
     console.error(`Login Error: ${err}`);
   });

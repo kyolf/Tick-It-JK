@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 //Importing actions that are going to be used in this file
-import {editField, fetchTickets, fetchDeleteTicket, changeNavButton} from '../actions';
+import {editField, fetchTickets, fetchDeleteTicket, changeNavButton, validateLogin} from '../actions';
 
 //Importing ticket list css file
 import './ticket-list.css';
@@ -20,9 +20,8 @@ export class TicketList extends React.Component{
   //before rendering, fetch all the tickets from the database and
   //change navButton text to Submit New Ticket in the nav bar
   componentWillMount(){
-    console.log(this.props.username);
-    console.log(this.props.fullName);
-    this.props.dispatch(changeNavButton('Submit New Ticket'));
+    !this.props.username ? this.props.dispatch(changeNavButton('Submit New Ticket')) 
+                         : this.props.dispatch(changeNavButton(`Welcome ${this.props.fullName}`));
     this.props.dispatch(fetchTickets());
   }
 
@@ -92,7 +91,8 @@ export class TicketList extends React.Component{
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////       Making Connect Wrap Around Ticket List      //////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-//setting state.tickets to the ticket prop that is passed in the connect wrap
+//setting state.tickets, state.username, state.password, state.fullName
+//to the ticket, username, fullname, password prop that is passed in the connect wrap
 const mapStateToProps = state => ({
   tickets: state.tickets,
   username: state.username,
