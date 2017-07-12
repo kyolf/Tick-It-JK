@@ -51,7 +51,7 @@ export class SignUp extends React.Component{
             <label htmlFor="location">Password</label>
             <input type="text" id="password" name="password" placeholder="Enter password"
               minLength="6" required ref={password => this.password = password}/>
-            <button type="button" id="login-submit" className="button" onClick={e => this.changePage(e)}>
+            <button type="button" id="sign-up-submit" className="button" onClick={e => this.changePage(e)}>
               Sign Up
             </button>
           </form>
