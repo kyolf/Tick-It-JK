@@ -1,23 +1,14 @@
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////            Synchronous Actions             /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//display all tickets action
 export const DISPLAY_TICKETS = 'DISPLAY_TICKETS';
 export const displayTickets = (tickets) => ({
   type: DISPLAY_TICKETS,
   tickets
 });
 
-export const fetchTickets = () => dispatch => {
-  return fetch('/api/tickets')
-    .then (res => {
-      if(!res.ok) {
-        return Promise.reject(res.statusText);
-      }
-      return res.json();
-    })
-    .then (tickets => {
-      dispatch(displayTickets(tickets));
-    })
-}
-
-
+//add ticket to state action
 export const ADD_TICKET = 'ADD_TICKET';
 export const addTicket = (ticket) => ({
   type: ADD_TICKET,
@@ -26,6 +17,34 @@ export const addTicket = (ticket) => ({
   location: ticket.location
 });
 
+//delete ticket action
+export const DELETE_TICKET = 'DELETE_TICKET';
+export const deleteTicket = (index) => ({
+  type: DELETE_TICKET,
+  index
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////           Asynchronous Actions             /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Getting all the tickets in the database
+export const fetchTickets = () => dispatch => {
+  return fetch('/api/tickets')
+  .then(res=>{
+    if(!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  })
+  .then(tickets=>{
+    dispatch(displayTickets(tickets));
+  })
+  .catch(err=>{
+    console.log(`Fetch Tickets Error: ${err}`);
+  });
+}
+
+//Submitting a ticket into the database
 export const submitTicket = (request, group, location) => dispatch => {
   const object = {request, group, location};
   return fetch('/api/tickets', {
@@ -35,27 +54,38 @@ export const submitTicket = (request, group, location) => dispatch => {
       'Content-Type': 'application/json',
     }),
     body: JSON.stringify(object)
-  }).then (res => {
+  })
+  .then(res=>{
     if(!res.ok) {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  }).then(ticket => {
+  })
+  .then(ticket=>{
     dispatch(addTicket(ticket));
-  }).catch(err => {
-    console.error(err);
+  })
+  .catch(err=>{
+    console.error(`Submit Ticket Error: ${err}`);
   });
 }
 
+//deleting ticket from database
+export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
+  fetch(`/api/tickets/${ticketId}`, {
+    method: 'DELETE',
+    mode: 'cors'
+  })
+  .then(()=>{
+    dispatch(deleteTicket(index));
+  })
+  .catch(err=>{
+    console.log(`Fetch Delete Ticket Error: ${err}`);
+  });
+}
 
 export const EDIT_TICKET = 'EDIT_TICKET';
 export const editTicket = () => ({
   type: EDIT_TICKET
-});
-
-export const DELETE_TICKET = 'DELETE_TICKET';
-export const deleteTicket = () => ({
-  type: DELETE_TICKET
 });
 
 export const TOGGLE_NAV_BUTTON = 'TOGGLE_NAV_BUTTON';
@@ -80,6 +110,6 @@ export const EDIT_FIELD = 'EDIT_FIELD';
 export const editField = (fieldId) => ({
   type: EDIT_FIELD,
   fieldId
-})
+});
 
 

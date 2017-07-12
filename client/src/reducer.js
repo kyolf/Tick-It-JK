@@ -19,7 +19,7 @@ const initialState = {
 
 export default (state, action) => {
   state = state || initialState;
-  if (action.type === ADD_TICKET) {
+  if(action.type === ADD_TICKET) {
     state =  Object.assign({}, state, {
       tickets: [...state.tickets, {
         group: action.group, 
@@ -35,19 +35,31 @@ export default (state, action) => {
     });
     return state;
   }
-  else if (action.type === EDIT_TICKET) {
+  else if(action.type === EDIT_TICKET) {
     state = Object.assign({}, state, {
       request: action.request
     });
     return state;
   }
-  else if (action.type === DELETE_TICKET) {
-    
-    state = Object.assign({}, state, {
-      //NEED TO FILL IN
-    });
+  else if(action.type === DELETE_TICKET) {
+    if(action.index > 0){
+      state = Object.assign({}, state, {
+        tickets:[...state.tickets.slice(0, action.index),
+          ...state.tickets.slice(action.index + 1)
+        ]
+      });
+    }
+    else if(action.index === 0){
+      state = Object.assign({}, state, {
+        tickets:[...state.tickets.slice(action.index + 1)]
+      });
+    }
+    else{
+      console.err('Your index is less than 0');
+    }
+    return state;
   }
-  else if (action.type === TOGGLE_NAV_BUTTON) {
+  else if(action.type === TOGGLE_NAV_BUTTON) {
     state = Object.assign({}, state, {
       navButton: action.text
     });

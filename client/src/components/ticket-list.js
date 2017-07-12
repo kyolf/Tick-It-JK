@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {editField, fetchTickets} from '../actions';
+import {editField, fetchTickets, fetchDeleteTicket} from '../actions';
 
 import './ticket-list.css';
 
@@ -16,12 +16,16 @@ export class TicketList extends React.Component {
     this.props.dispatch(editField(field.id, field.value));
   }
 
+  deleteButton(ticketId, index) {
+    this.props.dispatch(fetchDeleteTicket(ticketId, index));
+  }
+
   getTicketInfo() {
     return this.props.tickets.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
           <td>
-           <button>Delete</button>
+           <button onClick={e => this.deleteButton(item.id, index)}>Delete</button>
           </td>
           <td>
             <form>
