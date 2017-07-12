@@ -1,17 +1,37 @@
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  Imports                   /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Importing react
 import React from 'react';
-import {validateLogin} from '../actions';
 
+//Importing our connect wrap
+import {connect} from 'react-redux';
+
+//Importing actions from the actions file
+import {validateLogin, changeNavButton} from '../actions';
+
+//Importing login css file
 import './login.css';
 
-export default class Login extends React.Component {
-  logIn(event) {
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                   Login                    /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+export class Login extends React.Component{
+  //before rendering, change navButton text to Sign Up in the nav bar
+  componentWillMount(){
+    this.props.dispatch(changeNavButton('Sign Up'));
+  }
+
+  //function that sends the username and password values from login form
+  logIn(event){
     event.preventDefault();
     const username = this.username.value;
     const password = this.password.value;
     this.props.dispatch(validateLogin(username, password));
   }
 
-  render() {
+  //renders the login form
+  render(){
     return (
       <div className="login-container">
          <form className="login-form">
@@ -28,3 +48,9 @@ export default class Login extends React.Component {
     );
   }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////     Making Connect Wrap Around Ticket Submission     ///////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Creates a connect wrap that wraps around Login with a default dispatch prop
+export default connect()(Login);
