@@ -39,7 +39,7 @@ ticketRouter.post('/',(req,res)=>{
   const requiredFields = ['request','location','group'];
   let message = '';
 
-  requiredFields.map(field =>{ 
+  requiredFields.map(field=>{ 
     if(!(field in req.body)){
       message = `Your body is missing the field: ${field}`;
       console.error(message);
@@ -82,7 +82,7 @@ ticketRouter.post('/',(req,res)=>{
 ticketRouter.put('/:id',(req,res)=>{
   let message = '';
 
-  if(!(req.params.id ===req.body.id)){
+  if(!(req.params.id === req.body.id)){
     message = `$req params id: ${req.params.id} does not match req body id: ${req.body.id}`;
     console.error(message);
     return res.status(400).json({message});
@@ -91,7 +91,7 @@ ticketRouter.put('/:id',(req,res)=>{
   const updateTicket = {};
   const updateFields = ['request','location','group'];
 
-  updateFields.map(field =>{
+  updateFields.map(field=>{
     if(field in req.body){
       const fieldValue = req.body[field];
 

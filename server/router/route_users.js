@@ -52,10 +52,11 @@ userRouter.get('/:username',(req,res)=>{
 ///////////////////////////////////////////////////////////////////////////////////
 //Adding User into the database
 userRouter.post('/',(req,res)=>{
-  const requiredFields = ['username','password','firstName','lastName'];
+  const requiredFields = ['username','password','firstName','lastName','taCode'];
   let message = '';
+  const TA_CODE = 'lazyshiba';
 
-  requiredFields.map(field =>{
+  requiredFields.map(field=>{
     if(!(field in req.body)){
       message = `Missing field (${field}) in request body`;
       console.error(message);
@@ -76,6 +77,12 @@ userRouter.post('/',(req,res)=>{
       return res.status(422).json({message});
     }
   });
+
+  if(req.body['taCode'] !== TA_CODE){
+    message = 'You\'re not a TA are you?!?! Tsk Tsk Tsk';
+    console.error(message);
+    return res.status(422).json({message}); 
+  }
 
   let {username, password,firstName,lastName} = req.body;
   username = username.toLowerCase().trim();
