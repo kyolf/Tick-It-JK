@@ -24,6 +24,13 @@ export const deleteTicket = (index) => ({
   index
 });
 
+//change nav button action
+export const CHANGE_NAV_BUTTON = 'CHANGE_NAV_BUTTON';
+export const changeNavButton = (navButtonText) => ({
+  type: CHANGE_NAV_BUTTON,
+  navButtonText
+});
+
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////           Asynchronous Actions             /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -86,12 +93,6 @@ export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
 export const EDIT_TICKET = 'EDIT_TICKET';
 export const editTicket = () => ({
   type: EDIT_TICKET
-});
-
-export const TOGGLE_NAV_BUTTON = 'TOGGLE_NAV_BUTTON';
-export const toggleNavButton = (text) => ({
-  type: TOGGLE_NAV_BUTTON,
-  text
 });
 
 export const TOGGLE_STATUS = 'TOGGLE_STATUS';

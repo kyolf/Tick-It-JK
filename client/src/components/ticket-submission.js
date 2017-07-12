@@ -1,23 +1,41 @@
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  Imports                   /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//importing react
 import React from 'react';
-import {submitTicket} from '../actions';
+
+//importing actions from the actions file
+import {submitTicket, changeNavButton} from '../actions';
+
+//importing the connect wrap
 import {connect} from 'react-redux';
 
+//importing the ticket-submission css file
 import './ticket-submission.css';
 
-export class TicketSubmission extends React.Component {
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////            Ticket Submission               /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+export class TicketSubmission extends React.Component{
+  //changes navButton text to TA Login Or Sign Up in the nav bar
+  componentWillMount(){
+    this.props.dispatch(changeNavButton('TA Login Or Sign Up'));
+  }
 
-  validateSubmission(event) {
+  //checks if submission value are not empty before submitting
+  validateSubmission(event){
     const request = this.request.value;
     const group = this.group.value;
     const location = this.location.value;
     
-    if(request.length >= 2 && group.length >= 2 && location.length >= 2) {
+    if(request.length >= 2 && group.length >= 2 && location.length >= 2){
       this.props.dispatch(submitTicket(request, group, location));
       window.location = '/ticketlist';
     } 
   }
 
-  render() {
+  //renders our ticket submission form
+  render(){
     return (
       <div className="ticket-container">
         <form className="form-container" >
@@ -37,5 +55,9 @@ export class TicketSubmission extends React.Component {
   }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////     Making Connect Wrap Around Ticket Submission     ///////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Creates a connect wrap that wraps around Ticket Submission with a default dispatch prop
 export default connect()(TicketSubmission);
 

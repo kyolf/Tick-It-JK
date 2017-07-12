@@ -1,25 +1,26 @@
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Imports                   /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-//importing React
+//Importing React
 import React from 'react';
 
 //Importing connect wrap
 import {connect} from 'react-redux';
 
 //Importing actions that are going to be used in this file
-import {editField, fetchTickets, fetchDeleteTicket} from '../actions';
+import {editField, fetchTickets, fetchDeleteTicket, changeNavButton} from '../actions';
 
 //Importing ticket list css file
 import './ticket-list.css';
 
-///make into list in container//
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////               Ticket List                  /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-export class TicketList extends React.Component {
-  //fetch all the tickets from the database before rendering
+export class TicketList extends React.Component{
+  //before rendering, fetch all the tickets from the database and
+  //change navButton text to Submit New Ticket in the nav bar
   componentWillMount(){
+    this.props.dispatch(changeNavButton('Submit New Ticket'));
     this.props.dispatch(fetchTickets());
   }
 
@@ -94,5 +95,6 @@ const mapStateToProps = state => ({
   tickets: state.tickets
 });
 
-//exporting a connect wrap that is wrapped around TicketList with the props tickets
+//exporting a connect wrap that is wrapped around TicketList
+//with the tickets prop and default dispatch prop
 export default connect(mapStateToProps)(TicketList);
