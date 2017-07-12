@@ -33,7 +33,7 @@ userRouter.get('/',(req,res)=>{
 //Getting a single user that exist
 userRouter.get('/:username',(req,res)=>{
   let message = '';
-  console.log(req.params.username);
+
   User
   .findOne({username:req.params.username})
   .exec()
