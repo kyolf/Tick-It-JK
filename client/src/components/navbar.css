@@ -4,32 +4,30 @@
   justify-content: space-between;
   padding-right: 40px;
   align-items: baseline;
+  background-color: #3A506B;
 }
 
 .nav-button {
   border: 1px solid lightslategray;
-  box-shadow: 5px 5px 10px 1px gray;
+  box-shadow: 5px 5px 10px 1px #1C2541;
   padding: 10px;
   width: 100%; 
   text-align: center;
   font-family: 'Rozha One', serif; 
   border-radius: 25%;
   color: black;
-  background-color: lightgoldenrodyellow;
+  background-color: #5BC0BE;
 }
 
 .title {
   font-family: 'Rozha One', serif; 
-  color: black;
-  font-size: 36px;
+  color: #FFFFFF;
+  font-size: 46px;
   padding: 30px;
-  background-image: url("../pictures/retro-comic.jpg");
-  background-size: 250px;
-  background-position: center;
-  background-repeat: no-repeat;
+  text-shadow: 10px 10px 1px #1C2541;
 }
 
-@media (max-width: 375px) {
+@media only screen and (min-width: 320px) and (max-width: 479px) {
   .navbar {
     padding-left: 15px;
     padding-right: 15px;
@@ -42,11 +40,12 @@
     padding: 5px;
     margin-left: 10px;
     margin-right: 10px;
+    color: #0B132B;
   }
 
   .title {
-    font-size: 18px;
-    background-size: 125px;
+    font-size: 30px;
+    text-shadow: 5px 5px 1px #1C2541;
   }
 
 

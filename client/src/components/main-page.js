@@ -28,8 +28,6 @@ import {connect} from 'react-redux';
 //Importing actions from action file
 // import {validateLogin} from '../actions';
 
-//Importing the main page css file
-import './main-page.css';
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Main Page                 /////////////////////////

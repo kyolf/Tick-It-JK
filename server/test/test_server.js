@@ -186,6 +186,21 @@ describe('Ticket API resource', ()=>{
           res.should.be.status(201);
           res.body.should.be.a('object');
           res.body.should.include.keys(['request', 'location', 'group', 'status']);
+          res.body.status.should.equal('Unassigned');
+          res.body.request.should.equal(newTicket.request);
+          res.body.location.should.equal(newTicket.location);
+          res.body.group.should.equal(newTicket.group);
+          ticket = res.body;
+          return Ticket
+          .findById(res.body.id)
+          .exec();
+        })
+        .then(ticketDB=>{
+          ticketDB.id.should.equal(ticket.id);
+          ticketDB.request.should.equal(ticket.request);
+          ticketDB.location.should.equal(ticket.location);
+          ticketDB.group.should.equal(ticket.group);
+          ticketDB.status.should.equal(ticket.status);
         });
     });
   });
