@@ -21,22 +21,10 @@ export class TicketList extends React.Component{
   //see if there is a cookie for the username and
   //change navButton text to Submit New Ticket in the nav bar
   componentWillMount(){
-    // function getCookie(name) {
-    //   const value = "; " + document.cookie;
-    //   const parts = value.split("; " + name + "=");
-    //   if(parts.length == 2){
-    //     return parts.pop().split(";").shift();
-    //   }
-    // }
-
-    // const username = getCookie('username');
-
-    // if (!username) {
-    //   window.location = '/login';
-    // }
-
-    !this.props.username ? this.props.dispatch(changeNavButton('Submit New Ticket')) 
-                         : this.props.dispatch(changeNavButton(`Welcome ${this.props.fullName}`));
+    const username = localStorage.getItem('username');
+    
+    !username ? this.props.dispatch(changeNavButton('Submit New Ticket')) 
+              : this.props.dispatch(changeNavButton(`Log Out`));
     this.props.dispatch(fetchTickets());
   }
 
@@ -46,7 +34,8 @@ export class TicketList extends React.Component{
   }
 
   //delete a ticket from the database and state
-  deleteButton(ticketId, index){
+  deleteButton(e, ticketId, index){
+    e.preventDefault();
     this.props.dispatch(fetchDeleteTicket(ticketId, index));
   }
 
@@ -98,7 +87,7 @@ export class TicketList extends React.Component{
             <input type="text" id="request" value={item.request} ref={request => this.request = request} />
             <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
             <input type="text" className="status" value={item.status} />
-            <button className="delete-button" onClick={e => this.deleteButton(item.id, index)}>Delete</button>
+            <button className="delete-button" onClick={e => this.deleteButton(e, item.id, index)}>Delete</button>
           </form>
           <div className="edit-buttons">
             <button className="edit-button" onClick={e => this.editField(this.group)}>Edit</button>
@@ -143,7 +132,8 @@ const mapStateToProps = state => ({
   tickets: state.tickets,
   username: state.username,
   fullName: state.fullName,
-  password: state.password
+  password: state.password,
+  isRefreshed: state.isRefreshed
 });
 
 //exporting a connect wrap that is wrapped around TicketList

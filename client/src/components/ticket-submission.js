@@ -19,6 +19,12 @@ import './ticket-submission.css';
 export class TicketSubmission extends React.Component{
   //changes navButton text to TA Login Or Sign Up in the nav bar
   componentWillMount(){
+    const username = localStorage.getItem('username');
+    
+    if(username){
+      window.location = '/ticketlistTA';
+    }
+    
     this.props.dispatch(changeNavButton('TA Login Or Sign Up'));
   }
 
