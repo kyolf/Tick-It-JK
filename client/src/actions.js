@@ -153,7 +153,7 @@ export const validateLogin = (username, password) => dispatch => {
 
     localStorage.setItem('username', user.username);
     localStorage.setItem('password', password);
-    localStorage.setItem('firstName', firstName);
+    localStorage.setItem('firstName', `${firstName} ${lastName.substring(0,1)}`);
 
     window.location =  '/ticketlistTA';
   })
