@@ -26,7 +26,8 @@ const initialState = {
   submitted: false,
   username: '',
   fullName: '',
-  password: ''
+  password: '',
+  isRefreshed: false
 };
 
 /////////////////////////////////////////////////////////////////////////////////////

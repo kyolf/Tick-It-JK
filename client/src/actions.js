@@ -40,30 +40,14 @@ export const login = (username, fullName, password) => ({
   password
 });
 
-//get username from state
-export const GET_USERNAME = 'GET_USERNAME';
-export const getUser = () => ({
-  type: GET_USERNAME
+export const TOGGLE_REFRESH = 'TOGGLE_REFRESH';
+export const toggleRefresh = () => ({
+  type: TOGGLE_REFRESH
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////           Asynchronous Actions             /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-//Get username when logging in
-export const fetchUsername = (username) => dispatch => {
-  return fetch(`/api/users/${username}`)
-  .then(res=>{
-    if(!res.ok) {
-      return Promise.reject(res.statusText);
-    }
-    return res.json();
-  })
-  .catch(err=>{
-    console.error(`Fetch Username Error: ${err}`);
-  })
-}
-
-
 //Getting all the tickets in the database
 export const fetchTickets = () => dispatch => {
   return fetch('/api/tickets')
@@ -138,7 +122,7 @@ export const submitSignUp = (username, password, firstName, lastName, taCode) =>
     return res.json();
   })
   .then(res=>{ 
-    window.location = '/ticketlistTA';
+    window.location = '/login';
   })
   .catch(err=>{
     console.error(`Send Code Error: ${err}`);
@@ -163,8 +147,15 @@ export const validateLogin = (username, password) => dispatch => {
   })
   .then(user=>{
     //document.cookie=`username=${user.username}`
+    const [firstName, lastName] = user.fullName.split(' ');
+
     dispatch(login(user.username, user.fullName, password));
-    //window.location =  '/ticketlistTA'
+
+    localStorage.setItem('username', user.username);
+    localStorage.setItem('password', password);
+    localStorage.setItem('fullName', `${firstName} ${lastName.substring(0,1)}`);
+
+    window.location =  '/ticketlistTA';
   })
   .catch(err=>{
     console.error(`Login Error: ${err}`);

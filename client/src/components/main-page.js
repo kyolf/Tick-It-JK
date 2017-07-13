@@ -70,6 +70,7 @@ export class MainPage extends React.Component{
 
   // <Route exact path="/ticketlistTA" component={TicketList} onEnter={this.goToLogin}/>
   // <Route exact path="/login" component={Login} onEnter={this.goToTicketList}/>
+  //<Route exact path="/ticketlistTA" component={this.props.username ? TicketList : Login}/>
   //renders how each page will look like and links the pages together
   render(){
     return (
@@ -79,7 +80,8 @@ export class MainPage extends React.Component{
           <div>
             <Route exact path="/" component={TicketSubmission}/>
             <Route exact path="/ticketlist" component={TicketList}/>
-            <Route exact path="/ticketlistTA" component={this.props.username ? TicketList : Login}/>
+            <Route exact path="/ticketlistTA" component={TicketList} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp}/>
           </div>
         </div>

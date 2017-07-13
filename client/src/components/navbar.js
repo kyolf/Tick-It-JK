@@ -28,7 +28,8 @@ export class Navbar extends React.Component{
 
     if(lowerCaseNavButtonText === TA_LOGIN_OR_SIGN_UP.toLowerCase() || lowerCaseNavButtonText === LOGIN.toLowerCase()){
       return (
-        <Link to='/ticketListTA' style={{textDecoration: "none"}}>
+
+        <Link to='/login' style={{textDecoration: "none"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
@@ -49,11 +50,19 @@ export class Navbar extends React.Component{
     }
     else{
       return (
-        <Link to='/ticketlistTA' style={{textDecoration: "none"}}>
+        <Link to='/login' onClick={e=>this.logOut()} style={{textDecoration: "none"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
     }
+  }
+
+  logOut(){
+    console.log('hi', localStorage);
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+    localStorage.removeItem('firstName');
+    console.log('hi123', localStorage);
   }
 
   //render the nav bar
