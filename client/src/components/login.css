@@ -59,5 +59,29 @@ label {
 
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+  .login-form {
+    margin-top: 30px;
+  }
+
+  .login-form > label {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+  }
+
+  .login-form > input {
+    box-shadow: 1px 1px 10px 1px #1C2541;
+    margin-bottom: 35px;
+    width: 60%;
+    padding: 22px;
+  }
+
+  #login-submit {
+    width: 30%;
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 18px;
+  }
 
 } /*end of ipad css*/

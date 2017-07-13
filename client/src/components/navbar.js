@@ -36,7 +36,7 @@ export class Navbar extends React.Component{
     }
     if(lowerCaseNavButtonText === SUBMIT_NEW_TICKET.toLowerCase()){
       return (
-        <Link to='/' style={{textDecoration: "none", paddingRight: "25px"}}>
+        <Link to='/' style={{textDecoration: "none", paddingRight: "10px"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );

@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 //Importing actions that are going to be used in this file
-import {editField, fetchTickets, fetchDeleteTicket, changeNavButton} from '../actions';
+import {editField, fetchTickets, fetchStatus, fetchDeleteTicket, changeNavButton, changeDeleteButton} from '../actions';
 
 //Importing ticket list css file
 import './ticket-list.css';
@@ -23,8 +23,12 @@ export class TicketList extends React.Component{
   componentWillMount(){
     const username = localStorage.getItem('username');
     
-    !username ? this.props.dispatch(changeNavButton('Submit New Ticket')) 
-              : this.props.dispatch(changeNavButton(`Log Out`));
+    if(!username) {
+      this.props.dispatch(changeNavButton('Submit New Ticket')); 
+    } else {
+        this.props.dispatch(changeNavButton('Log Out'));
+        this.props.dispatch(changeDeleteButton('Take'));
+    }
     this.props.dispatch(fetchTickets());
   }
 
@@ -33,11 +37,27 @@ export class TicketList extends React.Component{
     this.props.dispatch(editField(field.id, field.value));
   }
 
+  //checks delete button text and dispatches delete or take 
+  checkDeleteButtonText(e, ticketId, index){
+    if(this.props.deleteButton === 'Finish'){
+      this.deleteButton(e, ticketId, index);
+    } else {
+      this.takeButton(e, ticketId, index, 'Finish');
+    }
+  }
+
   //delete a ticket from the database and state
   deleteButton(e, ticketId, index){
     e.preventDefault();
     this.props.dispatch(fetchDeleteTicket(ticketId, index));
   }
+
+  //assigns username to ticket status 
+  takeButton(e, ticketId, index, deleteText){
+    e.preventDefault();
+    this.props.dispatch(fetchStatus(ticketId, index, deleteText));
+  }
+
 
   //make a row for each document in our database
   getTicketInfoTable(){
@@ -45,7 +65,7 @@ export class TicketList extends React.Component{
       return (
         <tr key={index} className="ticket-info-row">
           <td>
-           <button onClick={e => this.deleteButton(item.id, index)}>Delete</button>
+           <button onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{this.props.deleteButton}</button>
           </td>
           <td>
             <form>
@@ -87,7 +107,7 @@ export class TicketList extends React.Component{
             <input type="text" id="request" value={item.request} ref={request => this.request = request} />
             <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
             <input type="text" className="status" value={item.status} />
-            <button className="delete-button" onClick={e => this.deleteButton(e, item.id, index)}>Delete</button>
+            <button className="delete-button" onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{this.props.deleteButton}</button>
           </form>
           <div className="edit-buttons">
             <button className="edit-button" onClick={e => this.editField(this.group)}>Edit</button>
@@ -133,7 +153,8 @@ const mapStateToProps = state => ({
   username: state.username,
   fullName: state.fullName,
   password: state.password,
-  isRefreshed: state.isRefreshed
+  isRefreshed: state.isRefreshed,
+  deleteButton: state.deleteButton
 });
 
 //exporting a connect wrap that is wrapped around TicketList

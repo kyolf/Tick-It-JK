@@ -31,6 +31,14 @@ export const changeNavButton = (navButtonText) => ({
   navButtonText
 });
 
+//change delete button 
+export const CHANGE_DELETE_BUTTON = 'CHANGE_DELETE_BUTTON';
+export const changeDeleteButton = (deleteButtonText, index) => ({
+  type: CHANGE_DELETE_BUTTON,
+  deleteButtonText,
+  index
+});
+
 //login action
 export const LOGIN = 'LOGIN';
 export const login = (username, fullName, password) => ({
@@ -40,9 +48,12 @@ export const login = (username, fullName, password) => ({
   password
 });
 
-export const TOGGLE_REFRESH = 'TOGGLE_REFRESH';
-export const toggleRefresh = () => ({
-  type: TOGGLE_REFRESH
+//toggle status 
+export const TOGGLE_STATUS = 'TOGGLE_STATUS';
+export const toggleStatus = (fullName, index) => ({
+  type: TOGGLE_STATUS,
+  fullName,
+  index
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +74,34 @@ export const fetchTickets = () => dispatch => {
   .catch(err=>{
     console.error(`Fetch Tickets Error: ${err}`);
   });
+}
+
+//Updating status for ticket in database
+export const fetchStatus = (ticketId, index, deleteText) => dispatch => {
+  const fullName = localStorage.getItem('fullName');
+  return fetch(`/api/tickets/${ticketId}/status`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    body: JSON.stringify({id: ticketId, status: fullName})
+  })
+  .then(res=>{
+    console.log('first then', res);
+    if(!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  })
+  .then(item=>{
+    console.log('second then', item);
+    dispatch(changeDeleteButton(deleteText, index));
+    dispatch(toggleStatus(item.status, index));
+  })
+  .catch(err=>{
+    console.error(`Fetch Status Error: ${err}`);
+  })
 }
 
 //Submitting a ticket into the database
@@ -166,12 +205,6 @@ export const validateLogin = (username, password) => dispatch => {
 export const EDIT_TICKET = 'EDIT_TICKET';
 export const editTicket = () => ({
   type: EDIT_TICKET
-});
-
-export const TOGGLE_STATUS = 'TOGGLE_STATUS';
-export const toggleStatus = (name) => ({
-  type: TOGGLE_STATUS,
-  name
 });
 
 export const EDIT_FIELD = 'EDIT_FIELD';
