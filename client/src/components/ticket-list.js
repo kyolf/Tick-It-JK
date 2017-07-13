@@ -51,7 +51,7 @@ export class TicketList extends React.Component{
   }
 
   //make a row for each document in our database
-  getTicketInfo(){
+  getTicketInfoTable(){
     return this.props.tickets.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
@@ -82,23 +82,54 @@ export class TicketList extends React.Component{
     });
   }
   
+  //make ticket list for mobile view
+  getTicketInfoMobile() {
+    return this.props.tickets.map((item, index) => {
+      return (
+        <div key={index} className="tickets-container hide-when-large">
+          <ul className="field-labels">
+            <li className="field-label">Name</li>
+            <li className="field-label">Request</li>
+            <li className="field-label">Location</li>
+            <li className="field-label">Status</li>
+          </ul>
+          <form className="ticket-inputs">
+            <input type="text" id="group" value={item.group} ref={group => this.group = group} />
+            <input type="text" id="request" value={item.request} ref={request => this.request = request} />
+            <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
+            <input type="text" className="status" value={item.status} />
+            <button className="delete-button" onClick={e => this.deleteButton(item.id, index)}>Delete</button>
+          </form>
+          <div className="edit-buttons">
+            <button className="edit-button" onClick={e => this.editField(this.group)}>Edit</button>
+            <button className="edit-button" onClick={e => this.editField(this.request)}>Edit</button>
+            <button className="edit-button" onClick={e => this.editField(this.location)}>Edit</button>
+          </div>
+        </div>
+      )
+    });
+  }
+
   //render the ticket list table
   render(){
     return (
-      <table className="ticket-table">
-        <thead className="ticket-header">
-          <tr className="ticket-row-headers">
-            <th></th>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Request</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody className="ticket-body">
-          {this.getTicketInfo()}
-        </tbody>
-      </table>
+      <div>
+        <table className="ticket-table hide-when-small">
+          <thead className="ticket-header">
+            <tr className="ticket-row-headers">
+              <th></th>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Request</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody className="ticket-body">
+            {this.getTicketInfoTable()}
+          </tbody>
+        </table>
+          {this.getTicketInfoMobile()}
+      </div>
     )
   }
 }
