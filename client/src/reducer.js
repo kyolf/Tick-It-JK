@@ -52,9 +52,10 @@ export default (state, action) => {
   else if(action.type === DISPLAY_TICKETS){
     state = Object.assign({}, state, {
       tickets: action.tickets.map(ticket=>{
-        return Object.assign({}, ticket, {deleteButton: 'Take'});
+        return Object.assign({}, ticket, {deleteButton: action.text});
       })
     });
+    console.log('after fetch', state);
   }
   else if(action.type === EDIT_TICKET){
     state = Object.assign({}, state, {
@@ -84,19 +85,37 @@ export default (state, action) => {
     });
   }
   else if(action.type === CHANGE_DELETE_BUTTON){
-    state = Object.assign({}, state, {
-      tickets: state.tickets.map(ticket=>{
-        return Object.assign({}, ticket, {deleteButton: action.deleteButtonText});
-      })
-      
-    });
+    if(action.index > 0){
+      console.log('hi', state.tickets.slice(action.index, action.index + 1));
+      state = Object.assign({}, state, {
+        tickets: [...state.tickets.slice(0, action.index),
+        Object.assign(...state.tickets.slice(action.index, action.index + 1), {deleteButton: action.deleteButtonText}), 
+        ...state.tickets.slice(action.index + 1)]
+      });
+    }
+    else if(action.index === 0){
+      state = Object.assign({}, state, {
+        tickets: [
+        Object.assign(...state.tickets.slice(action.index, action.index + 1), {deleteButton: action.deleteButtonText}), 
+        ...state.tickets.slice(action.index + 1)]
+      });     
+    }
   }
   else if(action.type === TOGGLE_STATUS){
-    state = Object.assign({}, state, {
-       tickets: [...state.tickets.slice(0, action.index),
-       Object.assign({}, state.tickets.slice(action.index, action.index + 1), {status: action.fullName}), 
-       ...state.tickets.slice(action.index + 1)]
-    });
+    if(action.index > 0){
+      state = Object.assign({}, state, {
+        tickets: [...state.tickets.slice(0, action.index),
+        Object.assign(...state.tickets.slice(action.index, action.index + 1), {status: action.fullName}), 
+        ...state.tickets.slice(action.index + 1)]
+      });
+    }
+    else if(action.index === 0){
+      state = Object.assign({}, state, {
+        tickets: [
+        Object.assign(...state.tickets.slice(action.index, action.index + 1), {status: action.fullName}), 
+        ...state.tickets.slice(action.index + 1)]
+      });     
+    }
   }
   else if(action.type === LOGIN){
     state = Object.assign({}, state, {

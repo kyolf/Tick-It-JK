@@ -24,12 +24,13 @@ export class TicketList extends React.Component{
     const username = localStorage.getItem('username');
     
     if(!username) {
-      this.props.dispatch(changeNavButton('Submit New Ticket')); 
+      this.props.dispatch(changeNavButton('Submit New Ticket'));
+      this.props.dispatch(fetchTickets('Finish')); 
     } else {
         this.props.dispatch(changeNavButton('Log Out'));
-        this.props.dispatch(changeDeleteButton('Take'));
+        this.props.dispatch(fetchTickets('Take'));
     }
-    this.props.dispatch(fetchTickets());
+    //this.props.dispatch(fetchTickets());
   }
 
   //edit a field in the ticket list
@@ -39,18 +40,20 @@ export class TicketList extends React.Component{
 
   //checks delete button text and dispatches delete or take 
   checkDeleteButtonText(e, ticketId, index){
-    console.log('from line 42', this.props.tickets);
+    //console.log('from line 42', this.props.tickets);
     if(this.props.tickets[index].deleteButton === 'Finish'){
-      console.log('this is the deleteButton', this.props.tickets[index].deleteButton)
+      //console.log('this is the deleteButton', this.props.tickets[index].deleteButton)
       this.deleteButton(e, ticketId, index);
     } else {
       this.takeButton(e, ticketId, index, 'Finish');
+      //this.props.dispatch(changeDeleteButton('Take'));
     }
   }
 
   //delete a ticket from the database and state
   deleteButton(e, ticketId, index){
     e.preventDefault();
+    console.log('inside delete button function', ticketId);
     this.props.dispatch(fetchDeleteTicket(ticketId, index));
   }
 
@@ -64,6 +67,7 @@ export class TicketList extends React.Component{
   //make a row for each document in our database
   getTicketInfoTable(){
     return this.props.tickets.map((item, index) => {
+      console.log('each item', item)
       return (
         <tr key={index} className="ticket-info-row">
           <td>
@@ -96,7 +100,7 @@ export class TicketList extends React.Component{
   //make ticket list for mobile view
   getTicketInfoMobile() {
     return this.props.tickets.map((item, index) => {
-      console.log('these are the tickets', item);
+      //console.log('these are the tickets', item);
       return (
         <div key={index} className="tickets-container hide-when-large">
           <ul className="field-labels">

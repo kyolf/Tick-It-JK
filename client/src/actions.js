@@ -3,9 +3,10 @@
 ///////////////////////////////////////////////////////////////////////////////////
 //display all tickets action
 export const DISPLAY_TICKETS = 'DISPLAY_TICKETS';
-export const displayTickets = (tickets) => ({
+export const displayTickets = (tickets, text) => ({
   type: DISPLAY_TICKETS,
-  tickets
+  tickets,
+  text
 });
 
 //add ticket to state action
@@ -60,7 +61,7 @@ export const toggleStatus = (fullName, index) => ({
 ///////////////           Asynchronous Actions             /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //Getting all the tickets in the database
-export const fetchTickets = () => dispatch => {
+export const fetchTickets = (text) => dispatch => {
   return fetch('/api/tickets')
   .then(res=>{
     if(!res.ok) {
@@ -69,7 +70,7 @@ export const fetchTickets = () => dispatch => {
     return res.json();
   })
   .then(tickets=>{
-    return dispatch(displayTickets(tickets));
+    return dispatch(displayTickets(tickets, text));
   })
   .catch(err=>{
     console.error(`Fetch Tickets Error: ${err}`);
@@ -88,14 +89,12 @@ export const fetchStatus = (ticketId, index, deleteText) => dispatch => {
     body: JSON.stringify({id: ticketId, status: fullName})
   })
   .then(res=>{
-    console.log('first then', res);
     if(!res.ok) {
       return Promise.reject(res.statusText);
     }
     return res.json();
   })
   .then(item=>{
-    console.log('second then', item);
     dispatch(changeDeleteButton(deleteText, index));
     dispatch(toggleStatus(item.status, index));
   })
@@ -131,11 +130,13 @@ export const submitTicket = (request, group, location) => dispatch => {
 
 //deleting ticket from database
 export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
+  console.log('ticketId before fetch', ticketId)
   fetch(`/api/tickets/${ticketId}`, {
     method: 'DELETE',
     mode: 'cors'
   })
   .then(()=>{
+    console.log('I AM HERE', ticketId);
     return dispatch(deleteTicket(index));
   })
   .catch(err=>{
