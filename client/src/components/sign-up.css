@@ -20,13 +20,13 @@ label {
 
 #sign-up-submit {
   border: 1px solid lightslategray;
-  box-shadow: 5px 5px 10px 1px gray;
+  box-shadow: 5px 5px 10px 1px #1C2541;
   padding: 15px;
   width: 15%;
   font-family: 'Rozha One', serif; 
   border-radius: 25%;
   color: black;
-  background-color: #1B9850;
+  background-color: #5BC0BE;
   font-size: 20px;
   margin-top: 40px;
 }
@@ -37,7 +37,7 @@ label {
   }
 
   .sign-up-form > input {
-    box-shadow: 1px 1px 10px 1px #1B9850;
+    box-shadow: 1px 1px 10px 1px #1C2541;
     margin-bottom: 25px;
     width: 50%;
     padding: 10px;

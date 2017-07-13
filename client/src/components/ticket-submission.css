@@ -32,7 +32,7 @@ body {
 
 .initial-submit-button {
   border: 1px solid lightslategray;
-  box-shadow: 5px 5px 10px 1px gray;
+  box-shadow: 5px 5px 10px 1px #1C2541;
   padding: 15px;
   font-family: 'Rozha One', serif; 
   border-radius: 25%;
