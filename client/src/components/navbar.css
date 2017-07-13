@@ -22,8 +22,9 @@
 .title {
   font-family: 'Rozha One', serif; 
   color: #FFFFFF;
-  font-size: 36px;
+  font-size: 46px;
   padding: 30px;
+  text-shadow: 10px 10px 1px #1C2541;
 }
 
 @media (max-width: 375px) {
@@ -43,7 +44,8 @@
   }
 
   .title {
-    font-size: 20px;
+    font-size: 30px;
+    text-shadow: 5px 5px 1px #1C2541;
   }
 
 
