@@ -17,15 +17,30 @@ import './login.css';
 ///////////////                   Login                    /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 export class Login extends React.Component{
-  //before rendering, change navButton text to Sign Up in the nav bar
+  //before rendering, see if there is a cookie for the username
+  //change navButton text to Sign Up in the nav bar
   componentWillMount(){
+    // function getCookie(name) {
+    //   const value = "; " + document.cookie;
+    //   const parts = value.split("; " + name + "=");
+    //   if(parts.length == 2){
+    //     return parts.pop().split(";").shift();
+    //   }
+    // }
+
+    // const username = getCookie('username');
+
+    // if (username) {
+    //   window.location = '/ticketlistTA';
+    // }
+
     this.props.dispatch(changeNavButton('Sign Up'));
   }
 
   //function that sends the username and password values from login form
   logIn(event){
     event.preventDefault();
-    const username = this.username.value;
+    const username = this.username.value.toLowerCase();
     const password = this.password.value;
     if(username.length >= 1 && password.length >= 6){
       this.props.dispatch(validateLogin(username, password));

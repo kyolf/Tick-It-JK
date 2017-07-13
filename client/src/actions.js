@@ -40,6 +40,12 @@ export const login = (username, fullName, password) => ({
   password
 });
 
+//get username from state
+export const GET_USERNAME = 'GET_USERNAME';
+export const getUser = () => ({
+  type: GET_USERNAME
+});
+
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////           Asynchronous Actions             /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -117,7 +123,6 @@ export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
 //adding a user to the database if the code matches
 export const submitSignUp = (username, password, firstName, lastName, taCode) => dispatch => {
   const info = {username, password, firstName, lastName, taCode};
-  console.log('I AM HERE', info);
   return fetch('/api/users', {
     method: 'POST',
     mode: 'cors',
@@ -133,7 +138,7 @@ export const submitSignUp = (username, password, firstName, lastName, taCode) =>
     return res.json();
   })
   .then(res=>{ 
-    return window.location = '/ticketlistTA'
+    window.location = '/ticketlistTA';
   })
   .catch(err=>{
     console.error(`Send Code Error: ${err}`);
@@ -157,8 +162,9 @@ export const validateLogin = (username, password) => dispatch => {
     return res.json();
   })
   .then(user=>{
-    console.log('hi iam here', user);
-    return dispatch(login(user.username, user.fullName, password));
+    //document.cookie=`username=${user.username}`
+    dispatch(login(user.username, user.fullName, password));
+    //window.location =  '/ticketlistTA'
   })
   .catch(err=>{
     console.error(`Login Error: ${err}`);

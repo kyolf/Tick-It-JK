@@ -49,7 +49,7 @@ export class Navbar extends React.Component{
     }
     else{
       return (
-        <Link to='/ticketTA' style={{textDecoration: "none"}}>
+        <Link to='/ticketlistTA' style={{textDecoration: "none"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );

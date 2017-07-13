@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 //Importing actions that are going to be used in this file
-import {editField, fetchTickets, fetchDeleteTicket, changeNavButton, validateLogin} from '../actions';
+import {editField, fetchTickets, fetchDeleteTicket, changeNavButton} from '../actions';
 
 //Importing ticket list css file
 import './ticket-list.css';
@@ -18,8 +18,23 @@ import './ticket-list.css';
 ///////////////////////////////////////////////////////////////////////////////////
 export class TicketList extends React.Component{
   //before rendering, fetch all the tickets from the database and
+  //see if there is a cookie for the username and
   //change navButton text to Submit New Ticket in the nav bar
   componentWillMount(){
+    // function getCookie(name) {
+    //   const value = "; " + document.cookie;
+    //   const parts = value.split("; " + name + "=");
+    //   if(parts.length == 2){
+    //     return parts.pop().split(";").shift();
+    //   }
+    // }
+
+    // const username = getCookie('username');
+
+    // if (!username) {
+    //   window.location = '/login';
+    // }
+
     !this.props.username ? this.props.dispatch(changeNavButton('Submit New Ticket')) 
                          : this.props.dispatch(changeNavButton(`Welcome ${this.props.fullName}`));
     this.props.dispatch(fetchTickets());
