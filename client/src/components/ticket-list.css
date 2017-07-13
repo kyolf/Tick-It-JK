@@ -1,20 +1,14 @@
-.tickets-container {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: space-between;
-  border: 1px solid black;
-}
-
-ul {
-  list-style: none;
-}
 
 .hide-when-large {
   display: none;
 }
 
+.ticket-table {
+  margin: auto;
+}
+
 @media only screen and (min-width: 320px) and (max-width: 479px) {
+
   .hide-when-small {
     display: none;
   }
@@ -23,7 +17,16 @@ ul {
     display: flex;
   }
 
+  ul {
+    list-style: none;
+  }
+
   .tickets-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    border: 1px solid black;
     width: 90%;
     margin: auto;
     margin-bottom: 30px;
@@ -99,7 +102,16 @@ ul {
     display: flex;
   }
 
+  ul {
+    list-style: none;
+  }
+
   .tickets-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    border: 1px solid black;
     width: 80%;
     margin: auto;
     margin-bottom: 30px;
