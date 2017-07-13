@@ -39,7 +39,9 @@ export class TicketList extends React.Component{
 
   //checks delete button text and dispatches delete or take 
   checkDeleteButtonText(e, ticketId, index){
-    if(this.props.deleteButton === 'Finish'){
+    console.log('from line 42', this.props.tickets);
+    if(this.props.tickets[index].deleteButton === 'Finish'){
+      console.log('this is the deleteButton', this.props.tickets[index].deleteButton)
       this.deleteButton(e, ticketId, index);
     } else {
       this.takeButton(e, ticketId, index, 'Finish');
@@ -94,6 +96,7 @@ export class TicketList extends React.Component{
   //make ticket list for mobile view
   getTicketInfoMobile() {
     return this.props.tickets.map((item, index) => {
+      console.log('these are the tickets', item);
       return (
         <div key={index} className="tickets-container hide-when-large">
           <ul className="field-labels">
@@ -107,7 +110,7 @@ export class TicketList extends React.Component{
             <input type="text" id="request" value={item.request} ref={request => this.request = request} />
             <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
             <input type="text" className="status" value={item.status} />
-            <button className="delete-button" onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{this.props.deleteButton}</button>
+            <button className="delete-button" onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{item.deleteButton}</button>
           </form>
           <div className="edit-buttons">
             <button className="edit-button" onClick={e => this.editField(this.group)}>Edit</button>
@@ -154,7 +157,6 @@ const mapStateToProps = state => ({
   fullName: state.fullName,
   password: state.password,
   isRefreshed: state.isRefreshed,
-  deleteButton: state.deleteButton
 });
 
 //exporting a connect wrap that is wrapped around TicketList

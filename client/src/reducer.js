@@ -23,15 +23,14 @@ const initialState = {
     location: '',
     request: '',
     status: 'unassigned',
-    button: 'Finish'
+    deleteButton: 'Finish'
   }],
   navButton: 'TA Login Or Sign Up',
   submitted: false,
   username: '',
   fullName: '',
   password: '',
-  isRefreshed: false,
-  deleteButton: 'Finish'
+  isRefreshed: false
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -46,13 +45,15 @@ export default (state, action) => {
         group: action.group, 
         location: action.location, 
         request: action.request,
-        button: 'Finish'
+        deleteButton: 'Finish'
       }]
     });
   }
   else if(action.type === DISPLAY_TICKETS){
     state = Object.assign({}, state, {
-      tickets: action.tickets
+      tickets: action.tickets.map(ticket=>{
+        return Object.assign({}, ticket, {deleteButton: 'Take'});
+      })
     });
   }
   else if(action.type === EDIT_TICKET){
@@ -84,7 +85,10 @@ export default (state, action) => {
   }
   else if(action.type === CHANGE_DELETE_BUTTON){
     state = Object.assign({}, state, {
-      deleteButton: action.deleteButtonText
+      tickets: state.tickets.map(ticket=>{
+        return Object.assign({}, ticket, {deleteButton: action.deleteButtonText});
+      })
+      
     });
   }
   else if(action.type === TOGGLE_STATUS){
