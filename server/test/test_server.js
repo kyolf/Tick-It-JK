@@ -184,6 +184,8 @@ describe('Ticket API resource', ()=>{
         .send(newTicket)
         .then(res=>{
           res.should.be.status(201);
+          res.body.should.be.a('object');
+          res.body.should.include.keys(['request', 'location', 'group', 'status']);
         });
     });
   });
