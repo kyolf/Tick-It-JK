@@ -24,10 +24,10 @@ ul {
   }
 
   .tickets-container {
-    width: 80%;
+    width: 90%;
     margin: auto;
     margin-bottom: 30px;
-    box-shadow: 5px 5px 10px 1px gray;
+    box-shadow: 5px 5px 10px 1px #1C2541;
     background-color: lightskyblue;
   }
 
@@ -41,14 +41,14 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: left;
-    padding-left: 7px;
+    padding-left: 5px;
   }
 
   .edit-button {
     margin-bottom: 10px;
     margin-right: 7px;
-    border: 1px solid lightgrey;
-    background-color: #1B9850;
+    border: 1px solid #1C2541;
+    background-color: #5BC0BE;
     border-radius: 35%;
     font-family: 'Trocchi', serif;
   }
@@ -66,7 +66,7 @@ ul {
     margin-bottom: 5px;
     border: 1px solid lightslategray;
     padding: 5px;
-    width: 125%;
+    width: 120%;
   }
 
   .field-label {
@@ -87,9 +87,84 @@ ul {
   }
 
 
-}/*end of iphone6 width*/
+}/*end of iphone6 css*/
 
 
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .hide-when-small {
+    display: none;
+  }
+
+  .hide-when-large {
+    display: flex;
+  }
+
+  .tickets-container {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 10px 1px #1C2541;
+    background-color: lightskyblue;
+  }
+
+  .ticket-inputs, .edit-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .field-labels {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding-left: 7px;
+  }
+
+  .edit-button {
+    margin-bottom: 12px;
+    margin-right: 15px;
+    border: 1px solid lightgrey;
+    background-color: #1B9850;
+    border-radius: 35%;
+    font-family: 'Trocchi', serif;
+    font-size: 14px;
+  }
+
+  .delete-button {
+    margin: 10px 10px;
+    border: 2px solid lightcoral;
+    background-color: lightcoral;
+    border-radius: 35%;
+    font-size: 15px;
+    font-family: 'Trocchi', serif;
+  }
+
+  .ticket-inputs > input {
+    margin-bottom: 5px;
+    border: 1px solid lightslategray;
+    padding: 8px;
+    width: 275%;
+  }
+
+  .field-label {
+    margin-bottom: 10px;
+    font-size: 20px;
+    padding-left: 15px;
+    font-family: 'Rozha One', serif; 
+  }
+
+  .ticket-table {
+    background: lightblue;
+    margin: auto; 
+  }
+
+  .ticket-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+}/*end of ipad css*/
 
 
 
