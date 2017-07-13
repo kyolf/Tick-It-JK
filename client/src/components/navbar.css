@@ -51,4 +51,27 @@
 
 }/*end of iphone6 css*/
 
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .navbar {
+    padding-left: 15px;
+    padding-right: 25px;
+    margin-top: 5px;
+  }
+
+  .nav-button {
+    width: 80%;
+    font-size: 16px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #0B132B;
+  }
+
+  .title {
+    font-size: 60px;
+    text-shadow: 10px 10px 1px #1C2541;
+  }  
+
+}/*end of ipad css*/
+
 
