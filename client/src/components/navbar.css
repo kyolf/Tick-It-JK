@@ -27,7 +27,7 @@
   text-shadow: 10px 10px 1px #1C2541;
 }
 
-@media (max-width: 375px) {
+@media only screen and (min-width: 320px) and (max-width: 479px) {
   .navbar {
     padding-left: 15px;
     padding-right: 15px;
