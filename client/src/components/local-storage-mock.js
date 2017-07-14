@@ -1,6 +1,6 @@
 'use strict';
 
-class LocalStorageMock {
+export default class LocalStorageMock {
   constructor() {
     this.store = {};
   }
@@ -22,4 +22,4 @@ class LocalStorageMock {
   }
 }
 
-global.localStorage = new LocalStorageMock;
+// global.localStorage = new LocalStorageMock;

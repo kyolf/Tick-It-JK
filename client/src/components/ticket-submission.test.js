@@ -3,10 +3,14 @@ import {shallow, mount} from 'enzyme';
 
 import {TicketSubmission} from './ticket-submission';
 import {submitTicket} from '../actions';
+import LocalStorageMock from './local-storage-mock';
+
+global.localStorage = new LocalStorageMock;
 
 describe('<TicketSubmission />', () => {
   it('renders without crashing', () => {
-    // shallow(<TicketSubmission />);
+    const dispatch = () => {};
+    shallow(<TicketSubmission dispatch={dispatch}/>);
   });
 
   it('Should dispatch a submitTicket on form submission', () => {

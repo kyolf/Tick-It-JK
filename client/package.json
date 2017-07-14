@@ -1,9 +1,5 @@
 {
   "name": "thinkful-full-stack-template-client",
-  "jest": {
-    "verbose": true,
-    "setupTestFrameworkScriptFile": "./src/components/local-storage-mock.js"
-  },
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
