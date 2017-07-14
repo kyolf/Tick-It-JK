@@ -8,7 +8,7 @@ import React from 'react';
 import{shallow, mount} from 'enzyme';
 
 //Importing actions used in sign up
-import {changeNavButton, submitSignUp, CHANGE_NAV_BUTTON} from '../actions';
+import {changeNavButton, CHANGE_NAV_BUTTON} from '../actions';
 
 //Importing the SignUp default class with no wrap
 import {SignUp} from './sign-up';
