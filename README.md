@@ -1,6 +1,6 @@
 # Title: Tick-it
 
-##Description<br/> 
+## Description <br/> 
 A web app that allows Thinkful TA's to help students that need help with some coding project and to keep track of students who assigned themselves onto a queue. The reason why this app was created is because we noticed that when there are a lot of students asking for help on our slack channel, it is hard to keep track of who is next on the queue in which they ask for help.
 
 ## Technology Used <br/>
@@ -10,29 +10,29 @@ A web app that allows Thinkful TA's to help students that need help with some co
 
 ## Documentation of API <br/>
 **GET** https://tick-it-jk.herokuapp.com/api/tickets <br/>
-* This allows you to get all the tickets in the database <br/>
-* This is used to display all the tickets in the frontend persistently
+  * This allows you to get all the tickets in the database <br/>
+  * This is used to display all the tickets in the frontend persistently</br>
 **POST** https://tick-it-jk.herokuapp.com/api/tickets <br/>
-* This allows you to post a ticket into the database <br/>
-* This is used to allow student users (doesn't need to log in) to submit a ticket
+  * This allows you to post a ticket into the database <br/>
+  * This is used to allow student users (doesn't need to log in) to submit a ticket
 **PUT** https://tick-it-jk.herokuapp.com/api/tickets/:id/status <br/>
-* This allows TA users that are logged in to update a ticket in the database <br/>
-* This is used to allow TA users to update the status of a ticket <br/>
+  * This allows TA users that are logged in to update a ticket in the database <br/>
+  * This is used to allow TA users to update the status of a ticket <br/>
 **DELETE** https://tick-it-jk.herokuapp.com/api/tickets/:id <br/>
-* This allows you to delete a ticket from the database <br/>
-* This is used to allow student users to delete the ticket if they don't need help <br/>
-* This is used to allow TA users to delete the ticket once they are finish with it <br/>
+  * This allows you to delete a ticket from the database <br/>
+  * This is used to allow student users to delete the ticket if they don't need help <br/>
+  * This is used to allow TA users to delete the ticket once they are finish with it <br/>
 **GET** https://tick-it-jk.herokuapp.com/api/users/:username <br/>
-* This allows TA users that are logged in to get their username and fullName from the database <br/>
-* This is used to allow us to store the username and fullname into a localStorage once the TA logs in. <br/>
+  * This allows TA users that are logged in to get their username and fullName from the database <br/>
+  * This is used to allow us to store the username and fullname into a localStorage once the TA logs in. <br/>
 **POST** https://tick-it-jk.herokuapp.com/api/users <br/>
-* This allows you to add a user into the database <br/>
-* This is used to allow people to sign up as a TA user <br/>
+  * This allows you to add a user into the database <br/>
+  * This is used to allow people to sign up as a TA user <br/>
 
 ### API still needs to be used in Frontend <br/>
 **PUT** https://tick-it-jk.herokuapp.com/api/tickets/:id <br/>
-* This allows you to update a ticket's fields beside status into the database <br/>
-* This allows student users to edit their request description, group name, or location
+  * This allows you to update a ticket's fields beside status into the database <br/>
+  * This allows student users to edit their request description, group name, or location
 
 ## How To Use our code <br/>
 * Fork it to your Repo
