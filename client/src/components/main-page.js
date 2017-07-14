@@ -25,52 +25,10 @@ import TicketSubmission from './ticket-submission';
 //Importing connect wrap
 import {connect} from 'react-redux';
 
-//Importing actions from action file
-// import {validateLogin} from '../actions';
-
-
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Main Page                 /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 export class MainPage extends React.Component{
-  // getCookie(name){
-  //   var value = "; " + document.cookie;
-  //   var parts = value.split("; " + name + "=");
-    
-  //   if(parts.length == 2){
-  //      return parts.pop().split(";").shift();
-  //   }
-  // }
-  
-  // //makes our route go to username ticket list
-  // goToLogin(nextState,replace){
-  //   const username = this.getCookie('username');
-  //   console.log('login',username);
-  //   // this.props.username = username;
-  //   if(!username){
-  //     replace({
-  //       pathname: '/login'
-  //     })
-  //     //window.location = '/login';
-  //   }
-  // }
-
-  // //makes our route go to TA ticket list
-  // goToTicketList(nextState,replace){
-  //   const username = this.getCookie('username');
-  //   console.log('ticketlist',username);
-  //   // this.props.username = username;
-  //   if(username){
-  //     replace({
-  //       pathname: '/ticketlistTA'
-  //     })
-  //     //window.location = '/ticketlistTA';
-  //   }
-  // }
-
-  // <Route exact path="/ticketlistTA" component={TicketList} onEnter={this.goToLogin}/>
-  // <Route exact path="/login" component={Login} onEnter={this.goToTicketList}/>
-  //<Route exact path="/ticketlistTA" component={this.props.username ? TicketList : Login}/>
   //renders how each page will look like and links the pages together
   render(){
     return (
