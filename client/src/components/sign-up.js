@@ -50,10 +50,10 @@ export class SignUp extends React.Component{
             <input type="text" id="username" name="username" placeholder="Enter username" 
               minLength="1" required ref={username => this.username = username}/>
             <label htmlFor="password">Password</label>
-            <input type="text" id="password" name="password" placeholder="Enter password"
+            <input type="password" id="password" name="password" placeholder="Enter password"
               minLength="6" required ref={password => this.password = password}/>
             <label htmlFor="code">TA Authentication Code</label>
-            <input type="text" id="ta-auth-code" name="ta-auth-code" placeholder="Enter authentication code"
+            <input type="password" id="ta-auth-code" name="ta-auth-code" placeholder="Enter authentication code"
               minLength="1" required ref={code => this.code = code}/>
             <button type="button" id="sign-up-submit" className="button" onClick={e => this.changePage(e)}>
               Sign Up
