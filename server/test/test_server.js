@@ -130,7 +130,7 @@ describe('Ticket API resource', ()=>{
     return closeServer();
   });
 
-  describe.skip('Ticket Get endpoint', ()=>{
+  describe('Ticket Get endpoint', ()=>{
     it('should return all existing tickets', ()=>{
       let tickets;
       
@@ -180,7 +180,7 @@ describe('Ticket API resource', ()=>{
     });
   });
 
-  describe.skip('Ticket Post endpoint',()=>{
+  describe('Ticket Post endpoint',()=>{
     it('Posted object should be in database', ()=>{
       let ticket;
       const newTicket = {
@@ -358,7 +358,7 @@ describe('Ticket API resource', ()=>{
     });  
   });
 
-  describe.skip('Ticket Put endpoint for all users', ()=>{
+  describe('Ticket Put endpoint for all users', ()=>{
     it('will allow us to update request, location, group', ()=>{
       let ticket;
       const updateTicket = {
@@ -691,7 +691,7 @@ describe('Ticket API resource', ()=>{
     });
   });
 
-  describe.skip('Ticket Put endpoint for TA user', ()=>{
+  describe('Ticket Put endpoint for TA user', ()=>{
     it('check update status gives correct values', ()=>{
       let ticket;
       const updateTicket = {
@@ -959,7 +959,7 @@ describe('Ticket API resource', ()=>{
     }); 
   });
 
-  describe.skip('Ticket Delete endpoint', ()=>{
+  describe('Ticket Delete endpoint', ()=>{
     it('will delete ticket from database', ()=>{
       let ticket;
 
@@ -1005,7 +1005,7 @@ describe('User API resource', ()=>{
     return closeServer();
   });
 
-  describe.skip('Get All Users Endpoint', ()=>{
+  describe('Get All Users Endpoint', ()=>{
     it('Allows you to get all user from database', ()=>{
       let users;
 
@@ -1146,5 +1146,438 @@ describe('User API resource', ()=>{
           res.should.have.status(401);
         });
     });
-  }); 
+  });
+  
+  describe('Post User Endpoint', ()=>{
+    it('should be able to post user to database', ()=>{
+      let user;
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .then(res=>{
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.include.keys('id', 'username', 'type', 'fullName');
+          res.body.id.should.not.be.null;
+          const [firstName, lastName] = res.body.fullName.split(' ');
+          newUser.firstName.should.equal(firstName);
+          newUser.lastName.should.equal(lastName);
+          user = res.body;
+          return User
+          .findOne({username:user.username})
+          .exec();
+        })
+        .then(userDB=>{
+          const [firstName, lastName] = user.fullName.split(' ');
+          userDB.firstName.should.equal(firstName);
+          userDB.lastName.should.equal(lastName);
+          userDB.type.should.equal(user.type);
+          userDB.id.should.equal(user.id);
+          userDB.username.should.equal(user.username);
+        });
+    });
+
+    it('should not post user if taCode is wrong',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: 'gg'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if username is not in req.body',()=>{
+      const newUser = {
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if password is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if firstName is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if lastName is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if TA code is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        firstName: 'Kyle',
+        lastName: 'S'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if username is not a string',()=>{
+      const newUser = {
+        username: 213,
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if password is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: 123456,
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if firstName is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 123456,
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if lastName is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 1234,
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if taCode is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: 2134
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if username is an empty string after trim',()=>{
+      const newUser = {
+        username: ' ',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if password is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: ' ',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if firstName is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: ' ',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if lastName is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: ' ',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if taCode is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: ' '
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if password length is less than 6',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if no credentials',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not post user if wrong username',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(faker.name.firstName(), USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not post user if wrong username',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, faker.name.firstName())
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not post user if wrong username and password',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(faker.name.firstName(), faker.name.firstName())
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });    
+  });
 });
