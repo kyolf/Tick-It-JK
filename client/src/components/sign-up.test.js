@@ -1,8 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import SignUp from './sign-up';
+import{shallow, mount} from 'enzyme';
+import {changeNavButton, submitSignUp} from '../actions';
 
-it('renders without crashing', () => {
-  // const div = document.createElement('div');
-  // ReactDOM.render(<TicketSubmission />);
-});
+import {SignUp} from './sign-up';
+
+describe('<SignUp />', () => {
+  it('renders without crashing', () => {
+    shallow(<SignUp />);
+  });
+
+
+})//end of describe block

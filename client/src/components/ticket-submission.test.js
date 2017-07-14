@@ -1,8 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TicketSubmission from './ticket-submission';
+import {shallow, mount} from 'enzyme';
 
-it('renders without crashing', () => {
-  // const div = document.createElement('div');
-  // ReactDOM.render(<TicketSubmission />);
-});
+import {TicketSubmission} from './ticket-submission';
+import {submitTicket} from '../actions';
+
+describe('<TicketSubmission />', () => {
+  it('renders without crashing', () => {
+    // shallow(<TicketSubmission />);
+  });
+
+  it('Should dispatch a submitTicket on form submission', () => {
+    // const dispatch = jest.fn();
+    // const wrapper = mount(<TicketSubmission dispatch={dispatch} />);
+    // const value = 'help';
+    // wrapper.find('input[type="text"]').node.value = value;
+    // wrapper.simulate('submit');
+    // expect(dispatch).toHaveBeenCalledWith(submitTicket(value));
+  })
+
+})//end of describe block
+
+
