@@ -1,7 +1,7 @@
 # Title: Tick-it
 
 ## Description <br/> 
-A web app that allows Thinkful TA's to help students that need help with some coding project and to keep track of students who assigned themselves onto a queue. The reason why this app was created is because we noticed that when there are a lot of students asking for help on our slack channel, it is hard to keep track of who is next on the queue in which they ask for help.
+This App was brainstormed in the frustration  by Organization is the key to success! A web app that allows Thinkful TA's and students to stay organized on a transparent platform. TA's are able to keep track of requests submitted by students who need assistance with a variety of coding challenges, while students are able to keep track of the requests they have submitted and where they line up on the queue. The reason why this app was created is because we noticed that when there are a lot of students asking for help on our slack channel, it is hard to keep track of who is next on the queue in which they ask for help.
 
 ## Technology Used <br/>
 **FrontEnd**: HTML, CSS, Javascript, React<br/>
