@@ -38,10 +38,10 @@ A web app that allows Thinkful TA's to help students that need help with some co
 * Fork it to your Repo
 * Git clone the Repo link
 * Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* npm install => get all the dependencies install
+* Run `npm install` in the terminal => get all the dependencies install
 * Make sure MongoDB is installed
-* Run Mongod in the terminal => to get the mongodb server running
-* Run npm run dev => to get client server and backend server running
+* Run `Mongod` in the terminal => to get the mongodb server running
+* Run `npm run dev` in the terminal => to get client server and backend server running
 * Run the development task: `npm run dev`
     * Starts a server running at http://localhost:8080
     * Automatically rebuilds when any of your files change
