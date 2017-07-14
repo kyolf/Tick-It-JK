@@ -114,3 +114,26 @@
   }
 
 } /*end of ipad css*/
+
+@media only screen and (min-width: 992px) and (max-width: 1999px) {
+  .login-form {
+    margin-top: 50px;
+  }
+
+  .login-form > label {
+    font-size: 40px;
+  }
+
+  .login-form > input {
+    padding: 30px;
+    font-size: 20px;
+  }
+
+  .login-form input::placeholder {
+    font-size: 20px;
+  }
+
+  #login-submit {
+    font-size: 24px;
+  }
+}/*end of ipad pro css*/

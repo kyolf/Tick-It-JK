@@ -72,19 +72,19 @@ export class TicketList extends React.Component{
           <td className="delete-button-cell">
            <button onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{item.deleteButton}</button>
           </td>
-          <td>
+          <td className="main-cell">
             <form>
               <input type="text" id="group" value={item.group} ref={group => this.group = group} />
               <input type="button" value="Edit" onClick={e => this.editField(this.group)} />
             </form>
           </td>
-          <td>
+          <td className="main-cell">
             <form>
               <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
               <input type="button" value="Edit" onClick={e => this.editField(this.location)} />
             </form>
           </td>
-          <td>
+          <td className="main-cell">
             <form>
               <input type="text" id="request" value={item.request} ref={request => this.request = request} />
               <input type="button" value="Edit" onClick={e => this.editField(this.request)} />
