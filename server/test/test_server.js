@@ -1005,7 +1005,7 @@ describe('User API resource', ()=>{
     return closeServer();
   });
 
-  describe('Get All Users Endpoint', ()=>{
+  describe.skip('Get All Users Endpoint', ()=>{
     it('Allows you to get all user from database', ()=>{
       let users;
 
@@ -1054,5 +1054,97 @@ describe('User API resource', ()=>{
         });
     });
   });
-  
+
+  describe('Get Single User Endpoint', ()=>{
+    it('Allow you to get your username from database',()=>{
+      let user;
+
+      return User
+        .findOne()
+        .exec()
+        .then(_user=>{
+          user = _user;
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(USER.username, USER.password);
+        })
+        .then(userRes=>{
+          userRes.should.have.status(200);
+          userRes.should.be.json;
+          userRes.body.should.include.keys('id', 'fullName', 'username', 'type');
+          userRes.body.should.be.a('object');
+          const [firstName, lastName, lastName2] = userRes.body.fullName.split(' ');
+          user.firstName.should.equal(firstName);
+          user.lastName.should.equal(`${lastName} ${lastName2}`);
+          user.type.should.equal(userRes.body.type);
+          user.username.should.equal(userRes.body.username);
+          return User
+            .findById(userRes.body.id)
+            .exec();
+        })
+        .then(userDB=>{
+          user.should.deep.equal(userDB);
+        });
+    });
+
+    it('should not allow to get user if no credentials', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not allow to get user if wrong password', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(USER.username, faker.name.firstName());
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not allow to get user if wrong username', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(faker.name.firstName(), USER.password);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not allow to get user if wrong credentials', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(faker.name.firstName(), faker.name.firstName());
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+  }); 
 });
