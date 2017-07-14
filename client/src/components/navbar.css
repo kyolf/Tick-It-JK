@@ -50,7 +50,6 @@
     font-size: 30px;
     text-shadow: 5px 5px 1px #1C2541;
     padding-left: 5px;
-    cursor: hand;
   }
 
 
@@ -70,7 +69,6 @@
 
    .title {
      font-size: 50px;
-     cursor: hand;
    }
 
 }/*end of iphones landscape css*/
@@ -95,7 +93,6 @@
   .title {
     font-size: 60px;
     text-shadow: 10px 10px 1px #1C2541;
-    cursor: hand;
   }  
 
 }/*end of ipad css*/
@@ -103,12 +100,10 @@
 @media only screen and (min-width: 992px) and (max-width: 1999px) {
   .nav-button {
     font-size: 20px;
-    cursor: hand;
   }
 
   .title {
     font-size: 75px;
-    cursor: hand;
   }
 
 }/*end of ipad pro css*/
