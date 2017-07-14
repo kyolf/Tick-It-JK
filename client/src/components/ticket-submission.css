@@ -8,6 +8,10 @@ body {
   align-items: center;
   border: 3px groove lightgoldenrodyellow;
   background-color: lightgoldenrodyellow;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 50px;
+  box-shadow: 10px 10px 15px 15px #1C2541;
 }
 
 .form-container {
@@ -18,28 +22,35 @@ body {
 
 .form-container > label {
   font-family: 'Trocchi', serif;
-  font-size: 22px; 
+  font-size: 24px; 
   margin-bottom: 7px;
+  margin-top: 35px;
 }
 
 .form-container > input {
   margin-bottom: 40px;
-  padding: 20px;
-  width: 25%;
+  padding: 70px;
+  width: 150%;
+  font-size: 16px;
   border: 3px groove lightslategray; 
   box-shadow: 5px 5px 15px 5px #1C2541;
+}
+
+.form-container > input::placeholder {
+  font-size: 18px;
 }
 
 .initial-submit-button {
   border: 1px solid lightslategray;
   box-shadow: 5px 5px 10px 1px #1C2541;
-  padding: 15px;
+  padding: 25px;
   font-family: 'Rozha One', serif; 
   border-radius: 25%;
   color: #0B132B;
   background-color: #5BC0BE;
-  font-size: 15px;
-  margin-top: 40px;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
@@ -59,13 +70,74 @@ body {
   .form-container > input {
     box-shadow: 1px 1px 10px 1px #1C2541;
     margin-bottom: 25px;
-    width: 100%;
+    width: 80%;
     padding: 20px;
+    font-size: 14px;
+  }
+
+  .form-container > input::placeholder {
+    font-size: 14px;
   }
 
   .initial-submit-button {
     margin-top: 10px;
     margin-bottom: 20px;
+    font-size: 14px;
+    padding: 10px;
   }
 
 }/*end of iphone css*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .form-container > label {
+    font-size: 20px;
+  }
+
+   .form-container > input {
+     width: 80%;
+     padding: 30px;
+     margin-bottom: 10px;
+     font-size: 14px;
+   }
+
+  .form-container > input::placeholder {
+    font-size: 14px;
+  }
+
+  .initial-submit-button {
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 30px;
+  }
+
+}/*end of iphones landscape css*/
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .ticket-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 10px 10px 15px 15px #1C2541;
+  }
+
+  .form-container > label {
+     font-size: 30px;
+     margin-top: 20px;
+     margin-bottom: 10px;
+  }
+
+  .form-container > input {
+    box-shadow: 2px 2px 10px 1px #1C2541;
+    margin-bottom: 25px;
+    width: 150%;
+    padding: 30px;
+  }
+
+  .initial-submit-button {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 18px;
+  }
+}/*end of ipad css*/
+
+

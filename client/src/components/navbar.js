@@ -29,28 +29,28 @@ export class Navbar extends React.Component{
     if(lowerCaseNavButtonText === TA_LOGIN_OR_SIGN_UP.toLowerCase() || lowerCaseNavButtonText === LOGIN.toLowerCase()){
       return (
 
-        <Link to='/login' style={{textDecoration: "none"}}>
+        <Link to='/login' style={{textDecoration: "none", paddingRight: "25px"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
     }
     if(lowerCaseNavButtonText === SUBMIT_NEW_TICKET.toLowerCase()){
       return (
-        <Link to='/' style={{textDecoration: "none"}}>
+        <Link to='/' style={{textDecoration: "none", paddingRight: "10px"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
     }
     else if(lowerCaseNavButtonText === SIGN_UP.toLowerCase()){
       return (
-        <Link to='/signup' style={{textDecoration: "none"}}>
+        <Link to='/signup' style={{textDecoration: "none", paddingRight: "25px"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
     }
     else{
       return (
-        <Link to='/login' onClick={e=>this.logOut()} style={{textDecoration: "none"}}>
+        <Link to='/login' onClick={e=>this.logOut()} style={{textDecoration: "none", paddingRight: "25px"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );

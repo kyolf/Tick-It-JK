@@ -22,7 +22,7 @@
 .title {
   font-family: 'Rozha One', serif; 
   color: #FFFFFF;
-  font-size: 46px;
+  font-size: 66px;
   padding: 30px;
   text-shadow: 10px 10px 1px #1C2541;
 }
@@ -46,9 +46,51 @@
   .title {
     font-size: 30px;
     text-shadow: 5px 5px 1px #1C2541;
+    padding-left: 5px;
   }
 
 
-}/*end of iphone6 css*/
+}/*end of iphones css*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+   .navbar {
+     padding-left: 10px;
+     padding-right: 15px;
+     margin-top: 7px;
+   }
+
+   .nav-button {
+     font-size: 14px;
+     padding: 7px;
+   }
+
+   .title {
+     font-size: 50px;
+   }
+
+}/*end of iphones landscape css*/
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .navbar {
+    padding-left: 15px;
+    padding-right: 25px;
+    margin-top: 5px;
+  }
+
+  .nav-button {
+    width: 80%;
+    font-size: 16px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #0B132B;
+  }
+
+  .title {
+    font-size: 60px;
+    text-shadow: 10px 10px 1px #1C2541;
+  }  
+
+}/*end of ipad css*/
 
 
