@@ -186,7 +186,6 @@ export const validateLogin = (username, password) => dispatch => {
     return res.json();
   })
   .then(user=>{
-    //document.cookie=`username=${user.username}`
     const [firstName, lastName] = user.fullName.split(' ');
 
     dispatch(login(user.username, user.fullName, password));

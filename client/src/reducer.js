@@ -22,7 +22,7 @@ const initialState = {
     group: '',
     location: '',
     request: '',
-    status: 'unassigned',
+    status: 'Unassigned',
     deleteButton: 'Finish'
   }],
   navButton: 'TA Login Or Sign Up',
@@ -52,10 +52,13 @@ export default (state, action) => {
   else if(action.type === DISPLAY_TICKETS){
     state = Object.assign({}, state, {
       tickets: action.tickets.map(ticket=>{
-        return Object.assign({}, ticket, {deleteButton: action.text});
+        console.log(ticket);
+        if(ticket.status === 'Unassigned'){
+          return Object.assign({}, ticket, {deleteButton: action.text});
+        }
+        return Object.assign({}, ticket, {deleteButton: state.tickets[0].deleteButton});
       })
     });
-    console.log('after fetch', state);
   }
   else if(action.type === EDIT_TICKET){
     state = Object.assign({}, state, {
@@ -86,7 +89,6 @@ export default (state, action) => {
   }
   else if(action.type === CHANGE_DELETE_BUTTON){
     if(action.index > 0){
-      console.log('hi', state.tickets.slice(action.index, action.index + 1));
       state = Object.assign({}, state, {
         tickets: [...state.tickets.slice(0, action.index),
         Object.assign(...state.tickets.slice(action.index, action.index + 1), {deleteButton: action.deleteButtonText}), 

@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 //Importing actions that are going to be used in this file
-import {editField, fetchTickets, fetchStatus, fetchDeleteTicket, changeNavButton, changeDeleteButton} from '../actions';
+import {editField, fetchTickets, fetchStatus, fetchDeleteTicket, changeNavButton} from '../actions';
 
 //Importing ticket list css file
 import './ticket-list.css';
@@ -67,7 +67,6 @@ export class TicketList extends React.Component{
   //make a row for each document in our database
   getTicketInfoTable(){
     return this.props.tickets.map((item, index) => {
-      console.log('each item', item)
       return (
         <tr key={index} className="ticket-info-row">
           <td>
