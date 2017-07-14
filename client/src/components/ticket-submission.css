@@ -8,8 +8,9 @@ body {
   align-items: center;
   border: 3px groove lightgoldenrodyellow;
   background-color: lightgoldenrodyellow;
-  width: 70%;
+  width: 60%;
   margin: auto;
+  margin-bottom: 50px;
 }
 
 .form-container {
@@ -27,7 +28,7 @@ body {
 
 .form-container > input {
   margin-bottom: 40px;
-  padding: 80px;
+  padding: 70px;
   width: 150%;
   font-size: 16px;
   border: 3px groove lightslategray; 
@@ -35,7 +36,7 @@ body {
 }
 
 .form-container > input::placeholder {
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .initial-submit-button {
@@ -78,6 +79,30 @@ body {
   }
 
 }/*end of iphone css*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .form-container > label {
+    font-size: 20px;
+  }
+
+   .form-container > input {
+     width: 80%;
+     padding: 30px;
+     margin-bottom: 10px;
+     font-size: 14px;
+   }
+
+  .form-container > input::placeholder {
+    font-size: 14px;
+  }
+
+  .initial-submit-button {
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 30px;
+  }
+
+}/*end of iphones landscape css*/
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .ticket-container {

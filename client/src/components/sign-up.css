@@ -17,6 +17,7 @@
   width: 35%;
   border: 3px groove lightslategray; 
   box-shadow: 5px 5px 15px 5px #1C2541;
+  font-size: 16px;
 }
 
 .sign-up-form > input::placeholder {
@@ -46,9 +47,15 @@
   .sign-up-form > input {
     box-shadow: 1px 1px 10px 1px #1C2541;
     margin-bottom: 25px;
-    width: 50%;
+    width: 55%;
     padding: 10px;
+    font-size: 14px;
   }
+
+  .sign-up-form > input::placeholder {
+    font-size: 14px;
+  }
+
 
   #sign-up-submit {
     width: 40%;
@@ -57,7 +64,20 @@
     font-size: 14px;
   }
 
-}/*end of iphone6 css*/
+}/*end of iphones css*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+   .sign-up-form > input {
+     width: 55%;
+   }
+
+   #sign-up-submit {
+     font-size: 18px;
+     width: 30%;
+     margin-top: 7px;
+   }
+
+}/*end of iphones landscape css*/
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .sign-up-form {
@@ -75,6 +95,11 @@
     margin-bottom: 25px;
     width: 60%;
     padding: 22px;
+    font-size: 18px;
+  }
+
+  .sign-up-form > input::placeholder {
+    font-size: 18px;
   }
 
   #sign-up-submit {

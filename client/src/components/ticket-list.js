@@ -69,8 +69,8 @@ export class TicketList extends React.Component{
     return this.props.tickets.map((item, index) => {
       return (
         <tr key={index} className="ticket-info-row">
-          <td>
-           <button onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{this.props.deleteButton}</button>
+          <td className="delete-button-cell">
+           <button onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{item.deleteButton}</button>
           </td>
           <td>
             <form>
@@ -90,7 +90,7 @@ export class TicketList extends React.Component{
               <input type="button" value="Edit" onClick={e => this.editField(this.request)} />
             </form>
           </td>
-          <td>{item.status}</td>
+          <td className="status-cell">{item.status}</td>
         </tr>
       )
     });

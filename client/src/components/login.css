@@ -18,6 +18,7 @@
   width: 35%;
   border: 3px groove lightslategray; 
   box-shadow: 5px 5px 15px 5px #1C2541;
+  font-size: 16px;
 }
 
 .login-form > input::placeholder {
@@ -43,15 +44,20 @@
   }
 
   .login-form > label {
-     font-size: 16px;
+     font-size: 18px;
      color: #FFFFFF;
   }
 
   .login-form > input {
     box-shadow: 1px 1px 10px 1px #1C2541;
     margin-bottom: 25px;
-    width: 50%;
+    width: 55%;
     padding: 10px;
+    font-size: 14px;
+  }
+
+  .login-form > input::placeholder {
+    font-size: 14px;
   }
 
   #login-submit {
@@ -61,7 +67,19 @@
     font-size: 14px;
   }
 
-}/*end of iphone6 css*/
+}/*end of iphones css*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+   .login-form > input {
+     width: 55%;
+   }
+
+   #login-submit {
+     font-size: 18px;
+     margin-top: 10px;
+   }
+
+}/*end of iphones landscape css*/
 
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -80,6 +98,11 @@
     margin-bottom: 35px;
     width: 60%;
     padding: 22px;
+    font-size: 18px;
+  }
+
+  .login-form > input::placeholder {
+    font-size: 18px;
   }
 
   #login-submit {

@@ -46,10 +46,29 @@
   .title {
     font-size: 30px;
     text-shadow: 5px 5px 1px #1C2541;
+    padding-left: 5px;
   }
 
 
-}/*end of iphone6 css*/
+}/*end of iphones css*/
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+   .navbar {
+     padding-left: 10px;
+     padding-right: 15px;
+     margin-top: 7px;
+   }
+
+   .nav-button {
+     font-size: 14px;
+     padding: 7px;
+   }
+
+   .title {
+     font-size: 50px;
+   }
+
+}/*end of iphones landscape css*/
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .navbar {
