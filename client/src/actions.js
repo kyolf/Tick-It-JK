@@ -80,11 +80,14 @@ export const fetchTickets = (text) => dispatch => {
 //Updating status for ticket in database
 export const fetchStatus = (ticketId, index, deleteText) => dispatch => {
   const fullName = localStorage.getItem('fullName');
+  const username = localStorage.getItem('username');
+  const password = localStorage.getItem('password');
   return fetch(`/api/tickets/${ticketId}/status`, {
     method: 'PUT',
     mode: 'cors',
     headers: new Headers({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${btoa(username + ':' + password)}`
     }),
     body: JSON.stringify({id: ticketId, status: fullName})
   })
