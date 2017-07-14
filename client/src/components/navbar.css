@@ -17,6 +17,7 @@
   border-radius: 25%;
   color: black;
   background-color: #5BC0BE;
+  cursor: hand;
 }
 
 .title {
@@ -25,6 +26,7 @@
   font-size: 66px;
   padding: 30px;
   text-shadow: 10px 10px 1px #1C2541;
+  cursor: hand;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
@@ -41,12 +43,14 @@
     margin-left: 10px;
     margin-right: 10px;
     color: #0B132B;
+    cursor: hand;
   }
 
   .title {
     font-size: 30px;
     text-shadow: 5px 5px 1px #1C2541;
     padding-left: 5px;
+    cursor: hand;
   }
 
 
@@ -66,6 +70,7 @@
 
    .title {
      font-size: 50px;
+     cursor: hand;
    }
 
 }/*end of iphones landscape css*/
@@ -84,11 +89,13 @@
     margin-left: 10px;
     margin-right: 10px;
     color: #0B132B;
+    cursor: hand;
   }
 
   .title {
     font-size: 60px;
     text-shadow: 10px 10px 1px #1C2541;
+    cursor: hand;
   }  
 
 }/*end of ipad css*/
@@ -96,10 +103,12 @@
 @media only screen and (min-width: 992px) and (max-width: 1999px) {
   .nav-button {
     font-size: 20px;
+    cursor: hand;
   }
 
   .title {
     font-size: 75px;
+    cursor: hand;
   }
 
 }/*end of ipad pro css*/
