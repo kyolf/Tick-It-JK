@@ -959,5 +959,100 @@ describe('Ticket API resource', ()=>{
     }); 
   });
 
+  describe.skip('Ticket Delete endpoint', ()=>{
+    it('will delete ticket from database', ()=>{
+      let ticket;
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          ticket = res;
+          return chai
+            .request(app)
+            .delete(`/api/tickets/${res.id}`);
+        })
+        .then(res=>{
+          res.should.have.status(204);
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(deleted=>{
+          should.not.exist(deleted);
+        });
+    });
+  });  
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                 User Tests Get Post                 ////////////////
+///////////////////////////////////////////////////////////////////////////////////
+describe('User API resource', ()=>{
+  before(()=>{
+    return runServer(PORT, TEST_DATABASE_URL);
+  });
+
+  beforeEach(()=>{
+    return seedUser();
+  });
+
+  afterEach(()=>{
+    return tearDownDb();
+  });
+
+  after(()=>{
+    return closeServer();
+  });
+
+  describe('Get All Users Endpoint', ()=>{
+    it('Allows you to get all user from database', ()=>{
+      let users;
+
+      return chai
+        .request(app)
+        .get('/api/users')
+        .then(res=>{
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('array');
+          res.body.should.have.length.of.at.least(1);
+          users = res.body;
+          return User
+            .find()
+            .count()
+            .exec();
+        })
+        .then(count=>{
+          count.should.equal(users.length);
+        });
+    });
+
+    it('Allows you to get all the right user data', ()=>{
+      let users;
+
+      return chai
+        .request(app)
+        .get('/api/users')
+        .then(res=>{
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('array');
+          res.body.should.have.length.of.at.least(1);
+          res.body[0].should.include.keys('id', 'fullName', 'username', 'type');
+          users = res.body[0];
+          return User
+            .find()
+            .exec();
+        })
+        .then(userList=>{
+          const [firstName, lastName, lastName2] = users.fullName.split(' ');
+          userList[0].firstName.should.equal(firstName);
+          userList[0].lastName.should.equal(`${lastName} ${lastName2}`);
+          userList[0].type.should.equal(users.type);
+          userList[0].username.should.equal(users.username);
+        });
+    });
+  });
   
 });
