@@ -49,17 +49,25 @@ function tearDownDb(){
   });
 }
 
+//user object
+const USER = {
+  username: 'dev',
+  firstName: 'Jamie',
+  lastName: 'Is Scared',
+  type: 'TA',
+  password: '123456'
+};
+
 //Making a Dummy User into our database
 function seedUser(){
-  const newUser={
-    username: 'dev',
-    firstName: 'Jamie',
-    lastName: 'Is Scared',
-    type: 'TA',
-    password: '123456'
+  const newUser = {
+    username: USER.username,
+    firstName: USER.firstName,
+    lastName: USER.lastName,
+    type: USER.type,
   };
   return User
-    .hashPassword(newUser.password)
+    .hashPassword(USER.password)
     .then(hash=>{
       newUser.password = hash;
       return User.create(newUser);
@@ -71,9 +79,9 @@ function seedTicket(){
   const seedData = [];
   for(let i = 0; i < 10; i++){
     seedData.push({
-      request: faker.lorem.paragraph,
-      location: faker.internet.domainName,
-      group: faker.name.firstName,
+      request: faker.lorem.paragraph(),
+      location: faker.internet.domainName(),
+      group: faker.name.firstName(),
       status: 'Unassigned'
     });
   }
@@ -125,6 +133,7 @@ describe('Ticket API resource', ()=>{
   describe('Ticket Get endpoint', ()=>{
     it('should return all existing tickets', ()=>{
       let tickets;
+      
       return chai
         .request(app)
         .get('/api/tickets')
@@ -144,6 +153,7 @@ describe('Ticket API resource', ()=>{
 
     it('should check if all ticket data values are correct', ()=>{
       let tickets;
+      
       return chai
         .request(app)
         .get('/api/tickets')
@@ -176,13 +186,15 @@ describe('Ticket API resource', ()=>{
       const newTicket = {
         request: 'Help',
         location: 'SH',
-        group:'Jamie',
+        group: 'Jamie'
       };
+
       return chai
         .request(app)
         .post('/api/tickets')
         .send(newTicket)
         .then(res=>{
+          res.should.be.json;
           res.should.be.status(201);
           res.body.should.be.a('object');
           res.body.should.include.keys(['request', 'location', 'group', 'status']);
@@ -203,5 +215,1369 @@ describe('Ticket API resource', ()=>{
           ticketDB.status.should.equal(ticket.status);
         });
     });
+
+    it('will not allow us to add to database if missing request field', ()=>{
+      const newTicket = {
+        location: 'SH',
+        group: 'Jamie'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('will not allow us to add to database if missing location field', ()=>{
+      const newTicket = {
+        request: 'hi',
+        group: 'Jamie'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('will not allow us to add to database if missing group field', ()=>{
+      const newTicket = {
+        request: 'help',
+        location: 'SH'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('will not allow us to add to database if empty request string', ()=>{
+      const newTicket = {
+        request: '',
+        location: 'SH',
+        group: 'Jamie'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('will not allow us to add to database if empty location string', ()=>{
+      const newTicket = {
+        request: 'help',
+        location: '  ',
+        group: 'Jamie'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('will not allow us to add to database if empty group string', ()=>{
+      const newTicket = {
+        request: 'help',
+        location: 'SH',
+        group: ''
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('will not allow us to add to database if request is less than 2 characters', ()=>{
+      const newTicket = {
+        request: 'a',
+        location: 'SH',
+        group: 'Jamie'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('will not allow us to add to database if location is less than 2 characters', ()=>{
+      const newTicket = {
+        request: 'help',
+        location: 'S',
+        group: 'Jamie'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('will not allow us to add to database if group is less than 2 characters', ()=>{
+      const newTicket = {
+        request: 'help',
+        location: 'SH',
+        group:'J'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/tickets')
+        .send(newTicket)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });  
+  });
+
+  describe('Ticket Put endpoint for all users', ()=>{
+    it('will allow us to update request, location, group', ()=>{
+      let ticket;
+      const updateTicket = {
+        request: 'send help',
+        location: 'OWL',
+        group: 'Kyle'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .then(res=>{
+          res.should.be.json;
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.include.keys(['id', 'request', 'location', 'group', 'status']);
+          res.body.id.should.not.be.null;
+          res.body.id.should.equal(updateTicket.id);
+          res.body.request.should.equal(updateTicket.request);
+          res.body.location.should.equal(updateTicket.location);
+          res.body.group.should.equal(updateTicket.group);
+          res.body.status.should.equal(updateTicket.status);
+          ticket = res.body;
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(ticketDB=>{
+          ticket.id.should.equal(ticketDB.id);
+          ticket.request.should.equal(ticketDB.request);
+          ticket.location.should.equal(ticketDB.location);
+          ticket.group.should.equal(ticketDB.group);
+          ticket.status.should.equal(ticketDB.status);
+        });
+    });
+    
+    it('will allow us to update other fieids if missing request field', ()=>{
+      let ticket;
+      const updateTicket = {
+        location: 'SH',
+        group: 'Jamie'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .then(res=>{
+          res.should.be.json;
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.include.keys(['id', 'request', 'location', 'group', 'status']);
+          res.body.id.should.not.be.null;
+          res.body.id.should.equal(updateTicket.id);
+          res.body.location.should.equal(updateTicket.location);
+          res.body.group.should.equal(updateTicket.group);
+          res.body.status.should.equal(updateTicket.status);
+          ticket = res.body;
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(ticketDB=>{
+          ticket.id.should.equal(ticketDB.id);
+          ticket.request.should.equal(ticketDB.request);
+          ticket.location.should.equal(ticketDB.location);
+          ticket.group.should.equal(ticketDB.group);
+          ticket.status.should.equal(ticketDB.status);
+        });
+    });  
+
+    it('will allow us to update other fieids if missing location field', ()=>{
+      let ticket;
+      const updateTicket = {
+        request: 'hii',
+        group: 'Jamie'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .then(res=>{
+          res.should.be.json;
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.include.keys(['id', 'request', 'location', 'group', 'status']);
+          res.body.id.should.not.be.null;
+          res.body.id.should.equal(updateTicket.id);
+          res.body.request.should.equal(updateTicket.request);
+          res.body.group.should.equal(updateTicket.group);
+          res.body.status.should.equal(updateTicket.status);
+          ticket = res.body;
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(ticketDB=>{
+          ticket.id.should.equal(ticketDB.id);
+          ticket.request.should.equal(ticketDB.request);
+          ticket.location.should.equal(ticketDB.location);
+          ticket.group.should.equal(ticketDB.group);
+          ticket.status.should.equal(ticketDB.status);
+        });
+    });
+      
+    it('will allow us to update other fieids if missing group field', ()=>{
+      let ticket;
+      const updateTicket = {
+        request: 'help me',
+        location: 'SH'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .then(res=>{
+          res.should.be.json;
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.include.keys(['id', 'request', 'location', 'group', 'status']);
+          res.body.id.should.not.be.null;
+          res.body.id.should.equal(updateTicket.id);
+          res.body.location.should.equal(updateTicket.location);
+          res.body.request.should.equal(updateTicket.request);
+          res.body.status.should.equal(updateTicket.status);
+          ticket = res.body;
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(ticketDB=>{
+          ticket.id.should.equal(ticketDB.id);
+          ticket.request.should.equal(ticketDB.request);
+          ticket.location.should.equal(ticketDB.location);
+          ticket.group.should.equal(ticketDB.group);
+          ticket.status.should.equal(ticketDB.status);
+        });
+    });
+
+    it('will not update database if body id is not the same as param id', ()=>{
+      const updateTicket = {
+        request: 'help',
+        location: 'OWL',
+        group: 'Kyle'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put('/api/tickets/hi')
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(400);
+        });      
+    });
+
+    it('will not update database if request field value is empty', ()=>{
+      const updateTicket = {
+        request: '   ',
+        location: 'OWL',
+        group: 'Kyle'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+
+    it('will not update database if location field value is empty', ()=>{
+      const updateTicket = {
+        request: 'help',
+        location: ' ',
+        group: 'Kyle'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+
+    it('will not update database if group field value is empty', ()=>{
+      const updateTicket = {
+        request: 'help',
+        location: 'OWL',
+        group: ''
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+
+    it('will not update database if request field value is less than 2 characters', ()=>{
+      const updateTicket = {
+        request: 'a',
+        location: 'OWL',
+        group: 'Kyle'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+
+    it('will not update database if location field value is less than 2 characters', ()=>{
+      const updateTicket = {
+        request: 'help',
+        location: 'a',
+        group: 'Kyle'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+
+    it('will not update database if group field value is less than 2 characters', ()=>{
+      const updateTicket = {
+        request: 'aa',
+        location: 'OWL',
+        group: 'a'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          updateTicket.status = res.status;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}`)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+  });
+
+  describe('Ticket Put endpoint for TA user', ()=>{
+    it('check update status gives correct values', ()=>{
+      let ticket;
+      const updateTicket = {
+        status: 'Wassup'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(USER.username, USER.password)
+            .send(updateTicket);
+        })
+        .then(res=>{
+          res.should.be.json;
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.include.keys(['id', 'request', 'location', 'group', 'status']);
+          res.body.id.should.not.be.null;
+          res.body.id.should.equal(updateTicket.id);
+          res.body.status.should.equal(updateTicket.status);
+          ticket = res.body;
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(ticketDB=>{
+          ticket.id.should.equal(ticketDB.id);
+          ticket.request.should.equal(ticketDB.request);
+          ticket.location.should.equal(ticketDB.location);
+          ticket.group.should.equal(ticketDB.group);
+          ticket.status.should.equal(ticketDB.status);
+        });      
+    });
+
+    it('should update only status even if I put other fields', ()=>{
+      let ticket;
+      const updateTicket = {
+        request: 'send helpzzzzzz',
+        location: 'OWLzzzzzzzzzzzzzzzz',
+        group: 'Kylezzzzzzzzzzzzzz',
+        status: 'Wassupz'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(USER.username, USER.password)
+            .send(updateTicket);
+        })
+        .then(res=>{
+          res.should.be.json;
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.include.keys(['id', 'request', 'location', 'group', 'status']);
+          res.body.id.should.not.be.null;
+          res.body.id.should.equal(updateTicket.id);
+          res.body.request.should.not.equal(updateTicket.request);
+          res.body.location.should.not.equal(updateTicket.location);
+          res.body.group.should.not.equal(updateTicket.group);
+          res.body.status.should.equal(updateTicket.status);
+          ticket = res.body;
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(ticketDB=>{
+          ticket.id.should.equal(ticketDB.id);
+          ticket.request.should.equal(ticketDB.request);
+          ticket.location.should.equal(ticketDB.location);
+          ticket.group.should.equal(ticketDB.group);
+          ticket.status.should.equal(ticketDB.status);
+        });
+    });
+
+    it('will not update database if body id is not the same as param id', ()=>{
+      const updateTicket = {
+        request: 'help',
+        location: 'OWL',
+        group: 'Kyle',
+        status: 'rekted'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put('/api/tickets/hi/status')
+            .auth(USER.username, USER.password)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(400);
+        });      
+    });
+
+    it('will not update database if status is not in req.body', ()=>{
+      const updateTicket = {
+        request: 'help',
+        location: 'OWL',
+        group: 'Kyle',
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(USER.username, USER.password)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(400);
+        });      
+    });
+
+    it('will not update database if status field value is empty', ()=>{
+      const updateTicket = {
+        request: '   ',
+        location: 'OWL',
+        group: 'Kyle',
+        status: ' '
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(USER.username, USER.password)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+
+    it('will not update database if status field value is greater than 40 characters', ()=>{
+      const updateTicket = {
+        request: '   ',
+        location: 'OWL',
+        group: 'Kyle',
+        status: 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(USER.username, USER.password)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(422);
+        });      
+    });
+
+    it('will not update status if wrong password', ()=>{
+      let ticket;
+      const updateTicket = {
+        status: 'Wassup'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(USER.username, faker.name.firstName())
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });   
+    });
+      
+    it('will not update status if wrong username', ()=>{
+      let ticket;
+      const updateTicket = {
+        status: 'Wassup'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(faker.name.firstName(), USER.password)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });   
+    });
+      
+    it('will not update status if no authentication is provided', ()=>{
+      let ticket;
+      const updateTicket = {
+        status: 'Wassup'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });   
+    });
+      
+    it('will not update status if wrong password and username', ()=>{
+      let ticket;
+      const updateTicket = {
+        status: 'Wassup'
+      };
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          updateTicket.id = res.id;
+          return chai
+            .request(app)
+            .put(`/api/tickets/${updateTicket.id}/status`)
+            .auth(faker.name.firstName(), faker.name.firstName())
+            .send(updateTicket);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });   
+    }); 
+  });
+
+  describe('Ticket Delete endpoint', ()=>{
+    it('will delete ticket from database', ()=>{
+      let ticket;
+
+      return Ticket
+        .findOne()
+        .exec()
+        .then(res=>{
+          ticket = res;
+          return chai
+            .request(app)
+            .delete(`/api/tickets/${res.id}`);
+        })
+        .then(res=>{
+          res.should.have.status(204);
+          return Ticket
+            .findById(ticket.id)
+            .exec();
+        })
+        .then(deleted=>{
+          should.not.exist(deleted);
+        });
+    });
+  });  
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                 User Tests Get Post                 ////////////////
+///////////////////////////////////////////////////////////////////////////////////
+describe('User API resource', ()=>{
+  before(()=>{
+    return runServer(PORT, TEST_DATABASE_URL);
+  });
+
+  beforeEach(()=>{
+    return seedUser();
+  });
+
+  afterEach(()=>{
+    return tearDownDb();
+  });
+
+  after(()=>{
+    return closeServer();
+  });
+
+  describe('Get All Users Endpoint', ()=>{
+    it('Allows you to get all user from database', ()=>{
+      let users;
+
+      return chai
+        .request(app)
+        .get('/api/users')
+        .then(res=>{
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('array');
+          res.body.should.have.length.of.at.least(1);
+          users = res.body;
+          return User
+            .find()
+            .count()
+            .exec();
+        })
+        .then(count=>{
+          count.should.equal(users.length);
+        });
+    });
+
+    it('Allows you to get all the right user data', ()=>{
+      let users;
+
+      return chai
+        .request(app)
+        .get('/api/users')
+        .then(res=>{
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.a('array');
+          res.body.should.have.length.of.at.least(1);
+          res.body[0].should.include.keys('id', 'fullName', 'username', 'type');
+          users = res.body[0];
+          return User
+            .find()
+            .exec();
+        })
+        .then(userList=>{
+          const [firstName, lastName, lastName2] = users.fullName.split(' ');
+          userList[0].firstName.should.equal(firstName);
+          userList[0].lastName.should.equal(`${lastName} ${lastName2}`);
+          userList[0].type.should.equal(users.type);
+          userList[0].username.should.equal(users.username);
+        });
+    });
+  });
+
+  describe('Get Single User Endpoint', ()=>{
+    it('Allow you to get your username from database',()=>{
+      let user;
+
+      return User
+        .findOne()
+        .exec()
+        .then(_user=>{
+          user = _user;
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(USER.username, USER.password);
+        })
+        .then(userRes=>{
+          userRes.should.have.status(200);
+          userRes.should.be.json;
+          userRes.body.should.include.keys('id', 'fullName', 'username', 'type');
+          userRes.body.should.be.a('object');
+          const [firstName, lastName, lastName2] = userRes.body.fullName.split(' ');
+          user.firstName.should.equal(firstName);
+          user.lastName.should.equal(`${lastName} ${lastName2}`);
+          user.type.should.equal(userRes.body.type);
+          user.username.should.equal(userRes.body.username);
+          return User
+            .findById(userRes.body.id)
+            .exec();
+        })
+        .then(userDB=>{
+          user.should.deep.equal(userDB);
+        });
+    });
+
+    it('should not allow to get user if no credentials', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not allow to get user if wrong password', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(USER.username, faker.name.firstName());
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not allow to get user if wrong username', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(faker.name.firstName(), USER.password);
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not allow to get user if wrong credentials', ()=>{
+      return User
+        .findOne()
+        .exec()
+        .then(user=>{
+          return chai
+            .request(app)
+            .get(`/api/users/${user.username}`)
+            .auth(faker.name.firstName(), faker.name.firstName());
+        })
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+  });
+  
+  describe('Post User Endpoint', ()=>{
+    it('should be able to post user to database', ()=>{
+      let user;
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .then(res=>{
+          res.should.have.status(201);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.include.keys('id', 'username', 'type', 'fullName');
+          res.body.id.should.not.be.null;
+          const [firstName, lastName] = res.body.fullName.split(' ');
+          newUser.firstName.should.equal(firstName);
+          newUser.lastName.should.equal(lastName);
+          user = res.body;
+          return User
+          .findOne({username:user.username})
+          .exec();
+        })
+        .then(userDB=>{
+          const [firstName, lastName] = user.fullName.split(' ');
+          userDB.firstName.should.equal(firstName);
+          userDB.lastName.should.equal(lastName);
+          userDB.type.should.equal(user.type);
+          userDB.id.should.equal(user.id);
+          userDB.username.should.equal(user.username);
+        });
+    });
+
+    it('should not post user if taCode is wrong',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: 'gg'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if username is not in req.body',()=>{
+      const newUser = {
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if password is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if firstName is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if lastName is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if TA code is not in req.body',()=>{
+      const newUser = {
+        username: 'hi',
+        firstName: 'Kyle',
+        lastName: 'S'
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(400);
+        });
+    });
+
+    it('should not post user if username is not a string',()=>{
+      const newUser = {
+        username: 213,
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if password is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: 123456,
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if firstName is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 123456,
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if lastName is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 1234,
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if taCode is not a string',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: 2134
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if username is an empty string after trim',()=>{
+      const newUser = {
+        username: ' ',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if password is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: ' ',
+        firstName: 'Kyle',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if firstName is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: ' ',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if lastName is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'Kyle',
+        lastName: ' ',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if taCode is an empty string after trim',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: ' '
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if password length is less than 6',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(422);
+        });
+    });
+
+    it('should not post user if no credentials',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not post user if wrong username',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(faker.name.firstName(), USER.password)
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not post user if wrong username',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(USER.username, faker.name.firstName())
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });
+
+    it('should not post user if wrong username and password',()=>{
+      const newUser = {
+        username: 'hi',
+        password: '123456',
+        firstName: 'kek',
+        lastName: 'S',
+        taCode: TA_CODE
+      };
+
+      return chai
+        .request(app)
+        .post('/api/users')
+        .auth(faker.name.firstName(), faker.name.firstName())
+        .send(newUser)
+        .catch(res=>{
+          res.should.have.status(401);
+        });
+    });    
   });
 });

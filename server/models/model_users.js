@@ -35,7 +35,6 @@ userSchema.virtual('fullName').get(function(){
 userSchema.methods.apiRepr = function(){
   return {
     id:this._id,
-    name:this.name,
     username:this.username,
     fullName:this.fullName,
     type:this.type

@@ -7,6 +7,9 @@
 const express = require('express');
 const ticketRouter = express.Router();
 
+//Importing passport
+const passport = require('passport');
+
 //Importing the ticket model
 const {Ticket} = require('../models/model_tickets');
 
@@ -125,7 +128,7 @@ ticketRouter.put('/:id',(req,res)=>{
 });
 
 //Updating Tickets TA User
-ticketRouter.put('/:id/status',(req,res)=>{
+ticketRouter.put('/:id/status', passport.authenticate('basic', { session: false }), (req,res)=>{
   let message = '';
 
   if(!(req.params.id === req.body.id)){
