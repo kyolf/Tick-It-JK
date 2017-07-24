@@ -20,6 +20,13 @@ describe ('Reducer', () => {
     expect(state.isRefreshed).toEqual(false);
   });
 
+  it('should return the current state on an unknown action', () => {
+    let currentState = {};
+    const state = reducer(currentState, {type: '__UNKNOWN'});
+    
+    expect(state).toBe(currentState);
+  });
+
   
 
 })//end of describe block
