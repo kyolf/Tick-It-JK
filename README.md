@@ -6,7 +6,7 @@ This App was brainstormed up while we, as students, sat in a slack channel waiti
 
 ## Technology Used <br/>
 **FrontEnd**: HTML, CSS, Javascript, React, Redux<br/>
-**BackEnd**: NodeJS, Express, MongoDB, Mongoose, Mlab<br/>
+**BackEnd**: NodeJS, Express, Passport, MongoDB, Mongoose, Mlab<br/>
 **Deployment**: Heroku, Travis <br/> 
 
 ## Documentation of API <br/>
