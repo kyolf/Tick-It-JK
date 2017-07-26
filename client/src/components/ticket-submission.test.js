@@ -23,7 +23,7 @@ global.localStorage = new LocalStorageMock;
 ///////////////                 Ticket Submission          /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
-describe('<TicketSubmission />', () => {
+describe('TicketSubmission Test', () => {
   it('renders without crashing', () => {
     const dispatch = () => {};
     shallow(<TicketSubmission dispatch={dispatch}/>);

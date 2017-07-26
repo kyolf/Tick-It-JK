@@ -19,7 +19,9 @@ global.localStorage = new LocalStorageMock;
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                 Login Test                 /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-it('renders without crashing', () => {
-  // const div = document.createElement('div');
-  // ReactDOM.render(<TicketSubmission />);
+describe('Login Test', () => {
+  it('renders without crashing', () => {
+    const dispatch = () => {};
+    shallow(<Login dispatch={dispatch}/>);
+  });
 });
