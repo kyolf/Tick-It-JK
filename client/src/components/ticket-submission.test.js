@@ -1,14 +1,26 @@
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                 Imports                    /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Importing React
 import React from 'react';
+
+//Importing shallow and mount to test the component
 import {shallow, mount} from 'enzyme';
 
+//Importing TicketSubmission component
 import {TicketSubmission} from './ticket-submission';
+
+//Importing the actions
 import {submitTicket} from '../actions';
+
+//Importing the local storage mock object
 import LocalStorageMock from './local-storage-mock';
 
+//Making the global local storage to be our local storage mock object
 global.localStorage = new LocalStorageMock;
 
 /////////////////////////////////////////////////////////////////////////////////////
-///////////////                 Ticket Submission               /////////////////////////
+///////////////                 Ticket Submission          /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
 describe('<TicketSubmission />', () => {

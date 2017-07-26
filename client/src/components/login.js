@@ -17,7 +17,7 @@ import './login.css';
 ///////////////                   Login                    /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 export class Login extends React.Component{
-  //before rendering, see if there is a cookie for the username
+  //before rendering, change the screen to ticketlistTA if username is logged in
   //change navButton text to Sign Up in the nav bar
   componentWillMount(){
     const username = localStorage.getItem('username');
