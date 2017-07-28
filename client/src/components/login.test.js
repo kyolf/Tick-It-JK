@@ -24,4 +24,12 @@ describe('Login Test', () => {
     const dispatch = () => {};
     shallow(<Login dispatch={dispatch}/>);
   });
+
+  it('it has 1 form, 2 labels, 3 inputs', ()=>{
+    const dispatch = () => {};
+    const wrapper = shallow(<Login dispatch={dispatch}/>);
+    expect(wrapper.find('form').length).toEqual(1);
+    expect(wrapper.find('label').length).toEqual(2);
+    expect(wrapper.find('input').length).toEqual(3);
+  });
 });
