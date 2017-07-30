@@ -133,13 +133,11 @@ export const submitTicket = (request, group, location) => dispatch => {
 
 //deleting ticket from database
 export const fetchDeleteTicket = (ticketId, index) => dispatch =>{
-  console.log('ticketId before fetch', ticketId)
   fetch(`/api/tickets/${ticketId}`, {
     method: 'DELETE',
     mode: 'cors'
   })
   .then(()=>{
-    console.log('I AM HERE', ticketId);
     return dispatch(deleteTicket(index));
   })
   .catch(err=>{

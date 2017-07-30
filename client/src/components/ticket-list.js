@@ -50,7 +50,6 @@ export class TicketList extends React.Component{
   //delete a ticket from the database and state
   deleteButton(e, ticketId, index){
     e.preventDefault();
-    console.log('inside delete button function', ticketId);
     this.props.dispatch(fetchDeleteTicket(ticketId, index));
   }
 
@@ -96,7 +95,6 @@ export class TicketList extends React.Component{
   //make ticket list for mobile view
   getTicketInfoMobile() {
     return this.props.tickets.map((item, index) => {
-      //console.log('these are the tickets', item);
       return (
         <div key={index} className="tickets-container hide-when-large">
           <ul className="field-labels">
