@@ -28,13 +28,12 @@ export class Navbar extends React.Component{
 
     if(lowerCaseNavButtonText === TA_LOGIN_OR_SIGN_UP.toLowerCase() || lowerCaseNavButtonText === LOGIN.toLowerCase()){
       return (
-
         <Link to='/login' style={{textDecoration: "none", paddingRight: "25px"}}>
           <li className="nav-button">{this.props.navButton}</li>
         </Link>
       );
     }
-    if(lowerCaseNavButtonText === SUBMIT_NEW_TICKET.toLowerCase()){
+    else if(lowerCaseNavButtonText === SUBMIT_NEW_TICKET.toLowerCase()){
       return (
         <Link to='/' style={{textDecoration: "none", paddingRight: "10px"}}>
           <li className="nav-button">{this.props.navButton}</li>
@@ -57,12 +56,11 @@ export class Navbar extends React.Component{
     }
   }
 
+  //remove the stuff from local storage in order to log out
   logOut(){
-    console.log('hi', localStorage);
     localStorage.removeItem('username');
     localStorage.removeItem('password');
     localStorage.removeItem('firstName');
-    console.log('hi123', localStorage);
   }
 
   //render the nav bar
