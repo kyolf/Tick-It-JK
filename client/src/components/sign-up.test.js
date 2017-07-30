@@ -54,4 +54,4 @@ describe('<SignUp />', () => {
     expect(dispatch).toHaveBeenCalledWith(changeNavButton('Login'));
     expect(dispatch.mock.calls[0][0].type).toEqual(CHANGE_NAV_BUTTON);
   });
-});//end of describe block
+});
