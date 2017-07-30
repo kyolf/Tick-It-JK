@@ -39,8 +39,8 @@ describe('Login Test', () => {
   it('Once Login is clicked, it should submit once all values are filled', () => {
     const dispatch = jest.fn();
     const wrapper = mount(<Login dispatch={dispatch}/>);
-    wrapper.find('#username').value = 'Chris';
-    wrapper.find('#password').value = '123456';
+    wrapper.find('#username').node.value = 'Chris';
+    wrapper.find('#password').node.value = '123456';
     wrapper.find('.button').simulate('click');
     expect(dispatch).toHaveBeenCalled();
   });
@@ -50,5 +50,17 @@ describe('Login Test', () => {
     const wrapper = mount(<Login dispatch={dispatch}/>);
     expect(dispatch).toHaveBeenCalledWith(changeNavButton('Sign Up'));
     expect(dispatch.mock.calls[0][0].type).toEqual(CHANGE_NAV_BUTTON);
+  });
+
+  it('Login should go to ticketlistTA if user is logged in', () => {
+    localStorage.setItem('username', 'Chris');
+    const dispatch = jest.fn();
+    const wrapper = mount(<Login dispatch={dispatch}/>);
+    const url = location.href + 'ticketlistTA';
+    Object.defineProperty(window.location, 'href', {
+      writable:true,
+      value: url
+    });
+    expect(window.location.href).toEqual(url);
   });
 });

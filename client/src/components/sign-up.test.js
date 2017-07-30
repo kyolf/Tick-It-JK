@@ -39,11 +39,11 @@ describe('<SignUp />', () => {
   it('Once Sign Up is clicked, it should submit once all values are filled', () => {
     const dispatch = jest.fn();
     const wrapper = mount(<SignUp dispatch={dispatch}/>);
-    wrapper.find('#firstname').value = 'hi';
-    wrapper.find('#lastname').value = 'kek';
-    wrapper.find('#username').value = 'Jamie';
-    wrapper.find('#password').value = '123456';
-    wrapper.find('#ta-auth-code').value = 'ethos';
+    wrapper.find('#firstname').node.value = 'hi';
+    wrapper.find('#lastname').node.value = 'kek';
+    wrapper.find('#username').node.value = 'Jamie';
+    wrapper.find('#password').node.value = '123456';
+    wrapper.find('#ta-auth-code').node.value = 'ethos';
     wrapper.find('button').simulate('click');
     expect(dispatch).toHaveBeenCalled();
   });
