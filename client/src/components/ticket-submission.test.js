@@ -38,6 +38,6 @@ describe('TicketSubmission Test', () => {
     // expect(dispatch).toHaveBeenCalledWith(submitTicket(value));
   })
 
-})//end of describe block
+});//end of describe block
 
 
