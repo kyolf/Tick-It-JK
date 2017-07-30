@@ -68,9 +68,9 @@ export class Navbar extends React.Component{
     return (
       <nav>
         <ul className="navbar">
-        <Link to='/' style={{textDecoration: "none"}}>
-          <li className="title">Tick-it</li>
-        </Link>
+          <Link to='/' style={{textDecoration: "none"}}>
+            <li className="title">Tick-it</li>
+          </Link>
           {this.linkButton()}
         </ul>
       </nav>
