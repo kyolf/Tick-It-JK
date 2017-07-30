@@ -106,6 +106,26 @@ describe('Ticket List Tests', () => {
     expect(takeOrFinish1).toEqual('Finish');
   });
 
+  it('Check if the action is dispatched with you click on Delete Button', () => {
+    const dispatch = jest.fn();
+    const tickets = [{group:'Jamie & Kyle',
+                     location:'SH',
+                     request:'React Help',
+                     status:'Unassigned',
+                     deleteButton:'Take'},
+                    {group:'Jamie & Kyle',
+                     location:'SH',
+                     request:'CSS Help',
+                     status:'Unassigned',
+                     deleteButton:'Finish'}];
+    const username = 'Chris';
+    const fullName = 'Chris A';
+    const password = '123456';
+    const wrapper = mount(<TicketList dispatch={dispatch} tickets={tickets} username={username} fullName={fullName} password={password}/>);
+    wrapper.find('.delete-button').first().simulate('click');
+    expect(dispatch.mock.calls.length).toEqual(3);     
+  });
+
   it('No User Logged In Test', () => {
     const dispatch = jest.fn();
     const tickets = [{group:'Jamie & Kyle',
@@ -124,7 +144,8 @@ describe('Ticket List Tests', () => {
     const wrapper = mount(<TicketList dispatch={dispatch} tickets={tickets} username={username} fullName={fullName} password={password}/>);   
     expect(dispatch).toHaveBeenCalledWith(changeNavButton('Submit New Ticket'));
     expect(dispatch.mock.calls[0][0].type).toEqual(CHANGE_NAV_BUTTON);  
-    expect(dispatch.mock.calls[0][0].navButtonText).toEqual('Submit New Ticket');  
+    expect(dispatch.mock.calls[0][0].navButtonText).toEqual('Submit New Ticket');
+    expect(dispatch.mock.calls.length).toEqual(2);      
   });
 
   it('User Logged In Test', () => {
@@ -148,7 +169,8 @@ describe('Ticket List Tests', () => {
     const wrapper = mount(<TicketList dispatch={dispatch} tickets={tickets} username={username} fullName={fullName} password={password}/>);   
     expect(dispatch).toHaveBeenCalledWith(changeNavButton('Log Out'));
     expect(dispatch.mock.calls[0][0].type).toEqual(CHANGE_NAV_BUTTON);  
-    expect(dispatch.mock.calls[0][0].navButtonText).toEqual('Log Out');  
+    expect(dispatch.mock.calls[0][0].navButtonText).toEqual('Log Out'); 
+    expect(dispatch.mock.calls.length).toEqual(2);     
   });
 });
 

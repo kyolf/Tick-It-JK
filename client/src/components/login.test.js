@@ -41,8 +41,9 @@ describe('Login Test', () => {
     const wrapper = mount(<Login dispatch={dispatch}/>);
     wrapper.find('#username').node.value = 'Chris';
     wrapper.find('#password').node.value = '123456';
-    wrapper.find('.button').simulate('click');
+    wrapper.find('.login-form').simulate('submit');
     expect(dispatch).toHaveBeenCalled();
+    expect(dispatch.mock.calls.length).toEqual(2);
   });
 
   it('Login should have a sign up nav button', () => {
