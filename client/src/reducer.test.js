@@ -204,5 +204,4 @@ describe ('Reducer', () => {
       expect(newState.tickets[0].status).toEqual('C. Angelico');
     });
   });
-
 });
