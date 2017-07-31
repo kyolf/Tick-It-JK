@@ -82,7 +82,8 @@ describe ('Reducer', () => {
           request: 'Help us please',
           status: 'Unassigned',
           deleteButton: 'Finish'
-        }, {
+        }, 
+        {
           group: 'Students',
           location: 'Screenhero',
           request: 'Need assistance with everything',
@@ -109,6 +110,29 @@ describe ('Reducer', () => {
     });
   });
 
+  describe('changeDeleteButton', () => {
+    it('Should change delete button of specific ticket', () => {
+      const currentState = {
+        tickets: [{
+          group: 'KJ',
+          location: 'OWL',
+          request: 'Help us please',
+          status: 'Unassigned',
+          deleteButton: 'Finish'
+        }, 
+        {
+          group: 'Students',
+          location: 'Screenhero',
+          request: 'Need assistance with everything',
+          status: 'Unassigned',
+          deleteButton: 'Finish'
+        }]
+      };
 
+      const newState = reducer(currentState, actions.changeDeleteButton('Take', 0));
+
+      expect(newState.tickets[0].deleteButton).toEqual('Take');
+    });
+  });
 
 });//end of describe block
