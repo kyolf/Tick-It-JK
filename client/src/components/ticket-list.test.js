@@ -50,7 +50,7 @@ describe('Ticket List Tests', () => {
     const wrapper = shallow(<TicketList dispatch={dispatch} tickets={tickets} username={username} fullName={fullName} password={password}/>);
     expect(wrapper.find('input').length).toEqual(7);
     expect(wrapper.find('li').length).toEqual(4);
-    expect(wrapper.find('button').length).toEqual(5);
+    expect(wrapper.find('button').length).toEqual(2);
     expect(wrapper.find('th').length).toEqual(5);
   });
 
