@@ -1,6 +1,9 @@
 # Title: Tick-it
 by Kyle Szeto, Jamie Wang <br>
 
+## Production App <br>
+http://tick-it-jk.herokuapp.com/
+
 ## Description <br/> 
 This App was brainstormed up while we, as students, sat in a slack channel waiting for a response on a heavy request day, but not really knowing when a response would come, or what our standing was. Enter in Tick-it, the web app that allows Thinkful TA's and students to stay organized on a transparent platform. TA's are able to keep track of requests submitted by students who need assistance with a variety of coding challenges, while students are able to keep track of the requests they have submitted and where they line up on the queue. 
 
