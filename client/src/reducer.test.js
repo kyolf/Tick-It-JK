@@ -151,6 +151,30 @@ describe ('Reducer', () => {
     });
   });
 
-  
+  describe('toggleStatus', () => {
+    it('Should change status of ticket to full name of TA who took it', () => {
+      const currentState = {
+        tickets: [{
+          group: 'KJ',
+          location: 'OWL',
+          request: 'Help us please',
+          status: 'Unassigned',
+          deleteButton: 'Finish'
+        }, 
+        {
+          group: 'Students',
+          location: 'Screenhero',
+          request: 'Need assistance with everything',
+          status: 'Unassigned',
+          deleteButton: 'Finish'
+        }],
+        fullName: 'C. Angelico'
+      };
+
+      const newState = reducer(currentState, actions.toggleStatus(currentState.fullName, 0));
+
+      expect(newState.tickets[0].status).toEqual('C. Angelico');
+    });
+  });
 
 });//end of describe block
