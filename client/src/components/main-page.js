@@ -22,13 +22,10 @@ import TicketList from './ticket-list';
 //Importing the Ticket Submission from the ticket submission file
 import TicketSubmission from './ticket-submission';
 
-//Importing connect wrap
-import {connect} from 'react-redux';
-
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////                  Main Page                 /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-export class MainPage extends React.Component{
+export default class MainPage extends React.Component{
   //renders how each page will look like and links the pages together
   render(){
     return (
@@ -47,15 +44,3 @@ export class MainPage extends React.Component{
     );
   }
 }
-
-/////////////////////////////////////////////////////////////////////////////////////
-///////////////       Making Connect Wrap Around Ticket List      //////////////////
-///////////////////////////////////////////////////////////////////////////////////
-//setting state.username to username prop that is passed in the connect wrap
-export const mapStateToProps = state => ({
-  username:state.username,
-  password:state.password
-});
-
-//Creates a connect wrap that wraps around MainPage with a username prop and a default dispatch prop
-export default connect(mapStateToProps)(MainPage);

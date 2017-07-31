@@ -17,7 +17,6 @@ describe ('Reducer', () => {
     expect(state.username).toEqual('');
     expect(state.fullName).toEqual('');
     expect(state.password).toEqual('');
-    expect(state.isRefreshed).toEqual(false);
   });
 
   it('should return the current state on an unknown action', () => {
@@ -77,4 +76,4 @@ describe ('Reducer', () => {
   });
 
 
-})//end of describe block
+});//end of describe block
