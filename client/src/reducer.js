@@ -6,7 +6,6 @@ import {
   TOGGLE_STATUS,
   DISPLAY_TICKETS,
   ADD_TICKET,
-  EDIT_TICKET,
   DELETE_TICKET,
   CHANGE_NAV_BUTTON,
   CHANGE_DELETE_BUTTON,
@@ -56,11 +55,6 @@ export default (state, action) => {
         }
         return Object.assign({}, ticket, {deleteButton: state.tickets[0].deleteButton});
       })
-    });
-  }
-  else if(action.type === EDIT_TICKET){
-    state = Object.assign({}, state, {
-      request: action.request
     });
   }
   else if(action.type === DELETE_TICKET){
