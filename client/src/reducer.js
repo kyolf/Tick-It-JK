@@ -58,11 +58,6 @@ export default (state, action) => {
       })
     });
   }
-  else if(action.type === EDIT_TICKET){
-    state = Object.assign({}, state, {
-      request: action.request
-    });
-  }
   else if(action.type === DELETE_TICKET){
     state = Object.assign({}, state, {
       tickets:[...state.tickets.slice(0, action.index),

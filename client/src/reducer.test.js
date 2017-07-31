@@ -97,6 +97,18 @@ describe ('Reducer', () => {
     });
   });
     
+  describe('changeNavButton', () => {
+    it('Should change navigation button', () => {
+      const currentState = {
+        navButton: 'TA Login Or Sign Up'
+      };
+
+      const newState = reducer(currentState, actions.changeNavButton('Submit New Ticket'));
+
+      expect(newState.navButton).toEqual('Submit New Ticket');
+    });
+  });
+
 
 
 });//end of describe block
