@@ -71,9 +71,32 @@ describe ('Reducer', () => {
 
       expect(newState.tickets).toEqual([...currentState.tickets, ticket]);
     });
-
-    
   });
+
+  describe('deleteTicket', () => {
+    it('Should delete ticket from tickets array', () => {
+      const currentState = {
+        tickets: [{
+          group: 'KJ',
+          location: 'OWL',
+          request: 'Help us please',
+          status: 'Unassigned',
+          deleteButton: 'Finish'
+        }, {
+          group: 'Students',
+          location: 'Screenhero',
+          request: 'Need assistance with everything',
+          status: 'Unassigned',
+          deleteButton: 'Finish'
+        }]
+      };
+
+      const newState = reducer(currentState, actions.deleteTicket(1));
+
+      expect(newState.tickets).toEqual([currentState.tickets[0]]);        
+    });
+  });
+    
 
 
 });//end of describe block
