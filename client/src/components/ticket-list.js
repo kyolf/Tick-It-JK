@@ -38,7 +38,6 @@ export class TicketList extends React.Component{
       this.deleteButton(e, ticketId, index);
     } else {
       this.takeButton(e, ticketId, index, 'Finish');
-      //this.props.dispatch(changeDeleteButton('Take'));
     }
   }
 

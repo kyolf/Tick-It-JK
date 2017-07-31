@@ -17,6 +17,7 @@ import './ticket-submission.css';
 ///////////////            Ticket Submission               /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 export class TicketSubmission extends React.Component{
+  //sends user to ticketlist ta if user is logged in
   //changes navButton text to TA Login Or Sign Up in the nav bar
   componentWillMount(){
     const username = localStorage.getItem('username');
