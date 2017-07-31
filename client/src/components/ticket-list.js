@@ -30,14 +30,11 @@ export class TicketList extends React.Component{
         this.props.dispatch(changeNavButton('Log Out'));
         this.props.dispatch(fetchTickets('Take'));
     }
-    //this.props.dispatch(fetchTickets());
   }
 
   //checks delete button text and dispatches delete or take 
   checkDeleteButtonText(e, ticketId, index){
-    //console.log('from line 42', this.props.tickets);
     if(this.props.tickets[index].deleteButton === 'Finish'){
-      //console.log('this is the deleteButton', this.props.tickets[index].deleteButton)
       this.deleteButton(e, ticketId, index);
     } else {
       this.takeButton(e, ticketId, index, 'Finish');
@@ -48,7 +45,6 @@ export class TicketList extends React.Component{
   //delete a ticket from the database and state
   deleteButton(e, ticketId, index){
     e.preventDefault();
-    console.log('inside delete button function', ticketId);
     this.props.dispatch(fetchDeleteTicket(ticketId, index));
   }
 
@@ -91,7 +87,6 @@ export class TicketList extends React.Component{
   //make ticket list for mobile view
   getTicketInfoMobile() {
     return this.props.tickets.map((item, index) => {
-      //console.log('these are the tickets', item);
       return (
         <div key={index} className="tickets-container hide-when-large">
           <ul className="field-labels">
@@ -146,7 +141,6 @@ const mapStateToProps = state => ({
   username: state.username,
   fullName: state.fullName,
   password: state.password,
-  isRefreshed: state.isRefreshed,
 });
 
 //exporting a connect wrap that is wrapped around TicketList

@@ -29,8 +29,7 @@ const initialState = {
   submitted: false,
   username: '',
   fullName: '',
-  password: '',
-  isRefreshed: false
+  password: ''
 };
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +51,6 @@ export default (state, action) => {
   else if(action.type === DISPLAY_TICKETS){
     state = Object.assign({}, state, {
       tickets: action.tickets.map(ticket=>{
-        console.log(ticket);
         if(ticket.status === 'Unassigned'){
           return Object.assign({}, ticket, {deleteButton: action.text});
         }
@@ -66,21 +64,11 @@ export default (state, action) => {
     });
   }
   else if(action.type === DELETE_TICKET){
-    if(action.index > 0){
-      state = Object.assign({}, state, {
-        tickets:[...state.tickets.slice(0, action.index),
-          ...state.tickets.slice(action.index + 1)
-        ]
-      });
-    }
-    else if(action.index === 0){
-      state = Object.assign({}, state, {
-        tickets:[...state.tickets.slice(action.index + 1)]
-      });
-    }
-    else{
-      console.err('Your index is less than 0');
-    }
+    state = Object.assign({}, state, {
+      tickets:[...state.tickets.slice(0, action.index),
+        ...state.tickets.slice(action.index + 1)
+      ]
+    });
   }
   else if(action.type === CHANGE_NAV_BUTTON){
     state = Object.assign({}, state, {
@@ -88,36 +76,18 @@ export default (state, action) => {
     });
   }
   else if(action.type === CHANGE_DELETE_BUTTON){
-    if(action.index > 0){
-      state = Object.assign({}, state, {
-        tickets: [...state.tickets.slice(0, action.index),
-        Object.assign(...state.tickets.slice(action.index, action.index + 1), {deleteButton: action.deleteButtonText}), 
-        ...state.tickets.slice(action.index + 1)]
-      });
-    }
-    else if(action.index === 0){
-      state = Object.assign({}, state, {
-        tickets: [
-        Object.assign(...state.tickets.slice(action.index, action.index + 1), {deleteButton: action.deleteButtonText}), 
-        ...state.tickets.slice(action.index + 1)]
-      });     
-    }
+    state = Object.assign({}, state, {
+      tickets: [...state.tickets.slice(0, action.index),
+      Object.assign(...state.tickets.slice(action.index, action.index + 1), {deleteButton: action.deleteButtonText}), 
+      ...state.tickets.slice(action.index + 1)]
+    });
   }
   else if(action.type === TOGGLE_STATUS){
-    if(action.index > 0){
-      state = Object.assign({}, state, {
-        tickets: [...state.tickets.slice(0, action.index),
-        Object.assign(...state.tickets.slice(action.index, action.index + 1), {status: action.fullName}), 
-        ...state.tickets.slice(action.index + 1)]
-      });
-    }
-    else if(action.index === 0){
-      state = Object.assign({}, state, {
-        tickets: [
-        Object.assign(...state.tickets.slice(action.index, action.index + 1), {status: action.fullName}), 
-        ...state.tickets.slice(action.index + 1)]
-      });     
-    }
+    state = Object.assign({}, state, {
+      tickets: [...state.tickets.slice(0, action.index),
+      Object.assign(...state.tickets.slice(action.index, action.index + 1), {status: action.fullName}), 
+      ...state.tickets.slice(action.index + 1)]
+    });
   }
   else if(action.type === LOGIN){
     state = Object.assign({}, state, {
@@ -127,4 +97,4 @@ export default (state, action) => {
     });
   }
   return state;
-}//end of export reducer 
+};

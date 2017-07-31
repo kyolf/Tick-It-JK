@@ -22,7 +22,7 @@ describe('<SignUp />', () => {
     shallow(<SignUp dispatch={dispatch}/>);
   });
 
-  it('Sign Up have 5 labels and 5 inputs and 1 button', ()=>{
+  it('Sign Up have 5 labels and 5 inputs and 1 button', () => {
     const dispatch = jest.fn();
     const wrapper = shallow(<SignUp dispatch={dispatch}/>);
     expect(wrapper.find('input').length).toEqual(5);
@@ -30,28 +30,28 @@ describe('<SignUp />', () => {
     expect(wrapper.find('button').length).toEqual(1);
   });
 
-  it('Sign Up has a form', ()=>{
+  it('Sign Up has a form', () => {
     const dispatch = jest.fn();
     const wrapper = shallow(<SignUp dispatch={dispatch}/>);
     expect(wrapper.find('form').length).toEqual(1);
   });
 
-  it('Once Sign Up is clicked, it should submit once all values are filled', ()=>{
+  it('Once Sign Up is clicked, it should submit once all values are filled', () => {
     const dispatch = jest.fn();
     const wrapper = mount(<SignUp dispatch={dispatch}/>);
-    wrapper.find('#firstname').value = 'hi';
-    wrapper.find('#lastname').value = 'kek';
-    wrapper.find('#username').value = 'Jamie';
-    wrapper.find('#password').value = '123456';
-    wrapper.find('#ta-auth-code').value = 'ethos';
+    wrapper.find('#firstname').node.value = 'hi';
+    wrapper.find('#lastname').node.value = 'kek';
+    wrapper.find('#username').node.value = 'Jamie';
+    wrapper.find('#password').node.value = '123456';
+    wrapper.find('#ta-auth-code').node.value = 'ethos';
     wrapper.find('button').simulate('click');
     expect(dispatch).toHaveBeenCalled();
   });
 
-  it('Sign Up should have a login button', ()=>{
+  it('Sign Up should have a login nav button', () => {
     const dispatch = jest.fn();
     const wrapper = mount(<SignUp dispatch={dispatch}/>);
-    expect(dispatch).toHaveBeenCalledWith(changeNavButton('Login'))
+    expect(dispatch).toHaveBeenCalledWith(changeNavButton('Login'));
     expect(dispatch.mock.calls[0][0].type).toEqual(CHANGE_NAV_BUTTON);
   });
-})//end of describe block
+});
