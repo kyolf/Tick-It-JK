@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 //Importing actions that are going to be used in this file
-import {editField, fetchTickets, fetchStatus, fetchDeleteTicket, changeNavButton} from '../actions';
+import {fetchTickets, fetchStatus, fetchDeleteTicket, changeNavButton} from '../actions';
 
 //Importing ticket list css file
 import './ticket-list.css';
@@ -31,11 +31,6 @@ export class TicketList extends React.Component{
         this.props.dispatch(fetchTickets('Take'));
     }
     //this.props.dispatch(fetchTickets());
-  }
-
-  //edit a field in the ticket list
-  editField(field){
-    this.props.dispatch(editField(field.id, field.value));
   }
 
   //checks delete button text and dispatches delete or take 
@@ -75,19 +70,16 @@ export class TicketList extends React.Component{
           <td className="main-cell">
             <form>
               <input type="text" id="group" value={item.group} ref={group => this.group = group} />
-              <input type="button" value="Edit" onClick={e => this.editField(this.group)} />
             </form>
           </td>
           <td className="main-cell">
             <form>
               <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
-              <input type="button" value="Edit" onClick={e => this.editField(this.location)} />
             </form>
           </td>
           <td className="main-cell">
             <form>
               <input type="text" id="request" value={item.request} ref={request => this.request = request} />
-              <input type="button" value="Edit" onClick={e => this.editField(this.request)} />
             </form>
           </td>
           <td className="status-cell">{item.status}</td>
@@ -115,11 +107,6 @@ export class TicketList extends React.Component{
             <input type="text" className="status" value={item.status} />
             <button className="delete-button" onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{item.deleteButton}</button>
           </form>
-          <div className="edit-buttons">
-            <button className="edit-button" onClick={e => this.editField(this.group)}>Edit</button>
-            <button className="edit-button" onClick={e => this.editField(this.request)}>Edit</button>
-            <button className="edit-button" onClick={e => this.editField(this.location)}>Edit</button>
-          </div>
         </div>
       )
     });

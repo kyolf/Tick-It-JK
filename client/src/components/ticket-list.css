@@ -142,10 +142,11 @@ td > button:hover {
     padding-top: 7px;
   }
 
-  .ticket-inputs, .edit-buttons {
+  .ticket-inputs {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 50px;
   }
 
   .field-labels {
@@ -153,15 +154,6 @@ td > button:hover {
     flex-direction: column;
     align-items: left;
     padding-left: 5px;
-  }
-
-  .edit-button {
-    margin-bottom: 10px;
-    margin-right: 7px;
-    border: 1px solid #1C2541;
-    background-color: #5BC0BE;
-    border-radius: 35%;
-    font-family: 'Trocchi', serif;
   }
 
   .delete-button {
@@ -177,7 +169,7 @@ td > button:hover {
     margin-bottom: 5px;
     border: 1px solid lightslategray;
     padding: 5px;
-    width: 120%;
+    width: 130%;
   }
 
   .field-label {
@@ -228,10 +220,11 @@ td > button:hover {
     padding-bottom: 5px;
   }
 
-  .ticket-inputs, .edit-buttons {
+  .ticket-inputs {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 110px;
   }
 
   .field-labels {
@@ -239,16 +232,6 @@ td > button:hover {
     flex-direction: column;
     align-items: left;
     padding-left: 7px;
-  }
-
-  .edit-button {
-    margin-bottom: 12px;
-    margin-right: 10px;
-    border: 1px solid #1C2541;
-    background-color: #5BC0BE;
-    border-radius: 35%;
-    font-family: 'Trocchi', serif;
-    font-size: 14px;
   }
 
   .delete-button {
@@ -264,7 +247,7 @@ td > button:hover {
     margin-bottom: 5px;
     border: 1px solid lightslategray;
     padding: 8px;
-    width: 185%;
+    width: 215%;
     font-size: 12px;
   }
 
@@ -317,10 +300,11 @@ td > button:hover {
     padding-top: 10px;
   }
 
-  .ticket-inputs, .edit-buttons {
+  .ticket-inputs {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 150px;
   }
 
   .field-labels {
@@ -328,16 +312,6 @@ td > button:hover {
     flex-direction: column;
     align-items: left;
     padding-left: 7px;
-  }
-
-  .edit-button {
-    margin-bottom: 12px;
-    margin-right: 10px;
-    border: 1px solid #1C2541;
-    background-color: #5BC0BE;
-    border-radius: 35%;
-    font-family: 'Trocchi', serif;
-    font-size: 16px;
   }
 
   .delete-button {

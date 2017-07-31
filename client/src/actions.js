@@ -204,16 +204,4 @@ export const validateLogin = (username, password) => dispatch => {
   });
 }
 
-//S
-export const EDIT_TICKET = 'EDIT_TICKET';
-export const editTicket = () => ({
-  type: EDIT_TICKET
-});
-
-export const EDIT_FIELD = 'EDIT_FIELD';
-export const editField = (fieldId) => ({
-  type: EDIT_FIELD,
-  fieldId
-});
-
 
