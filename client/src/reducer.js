@@ -52,7 +52,6 @@ export default (state, action) => {
   else if(action.type === DISPLAY_TICKETS){
     state = Object.assign({}, state, {
       tickets: action.tickets.map(ticket=>{
-        console.log(ticket);
         if(ticket.status === 'Unassigned'){
           return Object.assign({}, ticket, {deleteButton: action.text});
         }
