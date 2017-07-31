@@ -108,11 +108,11 @@ app.use('/api/users', userRouter);
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////         API Other Paths Than Above         /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-// Serve the built client
+//Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-// Unhandled requests which aren't for the API should serve index.html so
-// client-side routing using browserHistory can function
+//Unhandled requests which aren't for the API should serve index.html so
+//client-side routing using browserHistory can function
 app.get(/^(?!\/api(\/|$))/, (req, res) => {
   const index = path.resolve(__dirname, '../client/build', 'index.html');
   res.sendFile(index);

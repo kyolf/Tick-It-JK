@@ -1,11 +1,23 @@
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  Imports                   /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Importing Dotenv library
 require('dotenv').config();
+
+/////////////////////////////////////////////////////////////////////////////////////
+///////////////                  Exports                   /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+//Exporting the database url
 exports.DATABASE_URL = process.env.DATABASE_URL ||
                        global.DATABASE_URL || 'mongodb://localhost/tick-it';
 
+//Exporting the test database url
 exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL||
                             global.env.TEST_DATABASE_URL;
 
+//Exporting the port
 exports.PORT = process.env.PORT || 8080;
 
+//Exporting the secret TA Code
 exports.TA_CODE = process.env.TA_CODE ||
                   global.TA_CODE;

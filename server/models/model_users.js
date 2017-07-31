@@ -54,8 +54,8 @@ userSchema.statics.hashPassword = function(password){
 /////////////////////////////////////////////////////////////////////////////////////
 ///////////////          Linking Schemas and Exporting Models       ////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-/*Linking User Schema to the User Schema in our database */
+//Linking User Schema to the User Schema in our database 
 const User = mongoose.model('User',userSchema);
 
-/*Exporting the User that links to our database */
+//Exporting the User that links to our database
 module.exports = {User};
