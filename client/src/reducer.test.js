@@ -135,4 +135,22 @@ describe ('Reducer', () => {
     });
   });
 
+  describe('login', () => {
+    it('Should keep track of user login data in state', () => {
+      const currentState = {
+        username: '',
+        fullName: '',
+        password: ''
+      };
+
+      const newState = reducer(currentState, actions.login('Rosauv', 'C. Angelico', 'alices'));
+
+      expect(newState.username).toEqual('Rosauv');
+      expect(newState.fullName).toEqual('C. Angelico');
+      expect(newState.password).toEqual('alices');
+    });
+  });
+
+  
+
 });//end of describe block
