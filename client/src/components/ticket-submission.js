@@ -44,6 +44,11 @@ export class TicketSubmission extends React.Component{
   //renders our ticket submission form
   render(){
     return (
+      <div className="outer-container">
+      {/* <div className="info-container">
+        <p>Want to help students? Click the top right corner!</p>
+        <p>Need TA help? Submit a request below!</p>
+      </div> */}
       <div className="ticket-container">
         <form className="form-container" >
           <label htmlFor="request">Request</label>
@@ -57,6 +62,7 @@ export class TicketSubmission extends React.Component{
             minLength="2" required ref={location => this.location = location}/>
           <button type="button" className="initial-submit-button" onClick={e => this.validateSubmission(e)}>Submit Ticket</button>
         </form>
+      </div>
       </div>
     );
   }

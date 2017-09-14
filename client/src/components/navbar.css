@@ -17,7 +17,7 @@
   border-radius: 25%;
   color: black;
   background-color: #5BC0BE;
-  cursor: hand;
+  cursor: pointer;
 }
 
 .title {
@@ -26,7 +26,7 @@
   font-size: 66px;
   padding: 30px;
   text-shadow: 10px 10px 1px #1C2541;
-  cursor: hand;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {

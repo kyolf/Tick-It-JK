@@ -43,15 +43,17 @@ export class Login extends React.Component{
   render(){
     return (
       <div className="login-container">
+        {/* <p className="demo" onClick={e=>alert('User: demo\nPass: 123456')}>Are you a guest TA? If so, CLICK HERE</p> */}
          <form className="login-form" onSubmit={e => this.logIn(e)}>
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter username" 
-              minLength="1" required ref={username => this.username = username}/>
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter password"
-              minLength="6" required ref={password => this.password = password}/>
-            <input type="submit" id="login-submit" className="button" value="Login" name="submit-login"/>
-          </form>
+          <label htmlFor="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter username" 
+            minLength="1" required ref={username => this.username = username}/>
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter password"
+            minLength="6" required ref={password => this.password = password}/>
+          <input type="submit" id="login-submit" className="button" value="Login" name="submit-login"/>
+        </form>
+        <p className="demo" onClick={e=>alert('User: demo\nPass: 123456')}>Are you a guest TA? If so, CLICK HERE</p>
       </div>
     );
   }

@@ -35,7 +35,17 @@
   color: black;
   background-color: #5BC0BE;
   font-size: 20px;
-  margin-top: 40px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.demo {
+  text-align: center;
+  color: white;
+  font-family: 'Trocchi', serif;
+  font-size: 0.8em;
+  margin-bottom: 50px;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 479px) {
@@ -79,6 +89,10 @@
      margin-top: 10px;
    }
 
+  .demo{
+    font-size: 1.2em;
+  }
+
 }/*end of iphones landscape css*/
 
 
@@ -113,6 +127,10 @@
     font-size: 18px;
   }
 
+  .demo{
+    font-size: 1.2em;
+  }
+
 } /*end of ipad css*/
 
 @media only screen and (min-width: 992px) and (max-width: 1999px) {
@@ -135,5 +153,9 @@
 
   #login-submit {
     font-size: 24px;
+  }
+
+  .demo{
+    font-size: 1.5em;
   }
 }/*end of ipad pro css*/
