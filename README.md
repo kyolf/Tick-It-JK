@@ -2,7 +2,7 @@
 by Kyle Szeto, Jamie Wang <br>
 
 ## Production App <br>
-http://tick-it-jk.herokuapp.com/
+https://tick-it-jk.herokuapp.com/
 
 ## Description <br/> 
 This App was brainstormed up while we, as students, sat in a slack channel waiting for a response on a heavy request day, but not really knowing when a response would come, or what our standing was. Enter in Tick-it, the web app that allows Thinkful TA's and students to stay organized on a transparent platform. TA's are able to keep track of requests submitted by students who need assistance with a variety of coding challenges, while students are able to keep track of the requests they have submitted and where they line up on the queue. 
@@ -13,10 +13,11 @@ This App was brainstormed up while we, as students, sat in a slack channel waiti
 **Deployment**: Heroku, Travis <br/> 
 
 ## Things to do in Future
-* Change the flow of the home page such that you can go to the ticketlist w.o. submitting a ticket
-* Only allow TA's to take only 1 ticket at a time
+* Change the flow of the home page such that you can go to the ticketlist w.o. submitting a ticket.
+* Make the saved values of the input box show below the input box.
+* Only allow TA's to take only 1 ticket at a time.
 * Only allow TA's to delete the ticket they took!
-* Create student users that are only allowed to edit or delete their own ticket
+* Create student users that are only allowed to edit or delete their own ticket.
 
 ## Documentation of API <br/>
 * **GET** https://tick-it-jk.herokuapp.com/api/tickets <br/>
