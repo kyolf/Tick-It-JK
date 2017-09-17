@@ -64,17 +64,17 @@ export class TicketList extends React.Component{
           </td>
           <td className="main-cell">
             <form>
-              <input type="text" id="group" value={item.group} ref={group => this.group = group} />
+              <input type="text" id="group" value={item.group} ref={group => this.group = group} onChange={() => {}} />
             </form>
           </td>
           <td className="main-cell">
             <form>
-              <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
+              <input type="text" id="location" value={item.location} ref={location => this.location = location} onChange={() => {}}/>
             </form>
           </td>
           <td className="main-cell">
             <form>
-              <input type="text" id="request" value={item.request} ref={request => this.request = request} />
+              <input type="text" id="request" value={item.request} ref={request => this.request = request} onChange={() => {}} />
             </form>
           </td>
           <td className="status-cell">{item.status}</td>
@@ -95,10 +95,10 @@ export class TicketList extends React.Component{
             <li className="field-label">Status</li>
           </ul>
           <form className="ticket-inputs">
-            <input type="text" id="group" value={item.group} ref={group => this.group = group} />
-            <input type="text" id="request" value={item.request} ref={request => this.request = request} />
-            <input type="text" id="location" value={item.location} ref={location => this.location = location}/>
-            <input type="text" className="status" value={item.status} />
+            <input type="text" id="group" value={item.group} ref={group => this.group = group} onChange={() => {}} />
+            <input type="text" id="request" value={item.request} ref={request => this.request = request} onChange={() => {}} />
+            <input type="text" id="location" value={item.location} ref={location => this.location = location} onChange={() => {}} />
+            <input type="text" className="status" value={item.status} onChange={() => {}} />
             <button className="delete-button" onClick={e => this.checkDeleteButtonText(e, item.id, index)}>{item.deleteButton}</button>
           </form>
         </div>

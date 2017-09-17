@@ -12,6 +12,12 @@ This App was brainstormed up while we, as students, sat in a slack channel waiti
 **BackEnd**: NodeJS, Express, Passport, MongoDB, Mongoose, Mlab<br/>
 **Deployment**: Heroku, Travis <br/> 
 
+## Things to do in Future
+* Change the flow of the home page such that you can go to the ticketlist w.o. submitting a ticket
+* Only allow TA's to take only 1 ticket at a time
+* Only allow TA's to delete the ticket they took!
+* Create student users that are only allowed to edit or delete their own ticket
+
 ## Documentation of API <br/>
 * **GET** https://tick-it-jk.herokuapp.com/api/tickets <br/>
   * This allows you to get all the tickets in the database <br/>
