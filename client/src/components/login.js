@@ -43,7 +43,6 @@ export class Login extends React.Component{
   render(){
     return (
       <div className="login-container">
-        {/* <p className="demo" onClick={e=>alert('User: demo\nPass: 123456')}>Are you a guest TA? If so, CLICK HERE</p> */}
          <form className="login-form" onSubmit={e => this.logIn(e)}>
           <label htmlFor="username">Username</label>
           <input type="text" id="username" name="username" placeholder="Enter username" 
